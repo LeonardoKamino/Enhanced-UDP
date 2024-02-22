@@ -11,19 +11,15 @@
 #include <pthread.h>
 #include <errno.h>
 
+#include "packet_header.h"
+
 #define BUFFER_SIZE 1024
 
 void printBufferContents(const char *buffer, ssize_t length) {
     printf("Buffer contents:\n");
     printf("ASCII: ");
     for (ssize_t i = 0; i < length; i++) {
-        // Print as a character if it's printable, otherwise print '.'
         printf("%c", (buffer[i] >= 32 && buffer[i] <= 126) ? buffer[i] : '.');
-    }
-    printf("\nHEX: ");
-    for (ssize_t i = 0; i < length; i++) {
-        // Print each byte in hexadecimal format
-        printf("%02X ", (unsigned char)buffer[i]);
     }
     printf("\n\n");
 }
@@ -77,14 +73,22 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
             break;
         }
 
-        fprintf(stdout, "%d\n", receivedBytes);
-        printBufferContents(buffer, receivedBytes);
-        fwrite(buffer, 1, receivedBytes, file);
+        PacketHeader header;
+        memcpy(&header, buffer, sizeof(header));
 
-        bytesWritten += receivedBytes;
-        fclose(file);
-        break;
+        if (header.isLastPacket) {
+            printf("Last packet received. Sequence Number: %d\n", header.sequenceNumber);
+            break;
+        } else {
+            printf("Packet received. Sequence Number: %d\n", header.sequenceNumber);
+            fprintf(stdout, "%d\n", receivedBytes);
+            printBufferContents(buffer, receivedBytes);
 
+            ssize_t payloadSize = receivedBytes - sizeof(PacketHeader);
+            fwrite(buffer + sizeof(PacketHeader), 1, payloadSize, file);
+
+            bytesWritten += payloadSize;
+        }
 
         // implement logic for writerate > 0 here
     }

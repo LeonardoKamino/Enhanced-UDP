@@ -11,6 +11,9 @@
 #include <pthread.h>
 #include <errno.h>
 
+#include "packet_header.h"
+
+
 #define BUFFER_SIZE 1024
 
 void rsend(char* hostname, 
@@ -20,12 +23,12 @@ void rsend(char* hostname,
 {
     // initial parameters
     int sockDescriptor;
-    int seqNum = 0;
     struct sockaddr_in destAddr;
     char buffer[BUFFER_SIZE];
     ssize_t readBytes, sentBytes;
     FILE *file;
     unsigned long long int totalBytesSent = 0;
+    int sequenceNumber = 0;
 
     // create UDP socket
     sockDescriptor = socket(AF_INET, SOCK_DGRAM, 0);
@@ -49,14 +52,24 @@ void rsend(char* hostname,
         exit(EXIT_FAILURE);
     }
 
-    while(totalBytesSent < bytesToTransfer && (readBytes = fread(buffer, 1, BUFFER_SIZE, file)) > 0){
-        sentBytes = sendto(sockDescriptor, buffer, readBytes, 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
+    while(totalBytesSent < bytesToTransfer && (readBytes = fread(buffer + sizeof(PacketHeader), 1, BUFFER_SIZE - sizeof(PacketHeader), file)) > 0){
+        PacketHeader header;
+        header.sequenceNumber = sequenceNumber++;
+        header.isLastPacket = 0;
+
+        memcpy(buffer, &header, sizeof(header));
+
+        sentBytes = sendto(sockDescriptor, buffer, readBytes + sizeof(PacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
         if(sentBytes < 0) {
             perror("Error sending file");
             break;
         }
-        totalBytesSent += sentBytes;
+        totalBytesSent += sentBytes - sizeof(PacketHeader);
     }
+
+    // Send the last packet
+    PacketHeader lastPacketHeader = {sequenceNumber, 1};
+    sendto(sockDescriptor, &lastPacketHeader, sizeof(lastPacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
 
     fclose(file);
     close(sockDescriptor);
