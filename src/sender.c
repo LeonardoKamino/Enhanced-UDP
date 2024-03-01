@@ -17,6 +17,37 @@
 
 #define BUFFER_SIZE 1024
 #define ACK_TIMEOUT_USEC 30000
+#define MAX_RESEND_ATTEMPTS 5
+
+void sendClosingPacket(int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber) {
+    int resendAttempts = 0;
+    int sentBytes;
+
+    PacketHeader lastPacketHeader;
+    lastPacketHeader.sequenceNumber = sequenceNumber;
+    lastPacketHeader.flags = 0;
+    lastPacketHeader.flags = setFlag(lastPacketHeader.flags, IS_LAST_PACKET);
+
+    do {
+        sentBytes = sendto(sockDescriptor, &lastPacketHeader, sizeof(lastPacketHeader), 0, (struct sockaddr *)destAddr, sizeof(struct sockaddr_in));
+        if(sentBytes < 0) {
+            perror("Error sending closing packet");
+            break;
+        }
+        printf("Sent %ld sequence\n", sequenceNumber);
+
+        PacketHeader ack;
+        ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
+        if (ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && isFlagSet(ack.flags, IS_LAST_PACKET) && ack.sequenceNumber == sequenceNumber){
+            printf("ACK received for closing packet sequence number: %d\n", ack.sequenceNumber);
+            break; // Exit the resend loop
+        } else {
+            printf("ACK timeout or error, resending closing packet, sequence number: %ld\n", sequenceNumber);
+            resendAttempts++;
+        }
+
+    } while(resendAttempts < MAX_RESEND_ATTEMPTS);
+}
 
 void rsend(char* hostname, 
             unsigned short int hostUDPport, 
@@ -40,6 +71,7 @@ void rsend(char* hostname,
     hints.ai_socktype = SOCK_DGRAM;
 
     int status;
+    printf("Hostname: %s\n", hostname);
     if((status = getaddrinfo(hostname, NULL, &hints, &servinfo)) != 0){
         perror("Address translation failed.");
         exit(EXIT_FAILURE);
@@ -107,12 +139,7 @@ void rsend(char* hostname,
     }
 
     // Send the last packet
-    PacketHeader lastPacketHeader;
-    lastPacketHeader.sequenceNumber = sequenceNumber++;
-    lastPacketHeader.flags = 0;
-    lastPacketHeader.flags = setFlag(lastPacketHeader.flags, IS_LAST_PACKET);
-
-    sendto(sockDescriptor, &lastPacketHeader, sizeof(lastPacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
+    sendClosingPacket(sockDescriptor, &destAddr, sequenceNumber);
 
     fclose(file);
     close(sockDescriptor);

@@ -24,6 +24,17 @@ void printBufferContents(const char *buffer, ssize_t length) {
     printf("\n\n");
 }
 
+void sendFinalAck(int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber) {
+    PacketHeader ack;
+    ack.sequenceNumber = sequenceNumber;
+    ack.flags = 0;
+    ack.flags = setFlag(ack.flags, IS_ACK);
+    ack.flags = setFlag(ack.flags, IS_LAST_PACKET);
+
+    sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)destAddr, sizeof(struct sockaddr_in));
+    printf("Sent final ack for sequence number: %d\n", sequenceNumber);
+}
+
 void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long long int writeRate) {
     
     // initial parameters
@@ -78,6 +89,7 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
 
         if (isFlagSet(header.flags, IS_LAST_PACKET)) {
             printf("Last packet received. Sequence Number: %d\n", header.sequenceNumber);
+            sendFinalAck(sockDescriptor, &senderAddr, header.sequenceNumber);
             break;
         } else if (header.sequenceNumber == expectedSequenceNumber) {
             printf("Packet received. Sequence Number: %d\n", header.sequenceNumber);
