@@ -14,7 +14,6 @@
 
 #include "packet_header.h"
 
-
 #define BUFFER_SIZE 1024
 #define ACK_TIMEOUT_USEC 30000
 #define MAX_RESEND_ATTEMPTS 5
@@ -48,6 +47,7 @@ void sendClosingPacket(int sockDescriptor, struct sockaddr_in *destAddr, int seq
 
     } while(resendAttempts < MAX_RESEND_ATTEMPTS);
 }
+
 
 void rsend(char* hostname, 
             unsigned short int hostUDPport, 

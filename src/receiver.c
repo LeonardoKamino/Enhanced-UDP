@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,6 +15,7 @@
 #include "packet_header.h"
 
 #define BUFFER_SIZE 1024
+
 
 void printBufferContents(const char *buffer, ssize_t length) {
     printf("Buffer contents:\n");
