@@ -3,6 +3,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <netdb.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -32,6 +33,18 @@ void rsend(char* hostname,
     unsigned long long int totalBytesSent = 0;
     int sequenceNumber = 0;
 
+    // resolve the hostname to support domain & ip addresses
+    struct addrinfo hints, *servinfo, *p;
+    memset(&hints, 0, sizeof hints);
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_DGRAM;
+
+    int status;
+    if((status = getaddrinfo(hostname, NULL, &hints, &servinfo)) != 0){
+        perror("Address translation failed.");
+        exit(EXIT_FAILURE);
+    }
+
     // create UDP socket
     sockDescriptor = socket(AF_INET, SOCK_DGRAM, 0);
     if(sockDescriptor < 0){
@@ -52,11 +65,9 @@ void rsend(char* hostname,
     memset(&destAddr, 0, sizeof(destAddr));
     destAddr.sin_family = AF_INET;
     destAddr.sin_port = htons(hostUDPport);
-    if(inet_pton(AF_INET, hostname,&destAddr.sin_addr) <= 0) {
-        perror("Invalid address.");
-        close(sockDescriptor);
-        exit(EXIT_FAILURE);
-    }
+    memcpy(&destAddr.sin_addr, &((struct sockaddr_in *)servinfo->ai_addr)->sin_addr, sizeof(struct in_addr));
+
+    freeaddrinfo(servinfo);
 
     if((file = fopen(filename, "rb")) == NULL) {
         perror("Opening file failed");
