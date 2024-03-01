@@ -14,8 +14,8 @@
 
 #include "packet_header.h"
 
-
 #define BUFFER_SIZE 1024
+
 
 void rsend(char* hostname, 
             unsigned short int hostUDPport, 
