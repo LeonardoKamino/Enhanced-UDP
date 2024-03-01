@@ -33,6 +33,7 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
     ssize_t receivedBytes;
     FILE *file;
     unsigned long long int bytesWritten = 0;
+    int expectedSequenceNumber = 0;
 
     // create UDP socket
     sockDescriptor = socket(AF_INET, SOCK_DGRAM, 0);
@@ -80,10 +81,10 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
         if (isFlagSet(header.flags, IS_LAST_PACKET)) {
             printf("Last packet received. Sequence Number: %d\n", header.sequenceNumber);
             break;
-        } else {
+        } else if (header.sequenceNumber == expectedSequenceNumber) {
             printf("Packet received. Sequence Number: %d\n", header.sequenceNumber);
-            fprintf(stdout, "%d\n", receivedBytes);
-            printBufferContents(buffer, receivedBytes);
+            // fprintf(stdout, "%d\n", receivedBytes);
+            // printBufferContents(buffer, receivedBytes);
 
             ssize_t payloadSize = receivedBytes - sizeof(PacketHeader);
             fwrite(buffer + sizeof(PacketHeader), 1, payloadSize, file);
@@ -96,6 +97,9 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
             ack.flags = setFlag(ack.flags, IS_ACK);
 
             sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
+            expectedSequenceNumber++;
+        }else{
+            printf("Wrong packet received. Sequence Number: %d\n Expected: %d", header.sequenceNumber, expectedSequenceNumber);
         }
 
         // implement logic for writerate > 0 here

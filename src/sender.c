@@ -15,6 +15,7 @@
 
 
 #define BUFFER_SIZE 1024
+#define ACK_TIMEOUT_USEC 30000
 
 void rsend(char* hostname, 
             unsigned short int hostUDPport, 
@@ -35,6 +36,16 @@ void rsend(char* hostname,
     sockDescriptor = socket(AF_INET, SOCK_DGRAM, 0);
     if(sockDescriptor < 0){
         perror("Socket creation failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // Set socket timeout for receiving
+    struct timeval timeout;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = ACK_TIMEOUT_USEC;
+    if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
+        perror("Error setting socket timeout");
+        close(sockDescriptor);
         exit(EXIT_FAILURE);
     }
 
@@ -71,11 +82,12 @@ void rsend(char* hostname,
 
             PacketHeader ack;
             ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
-            if(ackSize == sizeof(ack) && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber == header.sequenceNumber ) {
-                // Correct ACK received
+            if (ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber == header.sequenceNumber) {
                 printf("ACK received for sequence number: %d\n", ack.sequenceNumber);
                 sequenceNumber++;
                 break; // Exit the resend loop
+            } else {
+                printf("ACK timeout or error, resending sequence number: %ld\n", sequenceNumber);
             }
 
         } while(1);
