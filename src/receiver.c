@@ -28,7 +28,7 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
     
     // initial parameters
     int sockDescriptor;
-    struct sockaddr_in myAddr;
+    struct sockaddr_in myAddr, senderAddr;
     char buffer[BUFFER_SIZE];
     ssize_t receivedBytes;
     FILE *file;
@@ -66,7 +66,8 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
 
 
     while(1){
-        receivedBytes = recvfrom(sockDescriptor, buffer, BUFFER_SIZE, 0, NULL, NULL);
+        socklen_t senderAddrLen = sizeof(senderAddr);
+        receivedBytes = recvfrom(sockDescriptor, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&senderAddr, &senderAddrLen);
 
         if(receivedBytes < 0){
             perror("recvfrom failed");
@@ -76,7 +77,7 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
         PacketHeader header;
         memcpy(&header, buffer, sizeof(header));
 
-        if (header.isLastPacket) {
+        if (isFlagSet(header.flags, IS_LAST_PACKET)) {
             printf("Last packet received. Sequence Number: %d\n", header.sequenceNumber);
             break;
         } else {
@@ -88,6 +89,13 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
             fwrite(buffer + sizeof(PacketHeader), 1, payloadSize, file);
 
             bytesWritten += payloadSize;
+
+            PacketHeader ack;
+            ack.sequenceNumber = header.sequenceNumber;
+            ack.flags = 0;
+            ack.flags = setFlag(ack.flags, IS_ACK);
+
+            sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
         }
 
         // implement logic for writerate > 0 here

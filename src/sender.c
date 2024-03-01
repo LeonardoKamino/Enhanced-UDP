@@ -25,6 +25,7 @@ void rsend(char* hostname,
     int sockDescriptor;
     struct sockaddr_in destAddr;
     char buffer[BUFFER_SIZE];
+    char ackBuffer[BUFFER_SIZE];
     ssize_t readBytes, sentBytes;
     FILE *file;
     unsigned long long int totalBytesSent = 0;
@@ -54,27 +55,44 @@ void rsend(char* hostname,
 
     while(totalBytesSent < bytesToTransfer && (readBytes = fread(buffer + sizeof(PacketHeader), 1, BUFFER_SIZE - sizeof(PacketHeader), file)) > 0){
         PacketHeader header;
-        header.sequenceNumber = sequenceNumber++;
-        header.isLastPacket = 0;
+        header.sequenceNumber = sequenceNumber;
+        header.flags = 0;
 
         memcpy(buffer, &header, sizeof(header));
 
-        sentBytes = sendto(sockDescriptor, buffer, readBytes + sizeof(PacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
-        if(sentBytes < 0) {
-            perror("Error sending file");
-            break;
-        }
-        totalBytesSent += sentBytes - sizeof(PacketHeader);
+        do {
+            sentBytes = sendto(sockDescriptor, buffer, readBytes + sizeof(PacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
+            if(sentBytes < 0) {
+                perror("Error sending file");
+                break;
+            }
+            printf("Sent %ld sequence\n", sequenceNumber);
+            totalBytesSent += sentBytes - sizeof(PacketHeader);
+
+            PacketHeader ack;
+            ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
+            if(ackSize == sizeof(ack) && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber == header.sequenceNumber ) {
+                // Correct ACK received
+                printf("ACK received for sequence number: %d\n", ack.sequenceNumber);
+                sequenceNumber++;
+                break; // Exit the resend loop
+            }
+
+        } while(1);
+
+        
     }
 
     // Send the last packet
-    PacketHeader lastPacketHeader = {sequenceNumber, 1};
+    PacketHeader lastPacketHeader;
+    lastPacketHeader.sequenceNumber = sequenceNumber++;
+    lastPacketHeader.flags = 0;
+    lastPacketHeader.flags = setFlag(lastPacketHeader.flags, IS_LAST_PACKET);
+
     sendto(sockDescriptor, &lastPacketHeader, sizeof(lastPacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
 
     fclose(file);
     close(sockDescriptor);
-
-
 }
 
 int main(int argc, char** argv) {
