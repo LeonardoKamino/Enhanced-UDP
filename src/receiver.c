@@ -46,7 +46,6 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
     myAddr.sin_family = AF_INET;
     myAddr.sin_port = htons(myUDPport);
     myAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    fprintf(stdout, "hello 1\n");
 
     // bind socket
     if(bind(sockDescriptor, (struct sockaddr *)&myAddr, sizeof(myAddr)) < 0) {
@@ -54,7 +53,6 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
         close(sockDescriptor);
         exit(EXIT_FAILURE);
     }
-    fprintf(stdout, "hello 2\n");
 
     // open file
     file = fopen(destinationFile, "wb");
