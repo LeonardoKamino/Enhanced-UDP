@@ -153,13 +153,13 @@ void rsend(char* hostname,
                 perror("Error sending file");
                 break;
             }
-            printf("Sent %ld sequence\n", sequenceNumber);
+            //printf("Sent %ld sequence\n", sequenceNumber);
             totalBytesSent += sentBytes - sizeof(PacketHeader);
 
             PacketHeader ack;
             ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
             if (ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber == header.sequenceNumber) {
-                printf("ACK received for sequence number: %d\n", ack.sequenceNumber);
+                //printf("ACK received for sequence number: %d\n", ack.sequenceNumber);
                 sequenceNumber++;
                 break; // Exit the resend loop
             } else {
@@ -178,6 +178,7 @@ void rsend(char* hostname,
     double duration = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
     double bandwidthUtilization = ((totalBytesSent + sizeof(PacketHeader) * sequenceNumber) * 8 / (duration * LINK_CAPACITY)) * 100;
     printf("Bandwidth Utilization: %.2f%%\n", bandwidthUtilization);
+    printf("Time:  %.2f\n", duration);
 
     fclose(file);
     close(sockDescriptor);

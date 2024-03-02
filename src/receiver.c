@@ -140,7 +140,7 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
             sendFinalAck(sockDescriptor, &senderAddr, header.sequenceNumber);
             break;
         } else if (header.sequenceNumber == expectedSequenceNumber) {
-            printf("Packet received. Sequence Number: %d\n", header.sequenceNumber);
+            //printf("Packet received. Sequence Number: %d\n", header.sequenceNumber);
             // fprintf(stdout, "%d\n", receivedBytes);
             // printBufferContents(buffer, receivedBytes);
 
