@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['packet_5fheader_2eh_0',['packet_header.h',['../packet__header_8h.html',1,'']]],
-  ['packetheader_1',['PacketHeader',['../struct_packet_header.html',1,'']]],
-  ['printbuffercontents_2',['printBufferContents',['../receiver_8c.html#a0bed69b9918d06ea0cf37e8fcb0b7583',1,'receiver.c']]],
-  ['programming_20assignment_201_3',['ELEC 331 Programming Assignment 1',['../index.html',1,'']]]
+  ['main_0',['main',['../receiver_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;receiver.c'],['../sender_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;sender.c']]],
+  ['max_5fresend_5fattempts_1',['MAX_RESEND_ATTEMPTS',['../sender_8c.html#a2087e335be12553941157d9914755759',1,'sender.c']]]
 ];

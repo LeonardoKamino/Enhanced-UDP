@@ -90,25 +90,28 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="struct_packet_header.html">   33</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">int</span> sequenceNumber;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">int</span> flags;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>} <a class="code hl_struct" href="struct_packet_header.html">PacketHeader</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="struct_packet_header.html#a516153c816f0b92a87739495d508afde">   40</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_packet_header.html#a516153c816f0b92a87739495d508afde">sequenceNumber</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="struct_packet_header.html#a24113a56e201cf8c34dc6386b84f1cdc">   51</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_packet_header.html#a24113a56e201cf8c34dc6386b84f1cdc">flags</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>} <a class="code hl_struct" href="struct_packet_header.html">PacketHeader</a>;</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="packet__header_8h.html#a03ee1f15ca97559c3277d70fd21c7bbf">   48</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="packet__header_8h.html#a03ee1f15ca97559c3277d70fd21c7bbf">setFlag</a>(<span class="keywordtype">int</span> flags, <span class="keywordtype">int</span> bit) {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> flags | (1 &lt;&lt; bit);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="packet__header_8h.html#a03ee1f15ca97559c3277d70fd21c7bbf">   64</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="packet__header_8h.html#a03ee1f15ca97559c3277d70fd21c7bbf">setFlag</a>(<span class="keywordtype">int</span> flags, <span class="keywordtype">int</span> bit) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">return</span> flags | (1 &lt;&lt; bit);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="packet__header_8h.html#abad6283ef4e91e8a99d9c0784ae4f1a9">   62</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="packet__header_8h.html#abad6283ef4e91e8a99d9c0784ae4f1a9">isFlagSet</a>(<span class="keywordtype">int</span> flags, <span class="keywordtype">int</span> bit) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">return</span> (flags &amp; (1 &lt;&lt; bit)) != 0;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="packet__header_8h.html#abad6283ef4e91e8a99d9c0784ae4f1a9">   78</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="packet__header_8h.html#abad6283ef4e91e8a99d9c0784ae4f1a9">isFlagSet</a>(<span class="keywordtype">int</span> flags, <span class="keywordtype">int</span> bit) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">return</span> (flags &amp; (1 &lt;&lt; bit)) != 0;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
 </div>
-<div class="ttc" id="apacket__header_8h_html_a03ee1f15ca97559c3277d70fd21c7bbf"><div class="ttname"><a href="packet__header_8h.html#a03ee1f15ca97559c3277d70fd21c7bbf">setFlag</a></div><div class="ttdeci">int setFlag(int flags, int bit)</div><div class="ttdoc">Sets the specified bit in the flags.</div><div class="ttdef"><b>Definition</b> packet_header.h:48</div></div>
-<div class="ttc" id="apacket__header_8h_html_abad6283ef4e91e8a99d9c0784ae4f1a9"><div class="ttname"><a href="packet__header_8h.html#abad6283ef4e91e8a99d9c0784ae4f1a9">isFlagSet</a></div><div class="ttdeci">int isFlagSet(int flags, int bit)</div><div class="ttdoc">Checks if the specified bit in the flags is set.</div><div class="ttdef"><b>Definition</b> packet_header.h:62</div></div>
+<div class="ttc" id="apacket__header_8h_html_a03ee1f15ca97559c3277d70fd21c7bbf"><div class="ttname"><a href="packet__header_8h.html#a03ee1f15ca97559c3277d70fd21c7bbf">setFlag</a></div><div class="ttdeci">int setFlag(int flags, int bit)</div><div class="ttdoc">Sets the specified bit in the flags.</div><div class="ttdef"><b>Definition</b> packet_header.h:64</div></div>
+<div class="ttc" id="apacket__header_8h_html_abad6283ef4e91e8a99d9c0784ae4f1a9"><div class="ttname"><a href="packet__header_8h.html#abad6283ef4e91e8a99d9c0784ae4f1a9">isFlagSet</a></div><div class="ttdeci">int isFlagSet(int flags, int bit)</div><div class="ttdoc">Checks if the specified bit in the flags is set.</div><div class="ttdef"><b>Definition</b> packet_header.h:78</div></div>
 <div class="ttc" id="astruct_packet_header_html"><div class="ttname"><a href="struct_packet_header.html">PacketHeader</a></div><div class="ttdoc">Header structure for packets in the enhanced UDP protocol.</div><div class="ttdef"><b>Definition</b> packet_header.h:33</div></div>
+<div class="ttc" id="astruct_packet_header_html_a24113a56e201cf8c34dc6386b84f1cdc"><div class="ttname"><a href="struct_packet_header.html#a24113a56e201cf8c34dc6386b84f1cdc">PacketHeader::flags</a></div><div class="ttdeci">int flags</div><div class="ttdoc">Flags for control information.</div><div class="ttdef"><b>Definition</b> packet_header.h:51</div></div>
+<div class="ttc" id="astruct_packet_header_html_a516153c816f0b92a87739495d508afde"><div class="ttname"><a href="struct_packet_header.html#a516153c816f0b92a87739495d508afde">PacketHeader::sequenceNumber</a></div><div class="ttdeci">int sequenceNumber</div><div class="ttdoc">The sequence number of the packet.</div><div class="ttdef"><b>Definition</b> packet_header.h:40</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

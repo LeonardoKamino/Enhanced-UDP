@@ -51,6 +51,18 @@ void printBufferContents(const char *buffer, ssize_t length) {
     printf("\n\n");
 }
 
+/**
+ * @brief Sends a final acknowledgment (ACK) for the specified sequence number.
+ * 
+ * This function sends a final acknowledgment packet for the provided sequence number
+ * to the specified destination address using the given socket descriptor. The acknowledgment
+ * indicates the successful receipt of the last packet in the data transmission process.
+ * 
+ * @param sockDescriptor The socket descriptor for sending the acknowledgment.
+ * @param destAddr The destination address to send the acknowledgment.
+ * @param sequenceNumber The sequence number of the packet being acknowledged.
+ * @return Void.
+ */
 void sendFinalAck(int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber) {
     PacketHeader ack;
     ack.sequenceNumber = sequenceNumber;

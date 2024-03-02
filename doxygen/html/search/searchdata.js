@@ -1,11 +1,12 @@
 var indexSectionsWithContent =
 {
-  0: "13abeilmprs",
+  0: "13abefilmprs",
   1: "p",
   2: "prs",
   3: "imprs",
-  4: "bi",
-  5: "13abelp"
+  4: "fs",
+  5: "abilm",
+  6: "13abelp"
 };
 
 var indexSectionNames =
@@ -14,8 +15,9 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "defines",
-  5: "pages"
+  4: "variables",
+  5: "defines",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -24,7 +26,8 @@ var indexSectionLabels =
   1: "Classes",
   2: "Files",
   3: "Functions",
-  4: "Macros",
-  5: "Pages"
+  4: "Variables",
+  5: "Macros",
+  6: "Pages"
 };
 
