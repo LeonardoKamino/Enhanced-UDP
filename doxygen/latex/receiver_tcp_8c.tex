@@ -1,0 +1,86 @@
+\doxysection{src/receiver\+Tcp.c File Reference}
+\hypertarget{receiver_tcp_8c}{}\label{receiver_tcp_8c}\index{src/receiverTcp.c@{src/receiverTcp.c}}
+
+
+Functions for receiving data over an enhanced UDP protocol.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{receiver_tcp_8c_a6b20d41d6252e9871430c242cb1a56e7}\label{receiver_tcp_8c_a6b20d41d6252e9871430c242cb1a56e7} 
+\#define {\bfseries BUFFER\+\_\+\+SIZE}~1024
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{receiver_tcp_8c_acda8b74a8214b692764a1692cef8cc61}{trecv}} (unsigned short int my\+TCPport, char \texorpdfstring{$\ast$}{*}destination\+File)
+\begin{DoxyCompactList}\small\item\em Receives a file over a TCP connection and writes it to the specified file. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{receiver_tcp_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\begin{DoxyCompactList}\small\item\em Entry point for the TCP file receiver program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions for receiving data over an enhanced UDP protocol. 
+
+This file contains the implementation of functions responsible for receiving data over the TCP protocol. It includes key functions for handling incoming data and compiling the output file.
+
+\begin{DoxyAuthor}{Author}
+Maddy Paulson (maddypaulson) 
+
+Leo Kamino (Leo\+Kamino) 
+\end{DoxyAuthor}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000003}{Bug}}]No known bugs. \end{DoxyRefDesc}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{receiver_tcp_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{receiver_tcp_8c_a3c04138a5bfe5d72780bb7e82a18e627} 
+\index{receiverTcp.c@{receiverTcp.c}!main@{main}}
+\index{main@{main}!receiverTcp.c@{receiverTcp.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv }\end{DoxyParamCaption})}
+
+
+
+Entry point for the TCP file receiver program. 
+
+This function parses command line arguments and initiates the file reception process by calling the trecv function. The program expects exactly two arguments\+: the TCP port to listen on, and the filename to which the incoming data will be written.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of command line arguments. \\
+\hline
+{\em argv} & The array of command line arguments. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int EXIT\+\_\+\+SUCCESS on successful completion or EXIT\+\_\+\+FAILURE on error. 
+\end{DoxyReturn}
+\Hypertarget{receiver_tcp_8c_acda8b74a8214b692764a1692cef8cc61}\label{receiver_tcp_8c_acda8b74a8214b692764a1692cef8cc61} 
+\index{receiverTcp.c@{receiverTcp.c}!trecv@{trecv}}
+\index{trecv@{trecv}!receiverTcp.c@{receiverTcp.c}}
+\doxysubsubsection{\texorpdfstring{trecv()}{trecv()}}
+{\footnotesize\ttfamily void trecv (\begin{DoxyParamCaption}\item[{unsigned short int}]{my\+TCPport,  }\item[{char \texorpdfstring{$\ast$}{*}}]{destination\+File }\end{DoxyParamCaption})}
+
+
+
+Receives a file over a TCP connection and writes it to the specified file. 
+
+This function sets up a TCP socket to listen on the specified port. It accepts a connection, then reads data from the connection and writes it to the specified destination file. The function continues to receive data until the connection is closed by the sender.
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+TCPport} & The local TCP port to bind for listening to incoming connections. \\
+\hline
+{\em destination\+File} & The path to the file where the incoming data should be written. \\
+\hline
+\end{DoxyParams}

@@ -1,6 +1,6 @@
 /**
  * @file receiverTcp.c
- * @brief Functions for receiving data over an enhanced UDP protocol.
+ * @brief Functions for receiving data over an enhanced TCP.
  * 
  * This file contains the implementation of functions
  * responsible for receiving data over the  TCP 
