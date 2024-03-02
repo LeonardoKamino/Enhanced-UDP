@@ -1,3 +1,17 @@
+/**
+ * @file sender.c
+ * @brief Functions for sending data over an enhanced UDP protocol.
+ * 
+ * This file contains the implementation of functions
+ * responsible for sending data over the enhanced UDP 
+ * protocol. It includes a key function rsend which 
+ * handles sending packets and handling acknowledgments. 
+ * 
+ * @author Maddy Paulson (maddypaulson)
+ * @author Leo Kamino (LeonardoKamino)
+ * @bug No known bugs.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,15 +28,33 @@
 
 #include "packet_header.h"
 
+/**
+ * @def BUFFER_SIZE
+ * Definition to indicate size of the buffer.
+ */
 #define BUFFER_SIZE 1024
 
-
+/**
+ * @brief Sends a file over a network using a reliable UDP protocol.
+ * 
+ * This function rsend is designed to send a file specified by filename to a given hostname and UDP port. 
+ * It handles the creation of a UDP socket, resolving the hostname, and setting up the destination address.
+ * The file is read and sent in chunks, with each chunk being prefixed by a custom packet header.
+ * After each packet is sent, the function waits for an acknowledgment before proceeding to the next packet.
+ * If an acknowledgment is not received, the packet is resent. This continues until the entire file is sent.
+ * The last packet is flagged as the final packet to inform the receiver no more packets will follow.
+ * 
+ * @param hostname The destination hostname or IP address to send the file to.
+ * @param hostUDPport The destination port number on the receiver's side.
+ * @param filename The name of the file to be sent.
+ * @param bytesToTransfer The total number of bytes of the file to be transferred.
+ * @return Void.
+ */
 void rsend(char* hostname, 
             unsigned short int hostUDPport, 
             char* filename, 
             unsigned long long int bytesToTransfer) 
 {
-    // initial parameters
     int sockDescriptor;
     struct sockaddr_in destAddr;
     char buffer[BUFFER_SIZE];
@@ -32,7 +64,9 @@ void rsend(char* hostname,
     unsigned long long int totalBytesSent = 0;
     int sequenceNumber = 0;
 
-    // resolve the hostname to support domain & ip addresses
+    /*
+     * Resolve the hostname to support domain & ip addresses.
+     */
     struct addrinfo hints, *servinfo, *p;
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_INET;
@@ -44,7 +78,9 @@ void rsend(char* hostname,
         exit(EXIT_FAILURE);
     }
 
-    // create UDP socket
+    /*
+     * Create UDP socket.
+     */
     sockDescriptor = socket(AF_INET, SOCK_DGRAM, 0);
     if(sockDescriptor < 0){
         perror("Socket creation failed");
@@ -58,12 +94,18 @@ void rsend(char* hostname,
 
     freeaddrinfo(servinfo);
 
+    /*
+     * Open file for reading.
+     */
     if((file = fopen(filename, "rb")) == NULL) {
         perror("Opening file failed");
         close(sockDescriptor);
         exit(EXIT_FAILURE);
     }
 
+    /*
+     * Continue sending file in chunks (packets) until all bytes are transferred.
+     */
     while(totalBytesSent < bytesToTransfer && (readBytes = fread(buffer + sizeof(PacketHeader), 1, BUFFER_SIZE - sizeof(PacketHeader), file)) > 0){
         PacketHeader header;
         header.sequenceNumber = sequenceNumber;
@@ -83,10 +125,15 @@ void rsend(char* hostname,
             PacketHeader ack;
             ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
             if(ackSize == sizeof(ack) && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber == header.sequenceNumber ) {
-                // Correct ACK received
+                /*
+                 * Correct acknowlodgement received.
+                 */
                 printf("ACK received for sequence number: %d\n", ack.sequenceNumber);
                 sequenceNumber++;
-                break; // Exit the resend loop
+                /*
+                 * Exit the resend loop.
+                 */
+                break;
             }
 
         } while(1);
@@ -94,7 +141,9 @@ void rsend(char* hostname,
         
     }
 
-    // Send the last packet
+    /*
+     * Send the last packet.
+     */
     PacketHeader lastPacketHeader;
     lastPacketHeader.sequenceNumber = sequenceNumber++;
     lastPacketHeader.flags = 0;
@@ -106,11 +155,19 @@ void rsend(char* hostname,
     close(sockDescriptor);
 }
 
+/**
+ * @brief Entry point for the UDP file sender program.
+ * 
+ * This function parses command line arguments and initiates the file transfer process
+ * by calling the rsend function. The program expects exactly four arguments:
+ * the receiver's hostname, the receiver's UDP port, the filename to transfer,
+ * and the number of bytes to transfer.
+ * 
+ * @param argc The number of command line arguments.
+ * @param argv The array of command line arguments.
+ * @return int EXIT_SUCCESS returned on successful completion or error code 1 on failure.
+ */
 int main(int argc, char** argv) {
-    // This is a skeleton of a main function.
-    // You should implement this function more completely
-    // so that one can invoke the file transfer from the
-    // command line.
     int hostUDPport;
     unsigned long long int bytesToTransfer;
     char* hostname = NULL;

@@ -1,0 +1,123 @@
+\doxysection{src/receiver.c File Reference}
+\hypertarget{receiver_8c}{}\label{receiver_8c}\index{src/receiver.c@{src/receiver.c}}
+
+
+Functions for receiving data over an enhanced UDP protocol.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include "{}packet\+\_\+header.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{receiver_8c_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\+\_\+\+SIZE}}~1024
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{receiver_8c_a0bed69b9918d06ea0cf37e8fcb0b7583}{print\+Buffer\+Contents}} (const char \texorpdfstring{$\ast$}{*}buffer, ssize\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Prints the contents of the buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{receiver_8c_ab41fdd85753470e49e9439d9e096947b}{rrecv}} (unsigned short int my\+UDPport, char \texorpdfstring{$\ast$}{*}destination\+File, unsigned long long int write\+Rate)
+\begin{DoxyCompactList}\small\item\em Receives a file over a network using a reliable UDP protocol. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{receiver_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\begin{DoxyCompactList}\small\item\em Entry point for the UDP file receiver program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions for receiving data over an enhanced UDP protocol. 
+
+This file contains the implementation of functions responsible for receiving data over the enhanced UDP protocol. It includes key functions for setting up a server socket, handling incoming packets, and assembling them into a complete file.
+
+\begin{DoxyAuthor}{Author}
+Maddy Paulson (maddypaulson) 
+
+Leo Kamino (Leo\+Kamino) 
+\end{DoxyAuthor}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000001}{Bug}}]No known bugs. \end{DoxyRefDesc}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{receiver_8c_a6b20d41d6252e9871430c242cb1a56e7}\label{receiver_8c_a6b20d41d6252e9871430c242cb1a56e7} 
+\index{receiver.c@{receiver.c}!BUFFER\_SIZE@{BUFFER\_SIZE}}
+\index{BUFFER\_SIZE@{BUFFER\_SIZE}!receiver.c@{receiver.c}}
+\doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define BUFFER\+\_\+\+SIZE~1024}
+
+Definition to indicate size of the buffer. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{receiver_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{receiver_8c_a3c04138a5bfe5d72780bb7e82a18e627} 
+\index{receiver.c@{receiver.c}!main@{main}}
+\index{main@{main}!receiver.c@{receiver.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv }\end{DoxyParamCaption})}
+
+
+
+Entry point for the UDP file receiver program. 
+
+This function parses command line arguments and initiates the file reception process by calling the rrecv function. The program expects exactly two arguments\+: the UDP port to listen on, and the filename to which the incoming data will be written.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of command line arguments. \\
+\hline
+{\em argv} & The array of command line arguments. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int EXIT\+\_\+\+SUCCESS returned on successful completion or error code 1 on failure. 
+\end{DoxyReturn}
+\Hypertarget{receiver_8c_a0bed69b9918d06ea0cf37e8fcb0b7583}\label{receiver_8c_a0bed69b9918d06ea0cf37e8fcb0b7583} 
+\index{receiver.c@{receiver.c}!printBufferContents@{printBufferContents}}
+\index{printBufferContents@{printBufferContents}!receiver.c@{receiver.c}}
+\doxysubsubsection{\texorpdfstring{printBufferContents()}{printBufferContents()}}
+{\footnotesize\ttfamily void print\+Buffer\+Contents (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{ssize\+\_\+t}]{length }\end{DoxyParamCaption})}
+
+
+
+Prints the contents of the buffer. 
+
+This function is used for debugging purposes. It prints the contents of the buffer up to the specified length.
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The buffer containing the data to be printed. \\
+\hline
+{\em length} & The length of the data in the buffer. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{receiver_8c_ab41fdd85753470e49e9439d9e096947b}\label{receiver_8c_ab41fdd85753470e49e9439d9e096947b} 
+\index{receiver.c@{receiver.c}!rrecv@{rrecv}}
+\index{rrecv@{rrecv}!receiver.c@{receiver.c}}
+\doxysubsubsection{\texorpdfstring{rrecv()}{rrecv()}}
+{\footnotesize\ttfamily void rrecv (\begin{DoxyParamCaption}\item[{unsigned short int}]{my\+UDPport,  }\item[{char \texorpdfstring{$\ast$}{*}}]{destination\+File,  }\item[{unsigned long long int}]{write\+Rate }\end{DoxyParamCaption})}
+
+
+
+Receives a file over a network using a reliable UDP protocol. 
+
+This function sets up a UDP socket for the specified port, then enters a loop to receive packets. Each packet is expected to have a header that the function checks to determine if it is the last packet. Packet data, excluding the header, is written to the destination file specified. For each received packet, an acknowledgment is sent back to the sender. The function continues to receive packets until the last packet flag is encountered.
+
+
+\begin{DoxyParams}{Parameters}
+{\em my\+UDPport} & The local UDP port to bind for listening to incoming packets. \\
+\hline
+{\em destination\+File} & The path to the file where the incoming data should be written. \\
+\hline
+{\em write\+Rate} & The rate at which the data should be written to the file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}

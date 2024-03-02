@@ -1,3 +1,16 @@
+/**
+ * @file receiver.c
+ * @brief Functions for receiving data over an enhanced UDP protocol.
+ * 
+ * This file contains the implementation of functions
+ * responsible for receiving data over the enhanced UDP 
+ * protocol. It includes key functions for setting up a server socket,
+ * handling incoming packets, and assembling them into a complete file.
+ * 
+ * @author Maddy Paulson (maddypaulson)
+ * @author Leo Kamino (LeoKamino)
+ * @bug No known bugs.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,9 +27,21 @@
 
 #include "packet_header.h"
 
+/**
+ * @def BUFFER_SIZE
+ * Definition to indicate size of the buffer.
+ */
 #define BUFFER_SIZE 1024
 
-
+/**
+ * @brief Prints the contents of the buffer.
+ * 
+ * This function is used for debugging purposes. It prints the
+ * contents of the buffer up to the specified length.
+ * 
+ * @param buffer The buffer containing the data to be printed.
+ * @param length The length of the data in the buffer.
+ */
 void printBufferContents(const char *buffer, ssize_t length) {
     printf("Buffer contents:\n");
     printf("ASCII: ");
@@ -26,9 +51,23 @@ void printBufferContents(const char *buffer, ssize_t length) {
     printf("\n\n");
 }
 
+/**
+ * @brief Receives a file over a network using a reliable UDP protocol.
+ * 
+ * This function sets up a UDP socket for the specified port, then enters a loop to receive packets.
+ * Each packet is expected to have a header that the function checks to determine if it is the last packet.
+ * Packet data, excluding the header, is written to the destination file specified.
+ * For each received packet, an acknowledgment is sent back to the sender.
+ * The function continues to receive packets until the last packet flag is encountered.
+ * 
+ * @param myUDPport The local UDP port to bind for listening to incoming packets.
+ * @param destinationFile The path to the file where the incoming data should be written.
+ * @param writeRate The rate at which the data should be written to the file.
+ * 
+ * @return Void.
+ */
 void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long long int writeRate) {
     
-    // initial parameters
     int sockDescriptor;
     struct sockaddr_in myAddr, senderAddr;
     char buffer[BUFFER_SIZE];
@@ -36,34 +75,38 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
     FILE *file;
     unsigned long long int bytesWritten = 0;
 
-    // create UDP socket
+    /*
+     * Create UDP socket.
+     */
     sockDescriptor = socket(AF_INET, SOCK_DGRAM, 0);
     if(sockDescriptor < 0){
         perror("Socket creation failed");
         exit(EXIT_FAILURE);
     }
 
-    // setup
     memset(&myAddr, 0, sizeof(myAddr));
     myAddr.sin_family = AF_INET;
     myAddr.sin_port = htons(myUDPport);
     myAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    // bind socket
+    /*
+     * Bind socket.
+     */
     if(bind(sockDescriptor, (struct sockaddr *)&myAddr, sizeof(myAddr)) < 0) {
         perror("Bind failed");
         close(sockDescriptor);
         exit(EXIT_FAILURE);
     }
 
-    // open file
+    /*
+     * Open destination file for writing.
+     */
     file = fopen(destinationFile, "wb");
     if(file == NULL){
         perror("Failed to open destination file for writing.");
         close(sockDescriptor);
         exit(EXIT_FAILURE);
     }
-
 
     while(1){
         socklen_t senderAddrLen = sizeof(senderAddr);
@@ -73,7 +116,10 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
             perror("recvfrom failed");
             break;
         }
-
+        
+        /*
+         * Extract the packet header from the received packet.
+         */
         PacketHeader header;
         memcpy(&header, buffer, sizeof(header));
 
@@ -85,11 +131,17 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
             fprintf(stdout, "%d\n", receivedBytes);
             printBufferContents(buffer, receivedBytes);
 
+            /*
+             * Write the received payload without the header to the file.
+             */
             ssize_t payloadSize = receivedBytes - sizeof(PacketHeader);
             fwrite(buffer + sizeof(PacketHeader), 1, payloadSize, file);
 
             bytesWritten += payloadSize;
 
+            /*
+             * Prepare the acknowledgement packet to send.
+             */
             PacketHeader ack;
             ack.sequenceNumber = header.sequenceNumber;
             ack.flags = 0;
@@ -97,20 +149,24 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
 
             sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
         }
-
-        // implement logic for writerate > 0 here
     }
 
     fclose(file);
     close(sockDescriptor);
 }
 
+/**
+ * @brief Entry point for the UDP file receiver program.
+ * 
+ * This function parses command line arguments and initiates the file reception process
+ * by calling the rrecv function. The program expects exactly two arguments:
+ * the UDP port to listen on, and the filename to which the incoming data will be written.
+ * 
+ * @param argc The number of command line arguments.
+ * @param argv The array of command line arguments.
+ * @return int EXIT_SUCCESS returned on successful completion or error code 1 on failure.
+ */
 int main(int argc, char** argv) {
-    // This is a skeleton of a main function.
-    // You should implement this function more completely
-    // so that one can invoke the file transfer from the
-    // command line.
-
     unsigned short int udpPort;
     char* filename = NULL;
 
