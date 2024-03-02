@@ -16,29 +16,28 @@ Functions for sending data over an enhanced UDP protocol.
 {\ttfamily \#include $<$unistd.\+h$>$}\newline
 {\ttfamily \#include $<$pthread.\+h$>$}\newline
 {\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
 {\ttfamily \#include "{}packet\+\_\+header.\+h"{}}\newline
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{sender_8c_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\+\_\+\+SIZE}}~1024
 \item 
-\Hypertarget{sender_8c_a0c27aef383a8c9d5d7dda3659f60a9d2}\label{sender_8c_a0c27aef383a8c9d5d7dda3659f60a9d2} 
-\#define {\bfseries ACK\+\_\+\+TIMEOUT\+\_\+\+USEC}~30000
+\#define \mbox{\hyperlink{sender_8c_a0c27aef383a8c9d5d7dda3659f60a9d2}{ACK\+\_\+\+TIMEOUT\+\_\+\+USEC}}~30000
 \item 
-\Hypertarget{sender_8c_a2087e335be12553941157d9914755759}\label{sender_8c_a2087e335be12553941157d9914755759} 
-\#define {\bfseries MAX\+\_\+\+RESEND\+\_\+\+ATTEMPTS}~5
+\#define \mbox{\hyperlink{sender_8c_a2087e335be12553941157d9914755759}{MAX\+\_\+\+RESEND\+\_\+\+ATTEMPTS}}~5
+\item 
+\#define \mbox{\hyperlink{sender_8c_a54619b1687e9899d304d27f631f956ce}{LINK\+\_\+\+CAPACITY}}~20000000
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{sender_8c_a73da229ea16b7739ac467eb06b01d912}\label{sender_8c_a73da229ea16b7739ac467eb06b01d912} 
-void {\bfseries send\+Closing\+Packet} (int sock\+Descriptor, struct sockaddr\+\_\+in \texorpdfstring{$\ast$}{*}dest\+Addr, int sequence\+Number)
-\item 
-\Hypertarget{sender_8c_a470031165b913666b8a71d2b05ba7815}\label{sender_8c_a470031165b913666b8a71d2b05ba7815} 
-void {\bfseries rsend} (char \texorpdfstring{$\ast$}{*}hostname, unsigned short int host\+UDPport, char \texorpdfstring{$\ast$}{*}filename, unsigned long long int bytes\+To\+Transfer)
-\item 
+void \mbox{\hyperlink{sender_8c_a73da229ea16b7739ac467eb06b01d912}{send\+Closing\+Packet}} (int sock\+Descriptor, struct sockaddr\+\_\+in \texorpdfstring{$\ast$}{*}dest\+Addr, int sequence\+Number)
+\begin{DoxyCompactList}\small\item\em Sends a closing packet to the specified destination address. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sender_8c_a470031165b913666b8a71d2b05ba7815}{rsend}} (char \texorpdfstring{$\ast$}{*}hostname, unsigned short int host\+UDPport, char \texorpdfstring{$\ast$}{*}filename, unsigned long long int bytes\+To\+Transfer)
+\begin{DoxyCompactList}\small\item\em Sends a file over UDP to the specified destination. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{sender_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
-\begin{DoxyCompactList}\small\item\em Entry point for the UDP file sender program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Entry point for the UDP file receiver program. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -56,13 +55,31 @@ Leo Kamino (Leonardo\+Kamino)
 
 
 \doxysubsection{Macro Definition Documentation}
-\Hypertarget{sender_8c_a6b20d41d6252e9871430c242cb1a56e7}\label{sender_8c_a6b20d41d6252e9871430c242cb1a56e7} 
+\Hypertarget{sender_8c_a0c27aef383a8c9d5d7dda3659f60a9d2}\label{sender_8c_a0c27aef383a8c9d5d7dda3659f60a9d2} 
+\index{sender.c@{sender.c}!ACK\_TIMEOUT\_USEC@{ACK\_TIMEOUT\_USEC}}
+\index{ACK\_TIMEOUT\_USEC@{ACK\_TIMEOUT\_USEC}!sender.c@{sender.c}}
+\doxysubsubsection{\texorpdfstring{ACK\_TIMEOUT\_USEC}{ACK\_TIMEOUT\_USEC}}
+{\footnotesize\ttfamily \#define ACK\+\_\+\+TIMEOUT\+\_\+\+USEC~30000}
+
+Definition for ACK timeout in microseconds. \Hypertarget{sender_8c_a6b20d41d6252e9871430c242cb1a56e7}\label{sender_8c_a6b20d41d6252e9871430c242cb1a56e7} 
 \index{sender.c@{sender.c}!BUFFER\_SIZE@{BUFFER\_SIZE}}
 \index{BUFFER\_SIZE@{BUFFER\_SIZE}!sender.c@{sender.c}}
 \doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
 {\footnotesize\ttfamily \#define BUFFER\+\_\+\+SIZE~1024}
 
-Definition to indicate size of the buffer. 
+Definition to indicate size of the buffer. \Hypertarget{sender_8c_a54619b1687e9899d304d27f631f956ce}\label{sender_8c_a54619b1687e9899d304d27f631f956ce} 
+\index{sender.c@{sender.c}!LINK\_CAPACITY@{LINK\_CAPACITY}}
+\index{LINK\_CAPACITY@{LINK\_CAPACITY}!sender.c@{sender.c}}
+\doxysubsubsection{\texorpdfstring{LINK\_CAPACITY}{LINK\_CAPACITY}}
+{\footnotesize\ttfamily \#define LINK\+\_\+\+CAPACITY~20000000}
+
+Definition that represents the network link capacity that the sender will assume for calculating bandwidth utilization \Hypertarget{sender_8c_a2087e335be12553941157d9914755759}\label{sender_8c_a2087e335be12553941157d9914755759} 
+\index{sender.c@{sender.c}!MAX\_RESEND\_ATTEMPTS@{MAX\_RESEND\_ATTEMPTS}}
+\index{MAX\_RESEND\_ATTEMPTS@{MAX\_RESEND\_ATTEMPTS}!sender.c@{sender.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_RESEND\_ATTEMPTS}{MAX\_RESEND\_ATTEMPTS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+RESEND\+\_\+\+ATTEMPTS~5}
+
+Definition specifying the maximum number of resend attempts for a packet if the acknowledgment (ACK) is not received within the timeout period. 
 
 \doxysubsection{Function Documentation}
 \Hypertarget{sender_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{sender_8c_a3c04138a5bfe5d72780bb7e82a18e627} 
@@ -73,9 +90,9 @@ Definition to indicate size of the buffer.
 
 
 
-Entry point for the UDP file sender program. 
+Entry point for the UDP file receiver program. 
 
-This function parses command line arguments and initiates the file transfer process by calling the rsend function. The program expects exactly four arguments\+: the receiver\textquotesingle{}s hostname, the receiver\textquotesingle{}s UDP port, the filename to transfer, and the number of bytes to transfer.
+This function parses command line arguments and initiates the file sending process by calling the rsend function. The program expects exactly two arguments\+: the UDP port to send data to, and the filename of the file to be sent.
 
 
 \begin{DoxyParams}{Parameters}
@@ -86,4 +103,54 @@ This function parses command line arguments and initiates the file transfer proc
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 int EXIT\+\_\+\+SUCCESS returned on successful completion or error code 1 on failure. 
+\end{DoxyReturn}
+\Hypertarget{sender_8c_a470031165b913666b8a71d2b05ba7815}\label{sender_8c_a470031165b913666b8a71d2b05ba7815} 
+\index{sender.c@{sender.c}!rsend@{rsend}}
+\index{rsend@{rsend}!sender.c@{sender.c}}
+\doxysubsubsection{\texorpdfstring{rsend()}{rsend()}}
+{\footnotesize\ttfamily void rsend (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{hostname,  }\item[{unsigned short int}]{host\+UDPport,  }\item[{char \texorpdfstring{$\ast$}{*}}]{filename,  }\item[{unsigned long long int}]{bytes\+To\+Transfer }\end{DoxyParamCaption})}
+
+
+
+Sends a file over UDP to the specified destination. 
+
+This function sends a file over User Datagram Protocol (UDP) to the specified destination hostname and port. It reads the file specified by the filename and sends it in chunks (packets) until all bytes are transferred or until an error occurs. It uses acknowledgments (ACKs) to ensure reliable delivery of packets and handles retransmissions in case of timeouts or errors. The function also measures the bandwidth during the transmission process.
+
+
+\begin{DoxyParams}{Parameters}
+{\em hostname} & The hostname or IP address of the destination. \\
+\hline
+{\em host\+UDPport} & The hostname or IP address of the destination. \\
+\hline
+{\em filename} & The name of the file to be sent. \\
+\hline
+{\em bytes\+To\+Transfer} & The total number of bytes to transfer from the file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+\Hypertarget{sender_8c_a73da229ea16b7739ac467eb06b01d912}\label{sender_8c_a73da229ea16b7739ac467eb06b01d912} 
+\index{sender.c@{sender.c}!sendClosingPacket@{sendClosingPacket}}
+\index{sendClosingPacket@{sendClosingPacket}!sender.c@{sender.c}}
+\doxysubsubsection{\texorpdfstring{sendClosingPacket()}{sendClosingPacket()}}
+{\footnotesize\ttfamily void send\+Closing\+Packet (\begin{DoxyParamCaption}\item[{int}]{sock\+Descriptor,  }\item[{struct sockaddr\+\_\+in \texorpdfstring{$\ast$}{*}}]{dest\+Addr,  }\item[{int}]{sequence\+Number }\end{DoxyParamCaption})}
+
+
+
+Sends a closing packet to the specified destination address. 
+
+This function sends a closing packet containing the provided sequence number to the specified destination address using the given socket descriptor. The closing packet indicates the end of the data transmission. It retransmits the closing packet up to a maximum number of times defined by MAX\+\_\+\+RESEND\+\_\+\+ATTEMPTS until an acknowledgment packet is received or the maximum attempts are exhausted.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sock\+Descriptor} & The socket descriptor for sending the closing packet. \\
+\hline
+{\em dest\+Addr} & The destination address to send the closing packet. \\
+\hline
+{\em sequence\+Number} & The sequence number of the closing packet. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
 \end{DoxyReturn}

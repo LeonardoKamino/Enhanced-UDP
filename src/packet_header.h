@@ -31,7 +31,23 @@
  * control information such as the last packet and acknowledgment indicators.
  */
 typedef struct {
+    /**
+     * @brief The sequence number of the packet.
+     * 
+     * This field indicates the sequence number of the packet. Each packet
+     * sent in the protocol should have a unique sequence number assigned to it.
+     */
     int sequenceNumber;
+
+    /**
+     * @brief Flags for control information.
+     * 
+     * These flags hold control information such as the last packet indicator
+     * and acknowledgment indicators.
+     * 
+     * @see PACKET_LAST_PACKET Indicates whether this packet is the last in a series.
+     * @see PACKET_ACKNOWLEDGMENT Indicates whether an acknowledgment is required for this packet.
+     */
     int flags;
 } PacketHeader;
 

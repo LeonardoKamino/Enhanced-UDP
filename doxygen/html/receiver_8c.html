@@ -106,8 +106,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a0bed69b9918d06ea0cf37e8fcb0b7583" id="r_a0bed69b9918d06ea0cf37e8fcb0b7583"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0bed69b9918d06ea0cf37e8fcb0b7583">printBufferContents</a> (const char *buffer, ssize_t length)</td></tr>
 <tr class="memdesc:a0bed69b9918d06ea0cf37e8fcb0b7583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the contents of the buffer.  <br /></td></tr>
 <tr class="separator:a0bed69b9918d06ea0cf37e8fcb0b7583"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed83abeedd2b196ac27fc3677dbbd34f" id="r_aed83abeedd2b196ac27fc3677dbbd34f"><td class="memItemLeft" align="right" valign="top"><a id="aed83abeedd2b196ac27fc3677dbbd34f" name="aed83abeedd2b196ac27fc3677dbbd34f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sendFinalAck</b> (int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber)</td></tr>
+<tr class="memitem:aed83abeedd2b196ac27fc3677dbbd34f" id="r_aed83abeedd2b196ac27fc3677dbbd34f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed83abeedd2b196ac27fc3677dbbd34f">sendFinalAck</a> (int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber)</td></tr>
+<tr class="memdesc:aed83abeedd2b196ac27fc3677dbbd34f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a final acknowledgment (ACK) for the specified sequence number.  <br /></td></tr>
 <tr class="separator:aed83abeedd2b196ac27fc3677dbbd34f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab41fdd85753470e49e9439d9e096947b" id="r_ab41fdd85753470e49e9439d9e096947b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab41fdd85753470e49e9439d9e096947b">rrecv</a> (unsigned short int myUDPport, char *destinationFile, unsigned long long int writeRate)</td></tr>
 <tr class="memdesc:ab41fdd85753470e49e9439d9e096947b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a file over a network using a reliable UDP protocol.  <br /></td></tr>
@@ -234,6 +234,44 @@ Leo Kamino (LeoKamino) </dd></dl>
     <tr><td class="paramname">myUDPport</td><td>The local UDP port to bind for listening to incoming packets. </td></tr>
     <tr><td class="paramname">destinationFile</td><td>The path to the file where the incoming data should be written. </td></tr>
     <tr><td class="paramname">writeRate</td><td>The rate at which the data should be written to the file.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
+
+</div>
+</div>
+<a id="aed83abeedd2b196ac27fc3677dbbd34f" name="aed83abeedd2b196ac27fc3677dbbd34f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed83abeedd2b196ac27fc3677dbbd34f">&#9670;&#160;</a></span>sendFinalAck()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sendFinalAck </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sockDescriptor</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct sockaddr_in *</td>          <td class="paramname"><span class="paramname"><em>destAddr</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sequenceNumber</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sends a final acknowledgment (ACK) for the specified sequence number. </p>
+<p>This function sends a final acknowledgment packet for the provided sequence number to the specified destination address using the given socket descriptor. The acknowledgment indicates the successful receipt of the last packet in the data transmission process.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sockDescriptor</td><td>The socket descriptor for sending the acknowledgment. </td></tr>
+    <tr><td class="paramname">destAddr</td><td>The destination address to send the acknowledgment. </td></tr>
+    <tr><td class="paramname">sequenceNumber</td><td>The sequence number of the packet being acknowledged. </td></tr>
   </table>
   </dd>
 </dl>

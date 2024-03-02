@@ -8,16 +8,17 @@
 \DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ IS\_ACK\ 1}}
 \DoxyCodeLine{00025\ }
 \DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{int}\ sequenceNumber;}
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ flags;}
-\DoxyCodeLine{00036\ \}\ \mbox{\hyperlink{struct_packet_header}{PacketHeader}};}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00048\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{packet__header_8h_a03ee1f15ca97559c3277d70fd21c7bbf}{setFlag}}(\textcolor{keywordtype}{int}\ flags,\ \textcolor{keywordtype}{int}\ bit)\ \{}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ flags\ |\ (1\ <<\ bit);}
-\DoxyCodeLine{00050\ \}}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00062\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{packet__header_8h_abad6283ef4e91e8a99d9c0784ae4f1a9}{isFlagSet}}(\textcolor{keywordtype}{int}\ flags,\ \textcolor{keywordtype}{int}\ bit)\ \{}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{return}\ (flags\ \&\ (1\ <<\ bit))\ !=\ 0;}
-\DoxyCodeLine{00064\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_packet_header_a516153c816f0b92a87739495d508afde}{sequenceNumber}};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_packet_header_a24113a56e201cf8c34dc6386b84f1cdc}{flags}};}
+\DoxyCodeLine{00052\ \}\ \mbox{\hyperlink{struct_packet_header}{PacketHeader}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{packet__header_8h_a03ee1f15ca97559c3277d70fd21c7bbf}{setFlag}}(\textcolor{keywordtype}{int}\ flags,\ \textcolor{keywordtype}{int}\ bit)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{return}\ flags\ |\ (1\ <<\ bit);}
+\DoxyCodeLine{00066\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{packet__header_8h_abad6283ef4e91e8a99d9c0784ae4f1a9}{isFlagSet}}(\textcolor{keywordtype}{int}\ flags,\ \textcolor{keywordtype}{int}\ bit)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ (flags\ \&\ (1\ <<\ bit))\ !=\ 0;}
+\DoxyCodeLine{00080\ \}}
 
 \end{DoxyCode}

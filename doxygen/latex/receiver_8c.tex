@@ -26,9 +26,8 @@ Functions for receiving data over an enhanced UDP protocol.
 \item 
 void \mbox{\hyperlink{receiver_8c_a0bed69b9918d06ea0cf37e8fcb0b7583}{print\+Buffer\+Contents}} (const char \texorpdfstring{$\ast$}{*}buffer, ssize\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Prints the contents of the buffer. \end{DoxyCompactList}\item 
-\Hypertarget{receiver_8c_aed83abeedd2b196ac27fc3677dbbd34f}\label{receiver_8c_aed83abeedd2b196ac27fc3677dbbd34f} 
-void {\bfseries send\+Final\+Ack} (int sock\+Descriptor, struct sockaddr\+\_\+in \texorpdfstring{$\ast$}{*}dest\+Addr, int sequence\+Number)
-\item 
+void \mbox{\hyperlink{receiver_8c_aed83abeedd2b196ac27fc3677dbbd34f}{send\+Final\+Ack}} (int sock\+Descriptor, struct sockaddr\+\_\+in \texorpdfstring{$\ast$}{*}dest\+Addr, int sequence\+Number)
+\begin{DoxyCompactList}\small\item\em Sends a final acknowledgment (ACK) for the specified sequence number. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{receiver_8c_ab41fdd85753470e49e9439d9e096947b}{rrecv}} (unsigned short int my\+UDPport, char \texorpdfstring{$\ast$}{*}destination\+File, unsigned long long int write\+Rate)
 \begin{DoxyCompactList}\small\item\em Receives a file over a network using a reliable UDP protocol. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{receiver_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
@@ -119,6 +118,30 @@ This function sets up a UDP socket for the specified port, then enters a loop to
 {\em destination\+File} & The path to the file where the incoming data should be written. \\
 \hline
 {\em write\+Rate} & The rate at which the data should be written to the file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}
+\Hypertarget{receiver_8c_aed83abeedd2b196ac27fc3677dbbd34f}\label{receiver_8c_aed83abeedd2b196ac27fc3677dbbd34f} 
+\index{receiver.c@{receiver.c}!sendFinalAck@{sendFinalAck}}
+\index{sendFinalAck@{sendFinalAck}!receiver.c@{receiver.c}}
+\doxysubsubsection{\texorpdfstring{sendFinalAck()}{sendFinalAck()}}
+{\footnotesize\ttfamily void send\+Final\+Ack (\begin{DoxyParamCaption}\item[{int}]{sock\+Descriptor,  }\item[{struct sockaddr\+\_\+in \texorpdfstring{$\ast$}{*}}]{dest\+Addr,  }\item[{int}]{sequence\+Number }\end{DoxyParamCaption})}
+
+
+
+Sends a final acknowledgment (ACK) for the specified sequence number. 
+
+This function sends a final acknowledgment packet for the provided sequence number to the specified destination address using the given socket descriptor. The acknowledgment indicates the successful receipt of the last packet in the data transmission process.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sock\+Descriptor} & The socket descriptor for sending the acknowledgment. \\
+\hline
+{\em dest\+Addr} & The destination address to send the acknowledgment. \\
+\hline
+{\em sequence\+Number} & The sequence number of the packet being acknowledged. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

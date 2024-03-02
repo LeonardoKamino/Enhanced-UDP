@@ -85,17 +85,55 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a516153c816f0b92a87739495d508afde" id="r_a516153c816f0b92a87739495d508afde"><td class="memItemLeft" align="right" valign="top"><a id="a516153c816f0b92a87739495d508afde" name="a516153c816f0b92a87739495d508afde"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>sequenceNumber</b></td></tr>
+<tr class="memitem:a516153c816f0b92a87739495d508afde" id="r_a516153c816f0b92a87739495d508afde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a516153c816f0b92a87739495d508afde">sequenceNumber</a></td></tr>
+<tr class="memdesc:a516153c816f0b92a87739495d508afde"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sequence number of the packet.  <br /></td></tr>
 <tr class="separator:a516153c816f0b92a87739495d508afde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24113a56e201cf8c34dc6386b84f1cdc" id="r_a24113a56e201cf8c34dc6386b84f1cdc"><td class="memItemLeft" align="right" valign="top"><a id="a24113a56e201cf8c34dc6386b84f1cdc" name="a24113a56e201cf8c34dc6386b84f1cdc"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
+<tr class="memitem:a24113a56e201cf8c34dc6386b84f1cdc" id="r_a24113a56e201cf8c34dc6386b84f1cdc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24113a56e201cf8c34dc6386b84f1cdc">flags</a></td></tr>
+<tr class="memdesc:a24113a56e201cf8c34dc6386b84f1cdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags for control information.  <br /></td></tr>
 <tr class="separator:a24113a56e201cf8c34dc6386b84f1cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header structure for packets in the enhanced UDP protocol. </p>
 <p>This structure is used to hold the packet sequence number and flags for control information such as the last packet and acknowledgment indicators. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a24113a56e201cf8c34dc6386b84f1cdc" name="a24113a56e201cf8c34dc6386b84f1cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24113a56e201cf8c34dc6386b84f1cdc">&#9670;&#160;</a></span>flags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PacketHeader::flags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flags for control information. </p>
+<p>These flags hold control information such as the last packet indicator and acknowledgment indicators.</p>
+<dl class="section see"><dt>See also</dt><dd>PACKET_LAST_PACKET Indicates whether this packet is the last in a series. </dd>
+<dd>
+PACKET_ACKNOWLEDGMENT Indicates whether an acknowledgment is required for this packet. </dd></dl>
+
+</div>
+</div>
+<a id="a516153c816f0b92a87739495d508afde" name="a516153c816f0b92a87739495d508afde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a516153c816f0b92a87739495d508afde">&#9670;&#160;</a></span>sequenceNumber</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int PacketHeader::sequenceNumber</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sequence number of the packet. </p>
+<p>This field indicates the sequence number of the packet. Each packet sent in the protocol should have a unique sequence number assigned to it. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="packet__header_8h_source.html">packet_header.h</a></li>
 </ul>
 </div><!-- contents -->

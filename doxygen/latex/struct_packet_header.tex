@@ -12,18 +12,46 @@ Header structure for packets in the enhanced UDP protocol.
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{struct_packet_header_a516153c816f0b92a87739495d508afde}\label{struct_packet_header_a516153c816f0b92a87739495d508afde} 
-int {\bfseries sequence\+Number}
-\item 
-\Hypertarget{struct_packet_header_a24113a56e201cf8c34dc6386b84f1cdc}\label{struct_packet_header_a24113a56e201cf8c34dc6386b84f1cdc} 
-int {\bfseries flags}
-\end{DoxyCompactItemize}
+int \mbox{\hyperlink{struct_packet_header_a516153c816f0b92a87739495d508afde}{sequence\+Number}}
+\begin{DoxyCompactList}\small\item\em The sequence number of the packet. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_packet_header_a24113a56e201cf8c34dc6386b84f1cdc}{flags}}
+\begin{DoxyCompactList}\small\item\em Flags for control information. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Header structure for packets in the enhanced UDP protocol. 
 
 This structure is used to hold the packet sequence number and flags for control information such as the last packet and acknowledgment indicators. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_packet_header_a24113a56e201cf8c34dc6386b84f1cdc}\label{struct_packet_header_a24113a56e201cf8c34dc6386b84f1cdc} 
+\index{PacketHeader@{PacketHeader}!flags@{flags}}
+\index{flags@{flags}!PacketHeader@{PacketHeader}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily int Packet\+Header\+::flags}
+
+
+
+Flags for control information. 
+
+These flags hold control information such as the last packet indicator and acknowledgment indicators.
+
+\begin{DoxySeeAlso}{See also}
+PACKET\+\_\+\+LAST\+\_\+\+PACKET Indicates whether this packet is the last in a series. 
+
+PACKET\+\_\+\+ACKNOWLEDGMENT Indicates whether an acknowledgment is required for this packet. 
+\end{DoxySeeAlso}
+\Hypertarget{struct_packet_header_a516153c816f0b92a87739495d508afde}\label{struct_packet_header_a516153c816f0b92a87739495d508afde} 
+\index{PacketHeader@{PacketHeader}!sequenceNumber@{sequenceNumber}}
+\index{sequenceNumber@{sequenceNumber}!PacketHeader@{PacketHeader}}
+\doxysubsubsection{\texorpdfstring{sequenceNumber}{sequenceNumber}}
+{\footnotesize\ttfamily int Packet\+Header\+::sequence\+Number}
+
+
+
+The sequence number of the packet. 
+
+This field indicates the sequence number of the packet. Each packet sent in the protocol should have a unique sequence number assigned to it. 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

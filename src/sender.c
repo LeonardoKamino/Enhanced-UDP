@@ -18,26 +18,58 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netdb.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
-
 #include <pthread.h>
 #include <errno.h>
+#include <sys/time.h>
 
 #include "packet_header.h"
-#include <sys/time.h>
 
 /**
  * @def BUFFER_SIZE
  * Definition to indicate size of the buffer.
  */
 #define BUFFER_SIZE 1024
+
+/**
+ * @def ACK_TIMEOUT_USEC
+ * Definition for ACK timeout in microseconds.
+ * 
+ */
 #define ACK_TIMEOUT_USEC 30000
+
+/**
+ * @def MAX_RESEND_ATTEMPTS
+ * Definition specifying the maximum number of resend attempts for a packet
+ * if the acknowledgment (ACK) is not received within the timeout period.
+ */
 #define MAX_RESEND_ATTEMPTS 5
+
+/**
+ * @def LINK_CAPACITY
+ * Definition that represents the network link capacity that the sender will assume
+ * for calculating bandwidth utilization
+ * 
+ */
 #define LINK_CAPACITY 20000000
 
+/**
+ * @brief Sends a closing packet to the specified destination address.
+ * 
+ * This function sends a closing packet containing the provided sequence number
+ * to the specified destination address using the given socket descriptor. The
+ * closing packet indicates the end of the data transmission. It retransmits the
+ * closing packet up to a maximum number of times defined by MAX_RESEND_ATTEMPTS
+ * until an acknowledgment packet is received or the maximum attempts are
+ * exhausted.
+ * 
+ * @param sockDescriptor The socket descriptor for sending the closing packet.
+ * @param destAddr The destination address to send the closing packet.
+ * @param sequenceNumber The sequence number of the closing packet.
+ * @return Void.
+ */
 void sendClosingPacket(int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber) {
     int resendAttempts = 0;
     int sentBytes;
@@ -68,7 +100,22 @@ void sendClosingPacket(int sockDescriptor, struct sockaddr_in *destAddr, int seq
     } while(resendAttempts < MAX_RESEND_ATTEMPTS);
 }
 
-
+/**
+ * @brief Sends a file over UDP to the specified destination.
+ * 
+ * This function sends a file over User Datagram Protocol (UDP) to the specified
+ * destination hostname and port. It reads the file specified by the filename and
+ * sends it in chunks (packets) until all bytes are transferred or until an error
+ * occurs. It uses acknowledgments (ACKs) to ensure reliable delivery of packets
+ * and handles retransmissions in case of timeouts or errors. The function also
+ * measures the bandwidth during the transmission process.
+ * 
+ * @param hostname The hostname or IP address of the destination.
+ * @param hostUDPport The hostname or IP address of the destination.
+ * @param filename The name of the file to be sent.
+ * @param bytesToTransfer The total number of bytes to transfer from the file.
+ * @return Void.
+ */
 void rsend(char* hostname, 
             unsigned short int hostUDPport, 
             char* filename, 
@@ -184,12 +231,11 @@ void rsend(char* hostname,
 }
 
 /**
- * @brief Entry point for the UDP file sender program.
+ * @brief Entry point for the UDP file receiver program.
  * 
- * This function parses command line arguments and initiates the file transfer process
- * by calling the rsend function. The program expects exactly four arguments:
- * the receiver's hostname, the receiver's UDP port, the filename to transfer,
- * and the number of bytes to transfer.
+ * This function parses command line arguments and initiates the file sending process
+ * by calling the rsend function. The program expects exactly two arguments:
+ * the UDP port to send data to, and the filename of the file to be sent.
  * 
  * @param argc The number of command line arguments.
  * @param argv The array of command line arguments.
