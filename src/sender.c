@@ -33,23 +33,40 @@
  * Definition to indicate size of the buffer.
  */
 #define BUFFER_SIZE 1024
+#define ACK_TIMEOUT_USEC 30000
+#define MAX_RESEND_ATTEMPTS 5
 
-/**
- * @brief Sends a file over a network using a reliable UDP protocol.
- * 
- * This function rsend is designed to send a file specified by filename to a given hostname and UDP port. 
- * It handles the creation of a UDP socket, resolving the hostname, and setting up the destination address.
- * The file is read and sent in chunks, with each chunk being prefixed by a custom packet header.
- * After each packet is sent, the function waits for an acknowledgment before proceeding to the next packet.
- * If an acknowledgment is not received, the packet is resent. This continues until the entire file is sent.
- * The last packet is flagged as the final packet to inform the receiver no more packets will follow.
- * 
- * @param hostname The destination hostname or IP address to send the file to.
- * @param hostUDPport The destination port number on the receiver's side.
- * @param filename The name of the file to be sent.
- * @param bytesToTransfer The total number of bytes of the file to be transferred.
- * @return Void.
- */
+void sendClosingPacket(int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber) {
+    int resendAttempts = 0;
+    int sentBytes;
+
+    PacketHeader lastPacketHeader;
+    lastPacketHeader.sequenceNumber = sequenceNumber;
+    lastPacketHeader.flags = 0;
+    lastPacketHeader.flags = setFlag(lastPacketHeader.flags, IS_LAST_PACKET);
+
+    do {
+        sentBytes = sendto(sockDescriptor, &lastPacketHeader, sizeof(lastPacketHeader), 0, (struct sockaddr *)destAddr, sizeof(struct sockaddr_in));
+        if(sentBytes < 0) {
+            perror("Error sending closing packet");
+            break;
+        }
+        printf("Sent %ld sequence\n", sequenceNumber);
+
+        PacketHeader ack;
+        ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
+        if (ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && isFlagSet(ack.flags, IS_LAST_PACKET) && ack.sequenceNumber == sequenceNumber){
+            printf("ACK received for closing packet sequence number: %d\n", ack.sequenceNumber);
+            break; // Exit the resend loop
+        } else {
+            printf("ACK timeout or error, resending closing packet, sequence number: %ld\n", sequenceNumber);
+            resendAttempts++;
+        }
+
+    } while(resendAttempts < MAX_RESEND_ATTEMPTS);
+}
+
+
 void rsend(char* hostname, 
             unsigned short int hostUDPport, 
             char* filename, 
@@ -73,6 +90,7 @@ void rsend(char* hostname,
     hints.ai_socktype = SOCK_DGRAM;
 
     int status;
+    printf("Hostname: %s\n", hostname);
     if((status = getaddrinfo(hostname, NULL, &hints, &servinfo)) != 0){
         perror("Address translation failed.");
         exit(EXIT_FAILURE);
@@ -84,6 +102,16 @@ void rsend(char* hostname,
     sockDescriptor = socket(AF_INET, SOCK_DGRAM, 0);
     if(sockDescriptor < 0){
         perror("Socket creation failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // Set socket timeout for receiving
+    struct timeval timeout;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = ACK_TIMEOUT_USEC;
+    if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
+        perror("Error setting socket timeout");
+        close(sockDescriptor);
         exit(EXIT_FAILURE);
     }
 
@@ -124,16 +152,12 @@ void rsend(char* hostname,
 
             PacketHeader ack;
             ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
-            if(ackSize == sizeof(ack) && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber == header.sequenceNumber ) {
-                /*
-                 * Correct acknowlodgement received.
-                 */
+            if (ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber == header.sequenceNumber) {
                 printf("ACK received for sequence number: %d\n", ack.sequenceNumber);
                 sequenceNumber++;
-                /*
-                 * Exit the resend loop.
-                 */
-                break;
+                break; // Exit the resend loop
+            } else {
+                printf("ACK timeout or error, resending sequence number: %ld\n", sequenceNumber);
             }
 
         } while(1);
@@ -141,15 +165,8 @@ void rsend(char* hostname,
         
     }
 
-    /*
-     * Send the last packet.
-     */
-    PacketHeader lastPacketHeader;
-    lastPacketHeader.sequenceNumber = sequenceNumber++;
-    lastPacketHeader.flags = 0;
-    lastPacketHeader.flags = setFlag(lastPacketHeader.flags, IS_LAST_PACKET);
-
-    sendto(sockDescriptor, &lastPacketHeader, sizeof(lastPacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
+    // Send the last packet
+    sendClosingPacket(sockDescriptor, &destAddr, sequenceNumber);
 
     fclose(file);
     close(sockDescriptor);

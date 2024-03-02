@@ -51,6 +51,17 @@ void printBufferContents(const char *buffer, ssize_t length) {
     printf("\n\n");
 }
 
+void sendFinalAck(int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber) {
+    PacketHeader ack;
+    ack.sequenceNumber = sequenceNumber;
+    ack.flags = 0;
+    ack.flags = setFlag(ack.flags, IS_ACK);
+    ack.flags = setFlag(ack.flags, IS_LAST_PACKET);
+
+    sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)destAddr, sizeof(struct sockaddr_in));
+    printf("Sent final ack for sequence number: %d\n", sequenceNumber);
+}
+
 /**
  * @brief Receives a file over a network using a reliable UDP protocol.
  * 
@@ -74,6 +85,7 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
     ssize_t receivedBytes;
     FILE *file;
     unsigned long long int bytesWritten = 0;
+    int expectedSequenceNumber = 0;
 
     /*
      * Create UDP socket.
@@ -125,11 +137,12 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
 
         if (isFlagSet(header.flags, IS_LAST_PACKET)) {
             printf("Last packet received. Sequence Number: %d\n", header.sequenceNumber);
+            sendFinalAck(sockDescriptor, &senderAddr, header.sequenceNumber);
             break;
-        } else {
+        } else if (header.sequenceNumber == expectedSequenceNumber) {
             printf("Packet received. Sequence Number: %d\n", header.sequenceNumber);
-            fprintf(stdout, "%d\n", receivedBytes);
-            printBufferContents(buffer, receivedBytes);
+            // fprintf(stdout, "%d\n", receivedBytes);
+            // printBufferContents(buffer, receivedBytes);
 
             /*
              * Write the received payload without the header to the file.
@@ -148,6 +161,9 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
             ack.flags = setFlag(ack.flags, IS_ACK);
 
             sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
+            expectedSequenceNumber++;
+        }else{
+            printf("Wrong packet received. Sequence Number: %d\n Expected: %d", header.sequenceNumber, expectedSequenceNumber);
         }
     }
 
