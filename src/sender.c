@@ -27,6 +27,7 @@
 #include <errno.h>
 
 #include "packet_header.h"
+#include <sys/time.h>
 
 /**
  * @def BUFFER_SIZE
@@ -35,6 +36,7 @@
 #define BUFFER_SIZE 1024
 #define ACK_TIMEOUT_USEC 30000
 #define MAX_RESEND_ATTEMPTS 5
+#define LINK_CAPACITY 20000000
 
 void sendClosingPacket(int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber) {
     int resendAttempts = 0;
@@ -131,6 +133,10 @@ void rsend(char* hostname,
         exit(EXIT_FAILURE);
     }
 
+    // start timing for bandwidth
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+
     /*
      * Continue sending file in chunks (packets) until all bytes are transferred.
      */
@@ -167,6 +173,11 @@ void rsend(char* hostname,
 
     // Send the last packet
     sendClosingPacket(sockDescriptor, &destAddr, sequenceNumber);
+
+    gettimeofday(&end, NULL);
+    double duration = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
+    double bandwidthUtilization = ((totalBytesSent + sizeof(PacketHeader) * sequenceNumber) * 8 / (duration * LINK_CAPACITY)) * 100;
+    printf("Bandwidth Utilization: %.2f%%\n", bandwidthUtilization);
 
     fclose(file);
     close(sockDescriptor);
