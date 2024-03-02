@@ -94,7 +94,7 @@ $(function() {
 <code>#include &lt;unistd.h&gt;</code><br />
 <code>#include &lt;pthread.h&gt;</code><br />
 <code>#include &lt;errno.h&gt;</code><br />
-<code>#include &quot;packet_header.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="packet__header_8h_source.html">packet_header.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -106,6 +106,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a0bed69b9918d06ea0cf37e8fcb0b7583" id="r_a0bed69b9918d06ea0cf37e8fcb0b7583"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0bed69b9918d06ea0cf37e8fcb0b7583">printBufferContents</a> (const char *buffer, ssize_t length)</td></tr>
 <tr class="memdesc:a0bed69b9918d06ea0cf37e8fcb0b7583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the contents of the buffer.  <br /></td></tr>
 <tr class="separator:a0bed69b9918d06ea0cf37e8fcb0b7583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed83abeedd2b196ac27fc3677dbbd34f" id="r_aed83abeedd2b196ac27fc3677dbbd34f"><td class="memItemLeft" align="right" valign="top"><a id="aed83abeedd2b196ac27fc3677dbbd34f" name="aed83abeedd2b196ac27fc3677dbbd34f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sendFinalAck</b> (int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber)</td></tr>
+<tr class="separator:aed83abeedd2b196ac27fc3677dbbd34f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab41fdd85753470e49e9439d9e096947b" id="r_ab41fdd85753470e49e9439d9e096947b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab41fdd85753470e49e9439d9e096947b">rrecv</a> (unsigned short int myUDPport, char *destinationFile, unsigned long long int writeRate)</td></tr>
 <tr class="memdesc:ab41fdd85753470e49e9439d9e096947b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a file over a network using a reliable UDP protocol.  <br /></td></tr>
 <tr class="separator:ab41fdd85753470e49e9439d9e096947b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,7 +122,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Maddy Paulson (maddypaulson) </dd>
 <dd>
 Leo Kamino (LeoKamino) </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug</a></b></dt><dd>No known bugs. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug</a></b></dt><dd>No known bugs. </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a6b20d41d6252e9871430c242cb1a56e7" name="a6b20d41d6252e9871430c242cb1a56e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b20d41d6252e9871430c242cb1a56e7">&#9670;&#160;</a></span>BUFFER_SIZE</h2>

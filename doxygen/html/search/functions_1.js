@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['printbuffercontents_0',['printBufferContents',['../receiver_8c.html#a0bed69b9918d06ea0cf37e8fcb0b7583',1,'receiver.c']]]
+  ['main_0',['main',['../receiver_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;receiver.c'],['../sender_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;sender.c']]]
 ];

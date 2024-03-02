@@ -95,17 +95,26 @@ $(function() {
 <code>#include &lt;unistd.h&gt;</code><br />
 <code>#include &lt;pthread.h&gt;</code><br />
 <code>#include &lt;errno.h&gt;</code><br />
-<code>#include &quot;packet_header.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="packet__header_8h_source.html">packet_header.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a6b20d41d6252e9871430c242cb1a56e7" id="r_a6b20d41d6252e9871430c242cb1a56e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>&#160;&#160;&#160;1024</td></tr>
 <tr class="separator:a6b20d41d6252e9871430c242cb1a56e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c27aef383a8c9d5d7dda3659f60a9d2" id="r_a0c27aef383a8c9d5d7dda3659f60a9d2"><td class="memItemLeft" align="right" valign="top"><a id="a0c27aef383a8c9d5d7dda3659f60a9d2" name="a0c27aef383a8c9d5d7dda3659f60a9d2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ACK_TIMEOUT_USEC</b>&#160;&#160;&#160;30000</td></tr>
+<tr class="separator:a0c27aef383a8c9d5d7dda3659f60a9d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2087e335be12553941157d9914755759" id="r_a2087e335be12553941157d9914755759"><td class="memItemLeft" align="right" valign="top"><a id="a2087e335be12553941157d9914755759" name="a2087e335be12553941157d9914755759"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_RESEND_ATTEMPTS</b>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:a2087e335be12553941157d9914755759"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a470031165b913666b8a71d2b05ba7815" id="r_a470031165b913666b8a71d2b05ba7815"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a470031165b913666b8a71d2b05ba7815">rsend</a> (char *hostname, unsigned short int hostUDPport, char *filename, unsigned long long int bytesToTransfer)</td></tr>
-<tr class="memdesc:a470031165b913666b8a71d2b05ba7815"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a file over a network using a reliable UDP protocol.  <br /></td></tr>
+<tr class="memitem:a73da229ea16b7739ac467eb06b01d912" id="r_a73da229ea16b7739ac467eb06b01d912"><td class="memItemLeft" align="right" valign="top"><a id="a73da229ea16b7739ac467eb06b01d912" name="a73da229ea16b7739ac467eb06b01d912"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sendClosingPacket</b> (int sockDescriptor, struct sockaddr_in *destAddr, int sequenceNumber)</td></tr>
+<tr class="separator:a73da229ea16b7739ac467eb06b01d912"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a470031165b913666b8a71d2b05ba7815" id="r_a470031165b913666b8a71d2b05ba7815"><td class="memItemLeft" align="right" valign="top"><a id="a470031165b913666b8a71d2b05ba7815" name="a470031165b913666b8a71d2b05ba7815"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>rsend</b> (char *hostname, unsigned short int hostUDPport, char *filename, unsigned long long int bytesToTransfer)</td></tr>
 <tr class="separator:a470031165b913666b8a71d2b05ba7815"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627" id="r_a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
 <tr class="memdesc:a3c04138a5bfe5d72780bb7e82a18e627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry point for the UDP file sender program.  <br /></td></tr>
@@ -117,7 +126,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Maddy Paulson (maddypaulson) </dd>
 <dd>
 Leo Kamino (LeonardoKamino) </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug</a></b></dt><dd>No known bugs. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000003">Bug</a></b></dt><dd>No known bugs. </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a6b20d41d6252e9871430c242cb1a56e7" name="a6b20d41d6252e9871430c242cb1a56e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b20d41d6252e9871430c242cb1a56e7">&#9670;&#160;</a></span>BUFFER_SIZE</h2>
@@ -164,50 +173,6 @@ Leo Kamino (LeonardoKamino) </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int EXIT_SUCCESS returned on successful completion or error code 1 on failure. </dd></dl>
-
-</div>
-</div>
-<a id="a470031165b913666b8a71d2b05ba7815" name="a470031165b913666b8a71d2b05ba7815"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a470031165b913666b8a71d2b05ba7815">&#9670;&#160;</a></span>rsend()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rsend </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>hostname</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned short int</td>          <td class="paramname"><span class="paramname"><em>hostUDPport</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>filename</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned long long int</td>          <td class="paramname"><span class="paramname"><em>bytesToTransfer</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sends a file over a network using a reliable UDP protocol. </p>
-<p>This function rsend is designed to send a file specified by filename to a given hostname and UDP port. It handles the creation of a UDP socket, resolving the hostname, and setting up the destination address. The file is read and sent in chunks, with each chunk being prefixed by a custom packet header. After each packet is sent, the function waits for an acknowledgment before proceeding to the next packet. If an acknowledgment is not received, the packet is resent. This continues until the entire file is sent. The last packet is flagged as the final packet to inform the receiver no more packets will follow.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hostname</td><td>The destination hostname or IP address to send the file to. </td></tr>
-    <tr><td class="paramname">hostUDPport</td><td>The destination port number on the receiver's side. </td></tr>
-    <tr><td class="paramname">filename</td><td>The name of the file to be sent. </td></tr>
-    <tr><td class="paramname">bytesToTransfer</td><td>The total number of bytes of the file to be transferred. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Void. </dd></dl>
 
 </div>
 </div>

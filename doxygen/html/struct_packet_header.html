@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ELEC 331 Programming Assignment 1: File Members</title>
+<title>ELEC 331 Programming Assignment 1: PacketHeader Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -48,7 +48,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -70,11 +69,34 @@ $(function() {
 </div>
 </div>
 
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="struct_packet_header-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">PacketHeader Struct Reference</div></div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented macros with links to the documentation:</div><ul>
-<li>BUFFER_SIZE&#160;:&#160;<a class="el" href="receiver_8c.html#a6b20d41d6252e9871430c242cb1a56e7">receiver.c</a>, <a class="el" href="sender_8c.html#a6b20d41d6252e9871430c242cb1a56e7">sender.c</a></li>
-<li>IS_ACK&#160;:&#160;<a class="el" href="packet__header_8h.html#a738f54051837b67b88c5ded16da668da">packet_header.h</a></li>
-<li>IS_LAST_PACKET&#160;:&#160;<a class="el" href="packet__header_8h.html#af0fbde21f35835770e31f7dc8d6f0350">packet_header.h</a></li>
+
+<p>Header structure for packets in the enhanced UDP protocol.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="packet__header_8h_source.html">packet_header.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a516153c816f0b92a87739495d508afde" id="r_a516153c816f0b92a87739495d508afde"><td class="memItemLeft" align="right" valign="top"><a id="a516153c816f0b92a87739495d508afde" name="a516153c816f0b92a87739495d508afde"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>sequenceNumber</b></td></tr>
+<tr class="separator:a516153c816f0b92a87739495d508afde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24113a56e201cf8c34dc6386b84f1cdc" id="r_a24113a56e201cf8c34dc6386b84f1cdc"><td class="memItemLeft" align="right" valign="top"><a id="a24113a56e201cf8c34dc6386b84f1cdc" name="a24113a56e201cf8c34dc6386b84f1cdc"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b></td></tr>
+<tr class="separator:a24113a56e201cf8c34dc6386b84f1cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Header structure for packets in the enhanced UDP protocol. </p>
+<p>This structure is used to hold the packet sequence number and flags for control information such as the last packet and acknowledgment indicators. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li>src/<a class="el" href="packet__header_8h_source.html">packet_header.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

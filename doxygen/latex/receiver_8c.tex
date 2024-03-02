@@ -26,6 +26,9 @@ Functions for receiving data over an enhanced UDP protocol.
 \item 
 void \mbox{\hyperlink{receiver_8c_a0bed69b9918d06ea0cf37e8fcb0b7583}{print\+Buffer\+Contents}} (const char \texorpdfstring{$\ast$}{*}buffer, ssize\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Prints the contents of the buffer. \end{DoxyCompactList}\item 
+\Hypertarget{receiver_8c_aed83abeedd2b196ac27fc3677dbbd34f}\label{receiver_8c_aed83abeedd2b196ac27fc3677dbbd34f} 
+void {\bfseries send\+Final\+Ack} (int sock\+Descriptor, struct sockaddr\+\_\+in \texorpdfstring{$\ast$}{*}dest\+Addr, int sequence\+Number)
+\item 
 void \mbox{\hyperlink{receiver_8c_ab41fdd85753470e49e9439d9e096947b}{rrecv}} (unsigned short int my\+UDPport, char \texorpdfstring{$\ast$}{*}destination\+File, unsigned long long int write\+Rate)
 \begin{DoxyCompactList}\small\item\em Receives a file over a network using a reliable UDP protocol. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{receiver_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
@@ -43,7 +46,7 @@ Maddy Paulson (maddypaulson)
 Leo Kamino (Leo\+Kamino) 
 \end{DoxyAuthor}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000001}{Bug}}]No known bugs. \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000002}{Bug}}]No known bugs. \end{DoxyRefDesc}
 
 
 \doxysubsection{Macro Definition Documentation}
