@@ -1,0 +1,6 @@
+/**
+ * \page packet_loss Including Artificially Package Drop
+ * 
+ * Here are the installation instructions.
+ * \section individual_loss Our implementation by itself
+ */

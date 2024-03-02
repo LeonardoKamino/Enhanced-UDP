@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['packet_5fheader_2eh_0',['packet_header.h',['../packet__header_8h.html',1,'']]],
-  ['packetheader_1',['PacketHeader',['../struct_packet_header.html',1,'']]],
-  ['printbuffercontents_2',['printBufferContents',['../receiver_8c.html#a0bed69b9918d06ea0cf37e8fcb0b7583',1,'receiver.c']]],
-  ['programming_20assignment_201_3',['ELEC 331 Programming Assignment 1',['../index.html',1,'']]]
+  ['link_5fcapacity_0',['LINK_CAPACITY',['../sender_8c.html#a54619b1687e9899d304d27f631f956ce',1,'sender.c']]],
+  ['list_1',['Bug List',['../bug.html',1,'']]]
 ];

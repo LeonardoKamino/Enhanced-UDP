@@ -1,5 +1,5 @@
 /**
- * @file senderTcp.c
+ * @file sender_tcp.c
  * @brief Functions for sending data over TCP protocol.
  * 
  * This file contains the implementation of functions
@@ -22,7 +22,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#include "packet_header.h"
+#include "../../src/packet_header.h"
 #include <sys/time.h>
 
 #define BUFFER_SIZE 1024

@@ -1,0 +1,15 @@
+/**
+ * \page main_test_page PA1 Test Page
+ * 
+ * \section intro_sec Introduction
+ * - \ref sender_tcp.c "sender_tcp.c"
+ * - \ref receiver_tcp.c "receiver_tcp.c"
+ * 
+ * \section pages_sec Testing Results
+ * 
+ * - \subpage individual
+ * - \subpage competing
+ * - \subpage compare_tcp
+ * - \subpage packet_loss
+ * 
+ */

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['receiver_2ec_0',['receiver.c',['../receiver_8c.html',1,'']]],
-  ['receivertcp_2ec_1',['receiverTcp.c',['../receiver_tcp_8c.html',1,'']]],
-  ['rrecv_2',['rrecv',['../receiver_8c.html#ab41fdd85753470e49e9439d9e096947b',1,'receiver.c']]],
-  ['rsend_3',['rsend',['../sender_8c.html#a470031165b913666b8a71d2b05ba7815',1,'sender.c']]]
+  ['main_0',['main',['../receiver_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;receiver.c'],['../sender_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;sender.c'],['../receiver__tcp_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;receiver_tcp.c'],['../sender__tcp_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;sender_tcp.c']]],
+  ['main_5ftest_5fpage_1',['@subpage main_test_page',['../index.html#autotoc_md0',1,'']]],
+  ['max_5fresend_5fattempts_2',['MAX_RESEND_ATTEMPTS',['../sender_8c.html#a2087e335be12553941157d9914755759',1,'sender.c']]],
+  ['multiple_20competing_20implementations_3',['Multiple competing implementations',['../competing.html',1,'main_test_page']]]
 ];

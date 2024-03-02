@@ -1,0 +1,28 @@
+/**
+ * \page compare_tcp Our implementation vs TCP
+ * 
+ * \section intro_sec TCP Implementation
+ * In order to compare our implementation with the TCP protocol, we decided to create
+ * an implementation of the TCP protoco. The implementation try to be as close as possible
+ * to our enhanced protocol, but using SOCK_STREAM instead. The implementation is divided in two
+ * files, sender_tcp.c and receiver_tcp.c. The sender_tcp.c file contains the implementation of
+ * functions responsible for sending data over the TCP protocol. It includes a key function tsend
+ * which handles the connection. The receiver_tcp.c file contains the implementation of functions
+ * responsible for receiving data over the TCP protocol. It includes key functions for handling
+ * incoming data and compiling the output file.
+ * \subsection file_tcp_link File of TCP implementation
+ * - \ref sender_tcp.c "sender_tcp.c"
+ * - \ref receiver_tcp.c "receiver_tcp.c"
+ * \section Test Setup
+ * We decided to compare the two protocols by sending a file over a TCP connection and over our
+ * enhanced UDP protocol. We used the same file and the same amount of bytes to transfer. We also
+ * used the same machine and the same network conditions.
+ * \section test_tcp_ind Testing Protocols Independently
+ * We tested the two protocols independently, using the same file and the same amount of bytes to transfer
+ * and the same port on the same machine. 
+ * 
+ * \section test_tcp_comp Testing Protocols Competing
+ *  We tested the two protocols competing, using the same file and the same amount of bytes to transfer, with
+ *  implementation running in different ports. We started the receiver of the two protocols and then we started
+ * the sender of the two protocols, with a brief time period between starting each protocol.
+ */
