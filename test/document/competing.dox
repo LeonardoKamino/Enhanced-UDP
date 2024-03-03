@@ -40,11 +40,11 @@
  * \code{.sh}
  * ./receiver 12345 receiver.avi
  * \endcode
- * 4. On receiver 2 (Europa 2) run the following command to run the receiver, assuming the UDP port is 12346 and receiver2.avi is an empty .avi file
+ * 5. On receiver 2 (Europa 2) run the following command to run the receiver, assuming the UDP port is 12346 and receiver2.avi is an empty .avi file
  * \code{.sh}
  * ./receiver 12346 receiver2.avi
  * \endcode
- * 5. Now on both of the senders (Juno 1 & 2) prepare the commands required but don't send until you can do both at the same time
+ * 6. Now on both of the senders (Juno 1 & 2) prepare the commands required but don't send until you can do both at the same time
  * \code{.sh}
  * ./sender clnodevm127-1.clemson.cloudlab.us 12345 Test.avi 6000000
  * \endcode

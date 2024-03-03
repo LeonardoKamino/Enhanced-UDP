@@ -4,13 +4,13 @@
  * \section intro_sec Introduction
  * - \ref sender_tcp.c "sender_tcp.c"
  * - \ref receiver_tcp.c "receiver_tcp.c"
- * 
+ * \section band Performance Calculation
+ * \subpage bandwidth_and_throughput
  * \section pages_sec Testing Results
- * 
- * 1. \subpage bandwidth_and_throughput
- * 2. \subpage individual
- * 3. \subpage competing
- * 4. \subpage compare_tcp
- * 5. \subpage packet_loss
+ *  
+ * 1. \subpage individual
+ * 2. \subpage competing
+ * 3. \subpage compare_tcp
+ * 4. \subpage packet_loss
  * 
  */

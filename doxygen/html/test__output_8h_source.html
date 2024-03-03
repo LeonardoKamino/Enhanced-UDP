@@ -104,8 +104,9 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    printf(<span class="stringliteral">&quot;Throughput: %.2f Mb/s\n&quot;</span>, throughput/1000000.0);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    printf(<span class="stringliteral">&quot;Bandwidth Utilization: %.2f%%\n&quot;</span>, bandwidthUtilization);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    printf(<span class="stringliteral">&quot;Transfer:  %.2f\n&quot;</span>, duration);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    printf(<span class="stringliteral">&quot;Transfer duration:  %.2f s\n&quot;</span>, duration);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    printf(<span class="stringliteral">&quot;Total Bytes Sent: %llu\n&quot;</span>, totalBytesSent);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 </div>
 <div class="ttc" id="atest__output_8h_html_a4f48f5d96b1ea4734b893fda6c8cee00"><div class="ttname"><a href="test__output_8h.html#a4f48f5d96b1ea4734b893fda6c8cee00">displayPerformance</a></div><div class="ttdeci">void displayPerformance(struct timeval *start, struct timeval *end, unsigned long long int totalBytesSent)</div><div class="ttdoc">Display performance test results.</div><div class="ttdef"><b>Definition</b> test_output.h:30</div></div>
 <div class="ttc" id="atest__output_8h_html_a54619b1687e9899d304d27f631f956ce"><div class="ttname"><a href="test__output_8h.html#a54619b1687e9899d304d27f631f956ce">LINK_CAPACITY</a></div><div class="ttdeci">#define LINK_CAPACITY</div><div class="ttdef"><b>Definition</b> test_output.h:18</div></div>

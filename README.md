@@ -31,6 +31,8 @@ Then run the sender with the following command, changing the arguments as requir
 @subsection sub6 4.3 Closing Packet
 - A special packet indicating the end of transmission, ensuring the receiver is aware when all data has been sent.
 @section sec5 5.0 Known Bugs & Limitations 
+- Our implementation does not involve any pipelining such as go-back-n or selective repeat. It is a send and wait protocol.
+- Small packet loss affects severelly our implementation, more details are discussed on test section
 
 @section sec6 6.0 Testing 
 See @subpage main_test_page
