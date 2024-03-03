@@ -31,7 +31,7 @@
  * @def BUFFER_SIZE
  * Definition to indicate size of the buffer.
  */
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 10000
 
 /**
  * @brief Prints the contents of the buffer.

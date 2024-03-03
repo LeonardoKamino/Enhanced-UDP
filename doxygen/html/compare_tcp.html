@@ -14,6 +14,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -78,11 +85,14 @@ $(function() {
   <div class="headertitle"><div class="title">Our implementation vs TCP</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="intro_sec"></a>
-TCP Implementation</h1>
-<p>In order to compare our implementation with the TCP protocol, we decided to create an implementation of the TCP protoco. The implementation try to be as close as possible to our enhanced protocol, but using SOCK_STREAM instead. The implementation is divided in two files, <a class="el" href="sender__tcp_8c.html" title="Functions for sending data over TCP protocol.">sender_tcp.c</a> and <a class="el" href="receiver__tcp_8c.html" title="Functions for receiving data over an TCP.">receiver_tcp.c</a>. The <a class="el" href="sender__tcp_8c.html" title="Functions for sending data over TCP protocol.">sender_tcp.c</a> file contains the implementation of functions responsible for sending data over the TCP protocol. It includes a key function tsend which handles the connection. The <a class="el" href="receiver__tcp_8c.html" title="Functions for receiving data over an TCP.">receiver_tcp.c</a> file contains the implementation of functions responsible for receiving data over the TCP protocol. It includes key functions for handling incoming data and compiling the output file. </p>
+<div class="textblock"><h1><a class="anchor" id="compare1"></a>
+1.0 Calculation of Bandwidth &amp; Throughput</h1>
+<p>See <a class="el" href="bandwidth_and_throughput.html">Bandwidth &amp; Throughput Calculations</a> </p>
+<h1><a class="anchor" id="compare2"></a>
+2.0 TCP Implementation</h1>
+<p>In order to compare our implementation with the TCP protocol, we decided to create an implementation of the TCP protocol. The implementation try to be as close as possible to our enhanced protocol, but using SOCK_STREAM instead. The implementation is divided in two files, <a class="el" href="sender__tcp_8c.html" title="Functions for sending data over TCP protocol.">sender_tcp.c</a> and <a class="el" href="receiver__tcp_8c.html" title="Functions for receiving data over an TCP.">receiver_tcp.c</a>. The <a class="el" href="sender__tcp_8c.html" title="Functions for sending data over TCP protocol.">sender_tcp.c</a> file contains the implementation of functions responsible for sending data over the TCP protocol. It includes a key function tsend which handles the connection. The <a class="el" href="receiver__tcp_8c.html" title="Functions for receiving data over an TCP.">receiver_tcp.c</a> file contains the implementation of functions responsible for receiving data over the TCP protocol. It includes key functions for handling incoming data and compiling the output file. </p>
 <h2><a class="anchor" id="file_tcp_link"></a>
-File of TCP implementation</h2>
+2.1 Files for TCP implementation</h2>
 <ul>
 <li><a class="el" href="sender__tcp_8c.html">sender_tcp.c</a></li>
 <li><a class="el" href="receiver__tcp_8c.html">receiver_tcp.c</a> </li>

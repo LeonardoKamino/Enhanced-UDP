@@ -14,6 +14,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -75,19 +82,20 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="intro_sec"></a>
-TCP Implementation</h1>
+Introduction</h1>
 <ul>
 <li><a class="el" href="sender__tcp_8c.html">sender_tcp.c</a></li>
 <li><a class="el" href="receiver__tcp_8c.html">receiver_tcp.c</a></li>
 </ul>
 <h1><a class="anchor" id="pages_sec"></a>
 Testing Results</h1>
-<ul>
-<li><a class="el" href="individual.html">Our implementation by itself</a></li>
-<li><a class="el" href="competing.html">Multiple competing implementations</a></li>
+<ol type="1">
+<li><a class="el" href="bandwidth_and_throughput.html">Bandwidth &amp; Throughput Calculations</a></li>
+<li><a class="el" href="individual.html">Testing a Single Instance of Our Protocol</a></li>
+<li><a class="el" href="competing.html">Multiple Competing Instances</a></li>
 <li><a class="el" href="compare_tcp.html">Our implementation vs TCP</a></li>
 <li><a class="el" href="packet_loss.html">Including Artificially Package Drop</a> </li>
-</ul>
+</ol>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

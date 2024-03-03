@@ -26,8 +26,8 @@
 #include <sys/time.h>
 
 #define BUFFER_SIZE 1024
-#define LINK_CAPACITY 20000000
-
+#define LINK_CAPACITY 20971520 
+ 
 /**
  * @brief Sends a file over a TCP connection.
  * 
@@ -102,9 +102,18 @@ void tsend(char* hostname, unsigned short int hostPort, char* filename, unsigned
     }
 
     // Calculate and print bandwidth utilization
+    // gettimeofday(&end, NULL);
+    // double duration = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
+    // double bandwidthUtilization = ((totalBytesSent * 8) / (duration * LINK_CAPACITY)) * 100;
+    // printf("Bandwidth Utilization: %.2f%%\n", bandwidthUtilization);
+    // printf("Time:  %.2f\n", duration);
+
     gettimeofday(&end, NULL);
     double duration = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
-    double bandwidthUtilization = ((totalBytesSent * 8) / (duration * LINK_CAPACITY)) * 100;
+    double throughput = (totalBytesSent * 8) / duration;
+    double bandwidthUtilization =  (throughput / LINK_CAPACITY) * 100;
+    
+    printf("Throughput: %.2f Mb/s\n", throughput/1000000.0);
     printf("Bandwidth Utilization: %.2f%%\n", bandwidthUtilization);
     printf("Time:  %.2f\n", duration);
 

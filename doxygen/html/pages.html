@@ -14,6 +14,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -75,12 +82,16 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
-<div class="levels">[detail level <span onclick="javascript:dynsection.toggleLevel(1);">1</span><span onclick="javascript:dynsection.toggleLevel(2);">2</span>]</div><table class="directory">
+<div class="levels">[detail level <span onclick="javascript:dynsection.toggleLevel(1);">1</span><span onclick="javascript:dynsection.toggleLevel(2);">2</span><span onclick="javascript:dynsection.toggleLevel(3);">3</span>]</div><table class="directory">
 <tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="dynsection.toggleFolder('0_')">&#9660;</span><a class="el" href="main_test_page.html" target="_self">PA1 Test Page</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="individual.html" target="_self">Our implementation by itself</a></td><td class="desc"></td></tr>
-<tr id="row_0_1_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="competing.html" target="_self">Multiple competing implementations</a></td><td class="desc"></td></tr>
-<tr id="row_0_2_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="compare_tcp.html" target="_self">Our implementation vs TCP</a></td><td class="desc"></td></tr>
-<tr id="row_0_3_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="packet_loss.html" target="_self">Including Artificially Package Drop</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="bandwidth_and_throughput.html" target="_self">Bandwidth &amp; Throughput Calculations</a></td><td class="desc"></td></tr>
+<tr id="row_0_1_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_1_" class="arrow" onclick="dynsection.toggleFolder('0_1_')">&#9660;</span><a class="el" href="individual.html" target="_self">Testing a Single Instance of Our Protocol</a></td><td class="desc"></td></tr>
+<tr id="row_0_1_0_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="bandwidth_and_throughput.html" target="_self">Bandwidth &amp; Throughput Calculations</a></td><td class="desc"></td></tr>
+<tr id="row_0_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_2_" class="arrow" onclick="dynsection.toggleFolder('0_2_')">&#9660;</span><a class="el" href="competing.html" target="_self">Multiple Competing Instances</a></td><td class="desc"></td></tr>
+<tr id="row_0_2_0_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="bandwidth_and_throughput.html" target="_self">Bandwidth &amp; Throughput Calculations</a></td><td class="desc"></td></tr>
+<tr id="row_0_3_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_3_" class="arrow" onclick="dynsection.toggleFolder('0_3_')">&#9660;</span><a class="el" href="compare_tcp.html" target="_self">Our implementation vs TCP</a></td><td class="desc"></td></tr>
+<tr id="row_0_3_0_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="bandwidth_and_throughput.html" target="_self">Bandwidth &amp; Throughput Calculations</a></td><td class="desc"></td></tr>
+<tr id="row_0_4_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="packet_loss.html" target="_self">Including Artificially Package Drop</a></td><td class="desc"></td></tr>
 <tr id="row_1_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="bug.html" target="_self">Bug List</a></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
