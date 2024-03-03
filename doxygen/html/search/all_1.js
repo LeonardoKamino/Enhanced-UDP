@@ -14,8 +14,7 @@ var searchData=
   ['1_20key_20requirements_11',['1 Key Requirements',['../competing.html#exp4',1,'2.1 Key Requirements'],['../individual.html#exp3',1,'2.1 Key Requirements'],['../compare_tcp.html#exp5',1,'3.1 Key Requirements']]],
   ['1_20packet_20sequence_20numbering_12',['4.1 Packet Sequence Numbering',['../index.html#sub4',1,'']]],
   ['1_20start_20two_20instances_20of_20our_20protocol_20at_20roughly_20the_20same_20time_13',['3.1 Start two instances of our protocol at roughly the same time',['../competing.html#test1',1,'']]],
-  ['1_20tcp_20bandwidth_20throughput_20calculation_14',['5.1 TCP Bandwidth &amp; Throughput Calculation',['../index.html#sub7',1,'']]],
-  ['1_20test_20results_15',['1 Test Results',['../individual.html#ind_results',1,'3.1 Test Results'],['../competing.html#udp_results',1,'4.1 Test Results']]],
-  ['10_16',['3.2 After measuring the throughput of both instances, they should be the same +/- 10%',['../competing.html#test2',1,'']]],
-  ['100_20rtts_17',['3.3 The convergence of throughput between the 2 inctances of the protocol should occur within 100 RTTs',['../competing.html#test3',1,'']]]
+  ['1_20test_20results_14',['1 Test Results',['../individual.html#ind_results',1,'3.1 Test Results'],['../compare_tcp.html#tcp_results',1,'4.1 Test Results'],['../competing.html#udp_results',1,'4.1 Test Results']]],
+  ['10_15',['3.2 After measuring the throughput of both instances, they should be the same +/- 10%',['../competing.html#test2',1,'']]],
+  ['100_20rtts_16',['3.3 The convergence of throughput between the 2 inctances of the protocol should occur within 100 RTTs',['../competing.html#test3',1,'']]]
 ];

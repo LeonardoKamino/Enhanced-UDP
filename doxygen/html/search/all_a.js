@@ -1,7 +1,7 @@
 var searchData=
 [
   ['calculatertt_0',['calculateRTT',['../rtt__estimates_8h.html#abef5848c7b46e59dd71a1f602f11b57a',1,'rtt_estimates.h']]],
-  ['calculation_1',['Calculation',['../bandwidth_and_throughput.html#throughput_1',1,'1.1 Throughput Calculation'],['../bandwidth_and_throughput.html#bandwidth_1',1,'2.1 Bandwidth Calculation'],['../index.html#sub3',1,'3.3 Bandwidth Utilization Calculation'],['../index.html#sub7',1,'5.1 TCP Bandwidth &amp; Throughput Calculation']]],
+  ['calculation_1',['Calculation',['../bandwidth_and_throughput.html#throughput_1',1,'1.1 Throughput Calculation'],['../bandwidth_and_throughput.html#bandwidth_1',1,'2.1 Bandwidth Calculation'],['../index.html#sub3',1,'3.3 Bandwidth Utilization Calculation']]],
   ['calculation_20of_20bandwidth_20throughput_2',['Calculation of Bandwidth Throughput',['../compare_tcp.html#compare1',1,'1.0 Calculation of Bandwidth &amp; Throughput'],['../competing.html#mci_1',1,'1.0 Calculation of Bandwidth &amp; Throughput'],['../individual.html#individual_1',1,'1.0 Calculation of Bandwidth &amp; Throughput']]],
   ['calculations_3',['Bandwidth &amp; Throughput Calculations',['../bandwidth_and_throughput.html',1,'main_test_page']]],
   ['closing_20packet_4',['4.3 Closing Packet',['../index.html#sub6',1,'']]],

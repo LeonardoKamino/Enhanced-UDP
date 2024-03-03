@@ -83,36 +83,32 @@ In order to compare our implementation with the TCP protocol, we decided to crea
 \DoxyCodeLine{./sender\ clnodevm127-\/1.clemson.cloudlab.us\ 12346\ Test2.avi\ 6000000}
 
 \end{DoxyCode}
- After all the packets have been transmitted on for both competing protocol instances, this is an example of the output from our testing
+ 
+\end{DoxyEnumerate}\hypertarget{compare_tcp_tcp_results}{}\doxysubsubsubsection{\texorpdfstring{4.\+1 Test Results}{4.\+1 Test Results}}\label{compare_tcp_tcp_results}
+
 \begin{DoxyItemize}
 \item TCP Sender (Juno 1)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{maddy02@juno:\string~\$\ ./sender\ clnodevm127-\/1.clemson.cloudlab.us\ 12345\ Test.avi\ 6000000}
 \DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
-\DoxyCodeLine{Sent\ 597\ sequence}
-\DoxyCodeLine{ACK\ received\ for\ closing\ packet\ sequence\ number:\ 597}
-\DoxyCodeLine{Throughput:\ 12.27\ Mb/s}
-\DoxyCodeLine{Bandwidth\ Utilization:\ 61.36\%}
-\DoxyCodeLine{Time:\ \ 3.89}
+\DoxyCodeLine{Throughput:\ 21.06\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 100.42\%}
+\DoxyCodeLine{Time:\ \ 2.26}
 
 \end{DoxyCode}
 
 \item Enhanced UDP Sender (Juno 2)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{maddy02@juno:\string~\$\ ./sender\ clnodevm127-\/1.clemson.cloudlab.us\ 12346\ Test2.avi\ 6000000}
-\DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
-\DoxyCodeLine{Sent\ 597\ sequence}
-\DoxyCodeLine{ACK\ received\ for\ closing\ packet\ sequence\ number:\ 597}
-\DoxyCodeLine{Throughput:\ 12.23\ Mb/s}
-\DoxyCodeLine{Bandwidth\ Utilization:\ 61.14\%}
+\DoxyCodeLine{Throughput:\ 9.14\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 43.57\%}
+\DoxyCodeLine{Transfer:\ \ 5.22}
 \DoxyCodeLine{Time:\ \ 3.90}
 
 \end{DoxyCode}
 
 \item TCP Receiver (Europa 1)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Last\ packet\ received.\ Sequence\ Number:\ 597}
-\DoxyCodeLine{Sent\ final\ ack\ for\ sequence\ number:\ 597}
+\DoxyCodeLine{Server\ is\ listening\ on\ port\ 12345}
+\DoxyCodeLine{File\ transfer\ complete.}
 
 \end{DoxyCode}
 
@@ -123,5 +119,9 @@ In order to compare our implementation with the TCP protocol, we decided to crea
 
 \end{DoxyCode}
  
-\end{DoxyItemize}
-\end{DoxyEnumerate}\input{bandwidth_and_throughput}
+\end{DoxyItemize}\hypertarget{compare_tcp_tcp_results2}{}\doxysubsubsubsection{\texorpdfstring{4.\+2 Explanation of Results}{4.\+2 Explanation of Results}}\label{compare_tcp_tcp_results2}
+
+\begin{DoxyItemize}
+\item The calculation for the throughput and bandwidth was giving us a value of \texorpdfstring{$\sim$}{\string~}100\%, however we believe this is likely due to the fact that the limiting commands we use to set up our network, sometimes still allows a transfer of data at a rate higher than the one set by the command.
+\item Based on the fact that our enhanced protocol is taking on 43.\+57\% and with the above considered we believe that our protocol receives around \texorpdfstring{$\sim$}{\string~}50\% of the throughput. 
+\end{DoxyItemize}\input{bandwidth_and_throughput}

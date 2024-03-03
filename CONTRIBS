@@ -1,0 +1,14 @@
+Maddy Paulson:
+- Doxygen setup and majority of the testing / other documentation for the project
+- Developed base UDP code without any enhancements for sender & receiver
+- Added functionality to resolve hostname as an ip address or domain name
+- Worked on bandwidth and throughput calculations
+- Testing throughout entire project on cloudlab
+
+Leo Kamino:
+- Created packet header implementation to allow us to track the sequence of delivered packets
+- Developed the acknowledgment handling functions and mechanisms
+- Setup various functions for displaying output of calculations
+- Created function to handle timeouts and sending the closing packet
+- Also contributed to Doxygen documentation
+- Testing throughout entire project on cloudlab

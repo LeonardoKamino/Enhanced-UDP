@@ -31,10 +31,9 @@ Then run the sender with the following command, changing the arguments as requir
 @subsection sub6 4.3 Closing Packet
 - A special packet indicating the end of transmission, ensuring the receiver is aware when all data has been sent.
 @section sec5 5.0 Known Bugs & Limitations 
-@subsection sub7 5.1 TCP Bandwidth & Throughput Calculation
-- The calculation for the throughput and bandwidth was giving us a value of 102%, however we believe this is likely due to the speed at which the ...
+
 @section sec6 6.0 Testing 
 See @subpage main_test_page
 
 @section sec7 7.0 Project Comments 
-The project was very difficult.
+The project was very difficult. It felt like I was back in CPEN 221 again.

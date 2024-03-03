@@ -63,35 +63,32 @@
  * \code{.sh}
  * ./sender clnodevm127-1.clemson.cloudlab.us 12346 Test2.avi 6000000
  * \endcode
- * After all the packets have been transmitted on for both competing protocol instances, this is an example of the output from our testing
+ * \subsection tcp_results 4.1 Test Results
  *    - TCP Sender (Juno 1):
  *      \code{.sh}
- *      maddy02@juno:~$ ./sender clnodevm127-1.clemson.cloudlab.us 12345 Test.avi 6000000
  *      Hostname: clnodevm127-1.clemson.cloudlab.us
- *      Sent 597 sequence
- *      ACK received for closing packet sequence number: 597
- *      Throughput: 12.27 Mb/s
- *      Bandwidth Utilization: 61.36%
- *      Time:  3.89
+ *      Throughput: 21.06 Mb/s
+ *      Bandwidth Utilization: 100.42%
+ *      Time:  2.26
  *      \endcode
  *    - Enhanced UDP Sender (Juno 2):
  *      \code{.sh}
- *      maddy02@juno:~$ ./sender clnodevm127-1.clemson.cloudlab.us 12346 Test2.avi 6000000
- *      Hostname: clnodevm127-1.clemson.cloudlab.us
- *      Sent 597 sequence
- *      ACK received for closing packet sequence number: 597
- *      Throughput: 12.23 Mb/s
- *      Bandwidth Utilization: 61.14%
+ *      Throughput: 9.14 Mb/s
+ *      Bandwidth Utilization: 43.57%
+ *      Transfer:  5.22
  *      Time:  3.90
  *      \endcode
  *    - TCP Receiver (Europa 1):
  *      \code{.sh}
- *      Last packet received. Sequence Number: 597
- *      Sent final ack for sequence number: 597
+ *      Server is listening on port 12345
+ *      File transfer complete.
  *      \endcode
  *    - Enhanced UDP Receiver (Europa 2):
  *      \code{.sh}
  *      Last packet received. Sequence Number: 597
  *      Sent final ack for sequence number: 597
  *      \endcode
+ * \subsection tcp_results2 4.2 Explanation of Results
+ * - The calculation for the throughput and bandwidth was giving us a value of ~100%, however we believe this is likely due to the fact that the limiting commands we use to set up our network, sometimes still allows a transfer of data at a rate higher than the one set by the command.
+ * - Based on the fact that our enhanced protocol is taking on 43.57% and with the above considered we believe that our protocol receives around ~50% of the throughput.
  */
