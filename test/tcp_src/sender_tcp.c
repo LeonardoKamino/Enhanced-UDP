@@ -17,13 +17,14 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netdb.h>
-
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
-#include "../../src/packet_header.h"
-#include <sys/time.h>
+#include "../../src/includes/packet_header.h"
+#include "../../src/includes/test_output.h"
+
 
 #define BUFFER_SIZE 1024
 #define LINK_CAPACITY 20971520 
@@ -45,7 +46,7 @@ void tsend(char* hostname, unsigned short int hostPort, char* filename, unsigned
     unsigned long long int totalBytesSent = 0;
 
     // Resolve the hostname to an IP address
-    struct addrinfo hints, *servinfo, *p;
+    struct addrinfo hints, *servinfo;
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
@@ -93,7 +94,7 @@ void tsend(char* hostname, unsigned short int hostPort, char* filename, unsigned
 
     // Send the file data
     while (totalBytesSent < bytesToTransfer && (readBytes = fread(buffer, 1, BUFFER_SIZE, file)) > 0) {
-        ssize_t sentBytes = write(sockfd, buffer, readBytes);
+        ssize_t sentBytes = sendto(sockfd, buffer, readBytes, 0, NULL, 0);
         if (sentBytes < 0) {
             perror("ERROR writing to socket");
             break;
@@ -101,21 +102,14 @@ void tsend(char* hostname, unsigned short int hostPort, char* filename, unsigned
         totalBytesSent += sentBytes;
     }
 
-    // Calculate and print bandwidth utilization
-    // gettimeofday(&end, NULL);
-    // double duration = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
-    // double bandwidthUtilization = ((totalBytesSent * 8) / (duration * LINK_CAPACITY)) * 100;
-    // printf("Bandwidth Utilization: %.2f%%\n", bandwidthUtilization);
-    // printf("Time:  %.2f\n", duration);
+    /*
+    * Calculate and print bandwidth utilization
+    */
 
     gettimeofday(&end, NULL);
-    double duration = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
-    double throughput = (totalBytesSent * 8) / duration;
-    double bandwidthUtilization =  (throughput / LINK_CAPACITY) * 100;
     
-    printf("Throughput: %.2f Mb/s\n", throughput/1000000.0);
-    printf("Bandwidth Utilization: %.2f%%\n", bandwidthUtilization);
-    printf("Time:  %.2f\n", duration);
+    displayPerformance(&start, &end, totalBytesSent);
+
 
     fclose(file);
     close(sockfd);

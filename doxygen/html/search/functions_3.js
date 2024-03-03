@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rrecv_0',['rrecv',['../receiver_8c.html#ab41fdd85753470e49e9439d9e096947b',1,'receiver.c']]],
-  ['rsend_1',['rsend',['../sender_8c.html#a470031165b913666b8a71d2b05ba7815',1,'sender.c']]]
+  ['main_0',['main',['../receiver_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;receiver.c'],['../sender_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;sender.c'],['../receiver__tcp_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;receiver_tcp.c'],['../sender__tcp_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;sender_tcp.c']]]
 ];

@@ -17,17 +17,17 @@ Functions for sending data over an enhanced UDP protocol.
 {\ttfamily \#include $<$pthread.\+h$>$}\newline
 {\ttfamily \#include $<$errno.\+h$>$}\newline
 {\ttfamily \#include $<$sys/time.\+h$>$}\newline
-{\ttfamily \#include "{}packet\+\_\+header.\+h"{}}\newline
+{\ttfamily \#include "{}includes/packet\+\_\+header.\+h"{}}\newline
+{\ttfamily \#include "{}includes/rtt\+\_\+estimates.\+h"{}}\newline
+{\ttfamily \#include "{}includes/test\+\_\+output.\+h"{}}\newline
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{sender_8c_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\+\_\+\+SIZE}}~10000
 \item 
-\#define \mbox{\hyperlink{sender_8c_a0c27aef383a8c9d5d7dda3659f60a9d2}{ACK\+\_\+\+TIMEOUT\+\_\+\+USEC}}~30000
+\#define \mbox{\hyperlink{sender_8c_ae20c442c0c2a0c16bcb86a3596369678}{EXPECTED\+\_\+\+RTT}}~20
 \item 
-\#define \mbox{\hyperlink{sender_8c_a2087e335be12553941157d9914755759}{MAX\+\_\+\+RESEND\+\_\+\+ATTEMPTS}}~5
-\item 
-\#define \mbox{\hyperlink{sender_8c_a54619b1687e9899d304d27f631f956ce}{LINK\+\_\+\+CAPACITY}}~20000000
+\#define \mbox{\hyperlink{sender_8c_a53e8e73198104f18f7bca16af6f7baa5}{MAX\+\_\+\+FINAL\+\_\+\+PKT\+\_\+\+RESEND\+\_\+\+ATTEMPTS}}~5
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -51,33 +51,27 @@ Maddy Paulson (maddypaulson)
 Leo Kamino (Leonardo\+Kamino) 
 \end{DoxyAuthor}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000003}{Bug}}]No known bugs. \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000002}{Bug}}]No known bugs. \end{DoxyRefDesc}
 
 
 \doxysubsection{Macro Definition Documentation}
-\Hypertarget{sender_8c_a0c27aef383a8c9d5d7dda3659f60a9d2}\label{sender_8c_a0c27aef383a8c9d5d7dda3659f60a9d2} 
-\index{sender.c@{sender.c}!ACK\_TIMEOUT\_USEC@{ACK\_TIMEOUT\_USEC}}
-\index{ACK\_TIMEOUT\_USEC@{ACK\_TIMEOUT\_USEC}!sender.c@{sender.c}}
-\doxysubsubsection{\texorpdfstring{ACK\_TIMEOUT\_USEC}{ACK\_TIMEOUT\_USEC}}
-{\footnotesize\ttfamily \#define ACK\+\_\+\+TIMEOUT\+\_\+\+USEC~30000}
-
-Definition for ACK timeout in microseconds. \Hypertarget{sender_8c_a6b20d41d6252e9871430c242cb1a56e7}\label{sender_8c_a6b20d41d6252e9871430c242cb1a56e7} 
+\Hypertarget{sender_8c_a6b20d41d6252e9871430c242cb1a56e7}\label{sender_8c_a6b20d41d6252e9871430c242cb1a56e7} 
 \index{sender.c@{sender.c}!BUFFER\_SIZE@{BUFFER\_SIZE}}
 \index{BUFFER\_SIZE@{BUFFER\_SIZE}!sender.c@{sender.c}}
 \doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
 {\footnotesize\ttfamily \#define BUFFER\+\_\+\+SIZE~10000}
 
-Definition to indicate size of the buffer. \Hypertarget{sender_8c_a54619b1687e9899d304d27f631f956ce}\label{sender_8c_a54619b1687e9899d304d27f631f956ce} 
-\index{sender.c@{sender.c}!LINK\_CAPACITY@{LINK\_CAPACITY}}
-\index{LINK\_CAPACITY@{LINK\_CAPACITY}!sender.c@{sender.c}}
-\doxysubsubsection{\texorpdfstring{LINK\_CAPACITY}{LINK\_CAPACITY}}
-{\footnotesize\ttfamily \#define LINK\+\_\+\+CAPACITY~20000000}
+Definition to indicate size of the buffer. \Hypertarget{sender_8c_ae20c442c0c2a0c16bcb86a3596369678}\label{sender_8c_ae20c442c0c2a0c16bcb86a3596369678} 
+\index{sender.c@{sender.c}!EXPECTED\_RTT@{EXPECTED\_RTT}}
+\index{EXPECTED\_RTT@{EXPECTED\_RTT}!sender.c@{sender.c}}
+\doxysubsubsection{\texorpdfstring{EXPECTED\_RTT}{EXPECTED\_RTT}}
+{\footnotesize\ttfamily \#define EXPECTED\+\_\+\+RTT~20}
 
-Definition that represents the network link capacity that the sender will assume for calculating bandwidth utilization \Hypertarget{sender_8c_a2087e335be12553941157d9914755759}\label{sender_8c_a2087e335be12553941157d9914755759} 
-\index{sender.c@{sender.c}!MAX\_RESEND\_ATTEMPTS@{MAX\_RESEND\_ATTEMPTS}}
-\index{MAX\_RESEND\_ATTEMPTS@{MAX\_RESEND\_ATTEMPTS}!sender.c@{sender.c}}
-\doxysubsubsection{\texorpdfstring{MAX\_RESEND\_ATTEMPTS}{MAX\_RESEND\_ATTEMPTS}}
-{\footnotesize\ttfamily \#define MAX\+\_\+\+RESEND\+\_\+\+ATTEMPTS~5}
+Definition specifying the expected Round Trip Time (RTT) in milliseconds. \Hypertarget{sender_8c_a53e8e73198104f18f7bca16af6f7baa5}\label{sender_8c_a53e8e73198104f18f7bca16af6f7baa5} 
+\index{sender.c@{sender.c}!MAX\_FINAL\_PKT\_RESEND\_ATTEMPTS@{MAX\_FINAL\_PKT\_RESEND\_ATTEMPTS}}
+\index{MAX\_FINAL\_PKT\_RESEND\_ATTEMPTS@{MAX\_FINAL\_PKT\_RESEND\_ATTEMPTS}!sender.c@{sender.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_FINAL\_PKT\_RESEND\_ATTEMPTS}{MAX\_FINAL\_PKT\_RESEND\_ATTEMPTS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+FINAL\+\_\+\+PKT\+\_\+\+RESEND\+\_\+\+ATTEMPTS~5}
 
 Definition specifying the maximum number of resend attempts for a packet if the acknowledgment (ACK) is not received within the timeout period. 
 
@@ -140,7 +134,7 @@ Void.
 
 Sends a closing packet to the specified destination address. 
 
-This function sends a closing packet containing the provided sequence number to the specified destination address using the given socket descriptor. The closing packet indicates the end of the data transmission. It retransmits the closing packet up to a maximum number of times defined by MAX\+\_\+\+RESEND\+\_\+\+ATTEMPTS until an acknowledgment packet is received or the maximum attempts are exhausted.
+This function sends a closing packet containing the provided sequence number to the specified destination address using the given socket descriptor. The closing packet indicates the end of the data transmission. It retransmits the closing packet up to a maximum number of times defined by MAX\+\_\+\+FINAL\+\_\+\+PKT\+\_\+\+RESEND\+\_\+\+ATTEMPTS until an acknowledgment packet is received or the maximum attempts are exhausted.
 
 
 \begin{DoxyParams}{Parameters}

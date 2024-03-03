@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ack_5ftimeout_5fusec_0',['ACK_TIMEOUT_USEC',['../sender_8c.html#a0c27aef383a8c9d5d7dda3659f60a9d2',1,'sender.c']]]
+  ['buffer_5fsize_0',['BUFFER_SIZE',['../receiver_8c.html#a6b20d41d6252e9871430c242cb1a56e7',1,'BUFFER_SIZE:&#160;receiver.c'],['../sender_8c.html#a6b20d41d6252e9871430c242cb1a56e7',1,'BUFFER_SIZE:&#160;sender.c']]]
 ];

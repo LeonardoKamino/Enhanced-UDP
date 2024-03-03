@@ -97,19 +97,20 @@ $(function() {
 <code>#include &lt;arpa/inet.h&gt;</code><br />
 <code>#include &lt;netinet/in.h&gt;</code><br />
 <code>#include &lt;netdb.h&gt;</code><br />
+<code>#include &lt;sys/time.h&gt;</code><br />
 <code>#include &lt;sys/types.h&gt;</code><br />
 <code>#include &lt;sys/socket.h&gt;</code><br />
 <code>#include &lt;unistd.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="packet__header_8h_source.html">../../src/packet_header.h</a>&quot;</code><br />
-<code>#include &lt;sys/time.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="packet__header_8h_source.html">../../src/includes/packet_header.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="test__output_8h_source.html">../../src/includes/test_output.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a6b20d41d6252e9871430c242cb1a56e7" id="r_a6b20d41d6252e9871430c242cb1a56e7"><td class="memItemLeft" align="right" valign="top"><a id="a6b20d41d6252e9871430c242cb1a56e7" name="a6b20d41d6252e9871430c242cb1a56e7"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BUFFER_SIZE</b>&#160;&#160;&#160;10000</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BUFFER_SIZE</b>&#160;&#160;&#160;1024</td></tr>
 <tr class="separator:a6b20d41d6252e9871430c242cb1a56e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54619b1687e9899d304d27f631f956ce" id="r_a54619b1687e9899d304d27f631f956ce"><td class="memItemLeft" align="right" valign="top"><a id="a54619b1687e9899d304d27f631f956ce" name="a54619b1687e9899d304d27f631f956ce"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>LINK_CAPACITY</b>&#160;&#160;&#160;20000000</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LINK_CAPACITY</b>&#160;&#160;&#160;20971520</td></tr>
 <tr class="separator:a54619b1687e9899d304d27f631f956ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -127,7 +128,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Maddy Paulson (maddypaulson) </dd>
 <dd>
 Leo Kamino (LeonardoKamino) </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000005">Bug</a></b></dt><dd>No known bugs. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000004">Bug</a></b></dt><dd>No known bugs. </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&#160;</a></span>main()</h2>

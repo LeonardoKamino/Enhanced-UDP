@@ -11,19 +11,20 @@ Functions for sending data over TCP protocol.
 {\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
 {\ttfamily \#include $<$netinet/in.\+h$>$}\newline
 {\ttfamily \#include $<$netdb.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
 {\ttfamily \#include $<$sys/types.\+h$>$}\newline
 {\ttfamily \#include $<$sys/socket.\+h$>$}\newline
 {\ttfamily \#include $<$unistd.\+h$>$}\newline
-{\ttfamily \#include "{}../../src/packet\+\_\+header.\+h"{}}\newline
-{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include "{}../../src/includes/packet\+\_\+header.\+h"{}}\newline
+{\ttfamily \#include "{}../../src/includes/test\+\_\+output.\+h"{}}\newline
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{sender__tcp_8c_a6b20d41d6252e9871430c242cb1a56e7}\label{sender__tcp_8c_a6b20d41d6252e9871430c242cb1a56e7} 
-\#define {\bfseries BUFFER\+\_\+\+SIZE}~10000
+\#define {\bfseries BUFFER\+\_\+\+SIZE}~1024
 \item 
 \Hypertarget{sender__tcp_8c_a54619b1687e9899d304d27f631f956ce}\label{sender__tcp_8c_a54619b1687e9899d304d27f631f956ce} 
-\#define {\bfseries LINK\+\_\+\+CAPACITY}~20000000
+\#define {\bfseries LINK\+\_\+\+CAPACITY}~20971520
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -45,7 +46,7 @@ Maddy Paulson (maddypaulson)
 Leo Kamino (Leonardo\+Kamino) 
 \end{DoxyAuthor}
 \begin{DoxyRefDesc}{Bug}
-\item[\mbox{\hyperlink{bug__bug000005}{Bug}}]No known bugs. \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{bug__bug000004}{Bug}}]No known bugs. \end{DoxyRefDesc}
 
 
 \doxysubsection{Function Documentation}

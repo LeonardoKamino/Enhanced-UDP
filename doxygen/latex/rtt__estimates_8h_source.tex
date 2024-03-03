@@ -1,0 +1,40 @@
+\doxysection{rtt\+\_\+estimates.\+h}
+\hypertarget{rtt__estimates_8h_source}{}\label{rtt__estimates_8h_source}\index{src/includes/rtt\_estimates.h@{src/includes/rtt\_estimates.h}}
+\mbox{\hyperlink{rtt__estimates_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <sys/time.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{rtt__estimates_8h_abef5848c7b46e59dd71a1f602f11b57a}{calculateRTT}}(\textcolor{keyword}{struct}\ timeval\ startTime,\ \textcolor{keyword}{struct}\ timeval\ endTime)\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{return}\ (endTime.tv\_sec\ -\/\ startTime.tv\_sec)\ *\ 1000\ +\ (endTime.tv\_usec\ -\/\ startTime.tv\_usec)\ /\ 1000.0;}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtt__estimates_8h_a8b2f872442366b0a1b2c72f8bb1d98dc}{setTimeoutFromMs}}(\textcolor{keyword}{struct}\ timeval\ *timeout,\ \textcolor{keywordtype}{int}\ ms)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ timeout-\/>tv\_sec\ =\ (ms\ /\ 1000);\ \textcolor{comment}{//\ Seconds\ part}}
+\DoxyCodeLine{00036\ \ \ \ \ timeout-\/>tv\_usec\ =\ ((ms\ -\/\ timeout-\/>tv\_sec\ *\ 1000)\ *\ 1000);\ \textcolor{comment}{//\ Microseconds\ part}}
+\DoxyCodeLine{00037\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtt__estimates_8h_a97ed09134755ca9c50a78988f99f0dad}{updateTimeout}}(\textcolor{keywordtype}{double}\ *estimatedRTT,\ \textcolor{keywordtype}{double}\ *deviation,\ \textcolor{keywordtype}{double}\ sampleRTT,\ \textcolor{keyword}{struct}\ timeval\ *timeout)\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{double}\ alpha\ =\ 0.125;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{double}\ beta\ =\ 0.25;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{double}\ difference\ =\ sampleRTT\ -\/\ *estimatedRTT;}
+\DoxyCodeLine{00056\ \ \ \ \ *estimatedRTT\ =\ *estimatedRTT\ *\ (1-\/alpha)\ +\ alpha\ *\ sampleRTT;}
+\DoxyCodeLine{00057\ \ \ \ \ *deviation\ =\ *deviation\ *\ (1-\/beta)\ +\ beta\ *\ (fabs(difference));}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{double}\ timeout\_msec\ =\ *estimatedRTT\ \ +\ 4\ *\ *deviation;}
+\DoxyCodeLine{00060\ \ \ \ \ timeout\_msec\ =\ timeout\_msec\ <\ 5\ ?\ 5\ :\ timeout\_msec;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{rtt__estimates_8h_a8b2f872442366b0a1b2c72f8bb1d98dc}{setTimeoutFromMs}}(timeout,\ timeout\_msec);}
+\DoxyCodeLine{00063\ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtt__estimates_8h_ac104204deb25bbf26e2250335f833769}{doubleTimeOut}}(\textcolor{keyword}{struct}\ timeval\ *timeout)\{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{double}\ timeout\_msec\ =\ timeout-\/>tv\_sec\ *\ 1000\ +\ timeout-\/>tv\_usec\ /\ 1000;}
+\DoxyCodeLine{00075\ \ \ \ \ timeout\_msec\ *=\ 2;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{rtt__estimates_8h_a8b2f872442366b0a1b2c72f8bb1d98dc}{setTimeoutFromMs}}(timeout,\ timeout\_msec);}
+\DoxyCodeLine{00078\ \}}
+
+\end{DoxyCode}

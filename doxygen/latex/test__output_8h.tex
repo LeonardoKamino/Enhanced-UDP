@@ -1,0 +1,63 @@
+\doxysection{src/includes/test\+\_\+output.h File Reference}
+\hypertarget{test__output_8h}{}\label{test__output_8h}\index{src/includes/test\_output.h@{src/includes/test\_output.h}}
+
+
+This file contains helper functions for displaying performance test results.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{test__output_8h_a54619b1687e9899d304d27f631f956ce}{LINK\+\_\+\+CAPACITY}}~20971520
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{test__output_8h_a4f48f5d96b1ea4734b893fda6c8cee00}{display\+Performance}} (struct timeval \texorpdfstring{$\ast$}{*}start, struct timeval \texorpdfstring{$\ast$}{*}end, unsigned long long int total\+Bytes\+Sent)
+\begin{DoxyCompactList}\small\item\em Display performance test results. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains helper functions for displaying performance test results. 
+
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000007}{Bug}}]No known bugs. \end{DoxyRefDesc}
+\begin{DoxyAuthor}{Author}
+Leo Kamino (Leonardo\+Kamino) 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{test__output_8h_a54619b1687e9899d304d27f631f956ce}\label{test__output_8h_a54619b1687e9899d304d27f631f956ce} 
+\index{test\_output.h@{test\_output.h}!LINK\_CAPACITY@{LINK\_CAPACITY}}
+\index{LINK\_CAPACITY@{LINK\_CAPACITY}!test\_output.h@{test\_output.h}}
+\doxysubsubsection{\texorpdfstring{LINK\_CAPACITY}{LINK\_CAPACITY}}
+{\footnotesize\ttfamily \#define LINK\+\_\+\+CAPACITY~20971520}
+
+Definition that represents the network link capacity that the sender will assume for calculating bandwidth utilization 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{test__output_8h_a4f48f5d96b1ea4734b893fda6c8cee00}\label{test__output_8h_a4f48f5d96b1ea4734b893fda6c8cee00} 
+\index{test\_output.h@{test\_output.h}!displayPerformance@{displayPerformance}}
+\index{displayPerformance@{displayPerformance}!test\_output.h@{test\_output.h}}
+\doxysubsubsection{\texorpdfstring{displayPerformance()}{displayPerformance()}}
+{\footnotesize\ttfamily void display\+Performance (\begin{DoxyParamCaption}\item[{struct timeval \texorpdfstring{$\ast$}{*}}]{start,  }\item[{struct timeval \texorpdfstring{$\ast$}{*}}]{end,  }\item[{unsigned long long int}]{total\+Bytes\+Sent }\end{DoxyParamCaption})}
+
+
+
+Display performance test results. 
+
+This function displays the performance test results including throughput, bandwidth utilization, and transfer duration. 
+\begin{DoxyParams}{Parameters}
+{\em start} & The start time of the transfer \\
+\hline
+{\em end} & The end time of the transfer \\
+\hline
+{\em total\+Bytes\+Sent} & The total number of bytes sent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Void. 
+\end{DoxyReturn}

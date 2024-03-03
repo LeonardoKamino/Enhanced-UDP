@@ -25,7 +25,7 @@
 #include <pthread.h>
 #include <errno.h>
 
-#include "packet_header.h"
+#include "includes/packet_header.h"
 
 /**
  * @def BUFFER_SIZE
@@ -71,7 +71,6 @@ void sendFinalAck(int sockDescriptor, struct sockaddr_in *destAddr, int sequence
     ack.flags = setFlag(ack.flags, IS_LAST_PACKET);
 
     sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)destAddr, sizeof(struct sockaddr_in));
-    printf("Sent final ack for sequence number: %d\n", sequenceNumber);
 }
 
 /**
@@ -148,11 +147,9 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
         memcpy(&header, buffer, sizeof(header));
 
         if (isFlagSet(header.flags, IS_LAST_PACKET)) {
-            printf("Last packet received. Sequence Number: %d\n", header.sequenceNumber);
             sendFinalAck(sockDescriptor, &senderAddr, header.sequenceNumber);
             break;
         } else if (header.sequenceNumber == expectedSequenceNumber) {
-            printf("Received packet with sequence number: %d\n", header.sequenceNumber);
             /*
              * Write the received payload without the header to the file.
              */
@@ -173,15 +170,12 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
 
             expectedSequenceNumber++;
         }else if(header.sequenceNumber < expectedSequenceNumber){
-            printf("Received duplicate packet with sequence number: %d Should be: %d\n", header.sequenceNumber, expectedSequenceNumber);
-            PacketHeader ack;
-            ack.sequenceNumber = header.sequenceNumber;
-            ack.flags = 0;
-            ack.flags = setFlag(ack.flags, IS_ACK);
+            // PacketHeader ack;
+            // ack.sequenceNumber = header.sequenceNumber;
+            // ack.flags = 0;
+            // ack.flags = setFlag(ack.flags, IS_ACK);
 
-            sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
-        }else{
-            printf("Wrong packet received. Sequence Number: %d\n Expected: %d", header.sequenceNumber, expectedSequenceNumber);
+            // sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
         }
     }
 

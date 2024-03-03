@@ -103,18 +103,18 @@ $(function() {
 <code>#include &lt;pthread.h&gt;</code><br />
 <code>#include &lt;errno.h&gt;</code><br />
 <code>#include &lt;sys/time.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="packet__header_8h_source.html">packet_header.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="packet__header_8h_source.html">includes/packet_header.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="rtt__estimates_8h_source.html">includes/rtt_estimates.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="test__output_8h_source.html">includes/test_output.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a6b20d41d6252e9871430c242cb1a56e7" id="r_a6b20d41d6252e9871430c242cb1a56e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>&#160;&#160;&#160;10000</td></tr>
 <tr class="separator:a6b20d41d6252e9871430c242cb1a56e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c27aef383a8c9d5d7dda3659f60a9d2" id="r_a0c27aef383a8c9d5d7dda3659f60a9d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c27aef383a8c9d5d7dda3659f60a9d2">ACK_TIMEOUT_USEC</a>&#160;&#160;&#160;30000</td></tr>
-<tr class="separator:a0c27aef383a8c9d5d7dda3659f60a9d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2087e335be12553941157d9914755759" id="r_a2087e335be12553941157d9914755759"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2087e335be12553941157d9914755759">MAX_RESEND_ATTEMPTS</a>&#160;&#160;&#160;5</td></tr>
-<tr class="separator:a2087e335be12553941157d9914755759"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54619b1687e9899d304d27f631f956ce" id="r_a54619b1687e9899d304d27f631f956ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54619b1687e9899d304d27f631f956ce">LINK_CAPACITY</a>&#160;&#160;&#160;20000000</td></tr>
-<tr class="separator:a54619b1687e9899d304d27f631f956ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae20c442c0c2a0c16bcb86a3596369678" id="r_ae20c442c0c2a0c16bcb86a3596369678"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae20c442c0c2a0c16bcb86a3596369678">EXPECTED_RTT</a>&#160;&#160;&#160;20</td></tr>
+<tr class="separator:ae20c442c0c2a0c16bcb86a3596369678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53e8e73198104f18f7bca16af6f7baa5" id="r_a53e8e73198104f18f7bca16af6f7baa5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53e8e73198104f18f7bca16af6f7baa5">MAX_FINAL_PKT_RESEND_ATTEMPTS</a>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:a53e8e73198104f18f7bca16af6f7baa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -134,23 +134,8 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Maddy Paulson (maddypaulson) </dd>
 <dd>
 Leo Kamino (LeonardoKamino) </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000003">Bug</a></b></dt><dd>No known bugs. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug</a></b></dt><dd>No known bugs. </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a0c27aef383a8c9d5d7dda3659f60a9d2" name="a0c27aef383a8c9d5d7dda3659f60a9d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c27aef383a8c9d5d7dda3659f60a9d2">&#9670;&#160;</a></span>ACK_TIMEOUT_USEC</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ACK_TIMEOUT_USEC&#160;&#160;&#160;30000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Definition for ACK timeout in microseconds. </p>
-
-</div>
-</div>
 <a id="a6b20d41d6252e9871430c242cb1a56e7" name="a6b20d41d6252e9871430c242cb1a56e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b20d41d6252e9871430c242cb1a56e7">&#9670;&#160;</a></span>BUFFER_SIZE</h2>
 
@@ -166,29 +151,29 @@ Leo Kamino (LeonardoKamino) </dd></dl>
 
 </div>
 </div>
-<a id="a54619b1687e9899d304d27f631f956ce" name="a54619b1687e9899d304d27f631f956ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54619b1687e9899d304d27f631f956ce">&#9670;&#160;</a></span>LINK_CAPACITY</h2>
+<a id="ae20c442c0c2a0c16bcb86a3596369678" name="ae20c442c0c2a0c16bcb86a3596369678"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae20c442c0c2a0c16bcb86a3596369678">&#9670;&#160;</a></span>EXPECTED_RTT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define LINK_CAPACITY&#160;&#160;&#160;20000000</td>
+          <td class="memname">#define EXPECTED_RTT&#160;&#160;&#160;20</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Definition that represents the network link capacity that the sender will assume for calculating bandwidth utilization </p>
+<p>Definition specifying the expected Round Trip Time (RTT) in milliseconds. </p>
 
 </div>
 </div>
-<a id="a2087e335be12553941157d9914755759" name="a2087e335be12553941157d9914755759"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2087e335be12553941157d9914755759">&#9670;&#160;</a></span>MAX_RESEND_ATTEMPTS</h2>
+<a id="a53e8e73198104f18f7bca16af6f7baa5" name="a53e8e73198104f18f7bca16af6f7baa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53e8e73198104f18f7bca16af6f7baa5">&#9670;&#160;</a></span>MAX_FINAL_PKT_RESEND_ATTEMPTS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MAX_RESEND_ATTEMPTS&#160;&#160;&#160;5</td>
+          <td class="memname">#define MAX_FINAL_PKT_RESEND_ATTEMPTS&#160;&#160;&#160;5</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -298,7 +283,7 @@ Leo Kamino (LeonardoKamino) </dd></dl>
 </div><div class="memdoc">
 
 <p>Sends a closing packet to the specified destination address. </p>
-<p>This function sends a closing packet containing the provided sequence number to the specified destination address using the given socket descriptor. The closing packet indicates the end of the data transmission. It retransmits the closing packet up to a maximum number of times defined by MAX_RESEND_ATTEMPTS until an acknowledgment packet is received or the maximum attempts are exhausted.</p>
+<p>This function sends a closing packet containing the provided sequence number to the specified destination address using the given socket descriptor. The closing packet indicates the end of the data transmission. It retransmits the closing packet up to a maximum number of times defined by MAX_FINAL_PKT_RESEND_ATTEMPTS until an acknowledgment packet is received or the maximum attempts are exhausted.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sockDescriptor</td><td>The socket descriptor for sending the closing packet. </td></tr>
