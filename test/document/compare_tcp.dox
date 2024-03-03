@@ -67,16 +67,17 @@
  *    - TCP Sender (Juno 1):
  *      \code{.sh}
  *      Hostname: clnodevm127-1.clemson.cloudlab.us
- *      Throughput: 21.06 Mb/s
- *      Bandwidth Utilization: 100.42%
- *      Time:  2.26
+ *      Throughput: 23.86 Mb/s
+ *      Bandwidth Utilization: 113.77%
+ *      Time:  2.00
  *      \endcode
  *    - Enhanced UDP Sender (Juno 2):
  *      \code{.sh}
- *      Throughput: 9.14 Mb/s
- *      Bandwidth Utilization: 43.57%
- *      Transfer:  5.22
- *      Time:  3.90
+ *      Sending Test2.avi to: clnodevm127-1.clemson.cloudlab.us
+ *      Throughput: 15.06 Mb/s
+ *      Bandwidth Utilization: 71.82%
+ *      Transfer Update:  6.33 s
+ *      Total Bytes Sent: 11925840
  *      \endcode
  *    - TCP Receiver (Europa 1):
  *      \code{.sh}
@@ -85,10 +86,10 @@
  *      \endcode
  *    - Enhanced UDP Receiver (Europa 2):
  *      \code{.sh}
- *      Last packet received. Sequence Number: 597
- *      Sent final ack for sequence number: 597
+ *      Server is listening on port 12346
+ *      File transfer complete. 5958144 bytes written to receiver2.avi
  *      \endcode
  * \subsection tcp_results2 4.2 Explanation of Results
  * - The calculation for the throughput and bandwidth was giving us a value of ~100%, however we believe this is likely due to the fact that the limiting commands we use to set up our network, sometimes still allows a transfer of data at a rate higher than the one set by the command.
- * - Based on the fact that our enhanced protocol is taking on 43.57% and with the above considered we believe that our protocol receives around ~50% of the throughput.
+ * - Based on the fact that our enhanced protocol is taking on 71.82% and with the above considered we believe that our protocol receives somewhat similar throughput.
  */

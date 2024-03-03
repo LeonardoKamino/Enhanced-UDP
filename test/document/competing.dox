@@ -54,34 +54,33 @@
  * \subsection udp_results 4.1 Test Results
  *    - Sender 1 (Juno 1):
  *      \code{.sh}
- *      Hostname: clnodevm127-1.clemson.cloudlab.us
- *      Sent 597 sequence
- *      ACK received for closing packet sequence number: 597
- *      Throughput: 11.98 Mb/s
- *      Bandwidth Utilization: 57.13%
- *      Time:  3.98
+ *      Sending Test.avi to: clnodevm127-1.clemson.cloudlab.us
+ *      Throughput: 12.00 Mb/s
+ *      Bandwidth Utilization: 57.24%
+ *      Transfer Duration:  3.97 s
+ *      Total Bytes Sent: 5962920
  *      \endcode
  *    - Sender 2 (Juno 2):
  *      \code{.sh}
- *      Hostname: clnodevm127-1.clemson.cloudlab.us
- *      Sent 597 sequence
- *      ACK received for closing packet sequence number: 597
- *      Throughput: 11.97 Mb/s
- *      Bandwidth Utilization: 57.08%
- *      Time:  3.98
+ *      Sending Test2.avi to: clnodevm127-1.clemson.cloudlab.us
+ *      Throughput: 12.05 Mb/s
+ *      Bandwidth Utilization: 57.47%
+ *      Transfer Update:  3.96 s
+ *      Total Bytes Sent: 5962920
  *      \endcode
  *    - Receiver 1 (Europa 1):
  *      \code{.sh}
- *      Last packet received. Sequence Number: 597
- *      Sent final ack for sequence number: 597
+ *      Server is listening on port 12345
+ *      File transfer complete. 5958144 bytes written to receiver.avi
  *      \endcode
  *    - Receiver 2 (Europa 2):
  *      \code{.sh}
- *      Last packet received. Sequence Number: 597
- *      Sent final ack for sequence number: 597
+ *      Server is listening on port 12346
+ *      File transfer complete. 5958144 bytes written to receiver2.avi
  *      \endcode
  * \subsection udp_results2 4.2 Explanation of Results
- * - The throughput for instance #1 is 11.98 Mb/s and the throughput for instance #2 is Throughput: 11.97 Mb/s therefore the throughputs are within 10% of each other.
+ * - The throughput for instance #1 is 12.00 Mb/s and the throughput for instance #2 is 12.05 Mb/s therefore the throughputs are within 10% of each other.
  * - We used a file with a size of 5.7Mb which provided us with 100 RTT when running therefore the convergence occured within 100 RTT as required.
  * - For this test we used a buffer size of 10000 and a LINK_CAPACITY of 20971520 which is 20Mb.
+ * - The bandwidth utilization for both instances is roughly they same because they are not started at exactly the same time.
  */

@@ -33,19 +33,19 @@
  * \subsection ind_results 3.1 Test Results
  *    - Sender (Juno):
  *      \code{.sh}
- *      Hostname: clnodevm127-1.clemson.cloudlab.us
- *      Sent 2109 sequence
- *      ACK received for closing packet sequence number: 2109
- *      Throughput: 17.66 Mb/s
- *      Bandwidth Utilization: 84.20%
- *      Time:  9.55
+ *      Sending SampleVideo.mp4 to: clnodevm127-1.clemson.cloudlab.us
+ *      Throughput: 17.47 Mb/s
+ *      Bandwidth Utilization: 83.32%
+ *      Transfer Duration:  9.65 s
+ *      Total Bytes Sent: 21086550
  *      \endcode
  *    - Receiver (Europa):
  *      \code{.sh}
- *      Last packet received. Sequence Number: 2109
- *      Sent final ack for sequence number: 2109
+ *      Server is listening on port 12345
+ *      File transfer complete. 21069678 bytes written to receiver.mp4
  *      \endcode
  * \subsection ind_results2 3.2 Explanation of Results
- * - The resulting bandwidth of 84.20% meets the minimum requirement of 70% with no artificial packet loss or reordering.
+ * - The resulting bandwidth of 83.32% meets the minimum requirement of 70% with no artificial packet loss or reordering.
  * - For this test we used a buffer size of 10000 and a LINK_CAPACITY of 20971520 which is 20Mb
+ * - The difference in bytes sent and written is due to packet headers.
  */
