@@ -44,6 +44,10 @@ First run the receiver with the following command, changing the arguments as req
 \begin{DoxyItemize}
 \item A special packet indicating the end of transmission, ensuring the receiver is aware when all data has been sent. 
 \end{DoxyItemize}\hypertarget{index_sec5}{}\doxysection{\texorpdfstring{5.\+0 Known Bugs \& Limitations}{5.\+0 Known Bugs \& Limitations}}\label{index_sec5}
-\hypertarget{index_sec6}{}\doxysection{\texorpdfstring{6.\+0 Testing}{6.\+0 Testing}}\label{index_sec6}
+
+\begin{DoxyItemize}
+\item Our implementation does not involve any pipelining such as go-\/back-\/n or selective repeat. It is a send and wait protocol.
+\item Small packet loss affects severelly our implementation, more details are discussed on test section
+\end{DoxyItemize}\hypertarget{index_sec6}{}\doxysection{\texorpdfstring{6.\+0 Testing}{6.\+0 Testing}}\label{index_sec6}
 See \doxylink{main_test_page}{PA1 Test Page}\hypertarget{index_sec7}{}\doxysection{\texorpdfstring{7.\+0 Project Comments}{7.\+0 Project Comments}}\label{index_sec7}
 The project was very difficult. It felt like I was back in CPEN 221 again. \input{main_test_page}

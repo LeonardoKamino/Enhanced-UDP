@@ -1,6 +1,6 @@
 /**
  * @file receiver_tcp.c
- * @brief Functions for receiving data over an TCP.
+ * @brief Functions for receiving data over TCP Protocol.
  * 
  * This file contains the implementation of functions
  * responsible for receiving data over the  TCP 

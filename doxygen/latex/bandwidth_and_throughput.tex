@@ -1,7 +1,7 @@
-\doxysubsection{Bandwidth \& Throughput Calculations}
+\doxysubsubsection{Bandwidth \& Throughput Calculations}
 \hypertarget{bandwidth_and_throughput}{}\label{bandwidth_and_throughput}\index{Bandwidth \& Throughput Calculations@{Bandwidth \& Throughput Calculations}}
-\hypertarget{bandwidth_and_throughput_b_and_t1}{}\doxysubsubsection{\texorpdfstring{1.\+0 Throughput For A Single Instance of A Protocol}{1.\+0 Throughput For A Single Instance of A Protocol}}\label{bandwidth_and_throughput_b_and_t1}
-\hypertarget{bandwidth_and_throughput_throughput_1}{}\doxysubsubsubsection{\texorpdfstring{1.\+1 Throughput Calculation}{1.\+1 Throughput Calculation}}\label{bandwidth_and_throughput_throughput_1}
+\hypertarget{bandwidth_and_throughput_b_and_t1}{}\doxysubsubsubsection{\texorpdfstring{1.\+0 Throughput For A Single Instance of A Protocol}{1.\+0 Throughput For A Single Instance of A Protocol}}\label{bandwidth_and_throughput_b_and_t1}
+\hypertarget{bandwidth_and_throughput_throughput_1}{}\doxysubsubsubsubsection{\texorpdfstring{1.\+1 Throughput Calculation}{1.\+1 Throughput Calculation}}\label{bandwidth_and_throughput_throughput_1}
 The formula for throughput is given by\+:  \[
 \text{throughput} = \frac{(\text{totalBytesSent} + \text{sizeof(PacketHeader)} \times \text{sequenceNumber}) \times 8}{\text{duration}}
 \] where\+:
@@ -11,7 +11,7 @@ The formula for throughput is given by\+:  \[
 \item {\ttfamily sequence\+Number} is the total number of packets sent.
 \item {\ttfamily 8} converts bytes to bits.
 \item {\ttfamily duration} is the time taken for the transmission in seconds.
-\end{DoxyItemize}\hypertarget{bandwidth_and_throughput_throughput_2}{}\doxysubsubsubsection{\texorpdfstring{1.\+2 Relevant Throughput Code}{1.\+2 Relevant Throughput Code}}\label{bandwidth_and_throughput_throughput_2}
+\end{DoxyItemize}\hypertarget{bandwidth_and_throughput_throughput_2}{}\doxysubsubsubsubsection{\texorpdfstring{1.\+2 Relevant Throughput Code}{1.\+2 Relevant Throughput Code}}\label{bandwidth_and_throughput_throughput_2}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{comment}{//\ Start\ timing\ just\ before\ the\ while\ loop\ where\ packets\ are\ sent}}
@@ -27,7 +27,7 @@ The formula for throughput is given by\+:  \[
 \DoxyCodeLine{printf(\textcolor{stringliteral}{"{}Throughput:\ \%.2f\ Mb/s\(\backslash\)n"{}},\ throughput/1000000.0);}
 
 \end{DoxyCode}
- \hypertarget{bandwidth_and_throughput_throughput_3}{}\doxysubsubsubsection{\texorpdfstring{1.\+3 Throughput Explanation}{1.\+3 Throughput Explanation}}\label{bandwidth_and_throughput_throughput_3}
+ \hypertarget{bandwidth_and_throughput_throughput_3}{}\doxysubsubsubsubsection{\texorpdfstring{1.\+3 Throughput Explanation}{1.\+3 Throughput Explanation}}\label{bandwidth_and_throughput_throughput_3}
 
 \begin{DoxyEnumerate}
 \item Start the timing before the while loop where packets are repeatedly sent to send all the data.
@@ -36,8 +36,8 @@ The formula for throughput is given by\+:  \[
 \item data transferred = total\+Bytes\+Sent + sizeof(\+Packet\+Header) \texorpdfstring{$\ast$}{*} sequence\+Number \texorpdfstring{$\ast$}{*} 8
 \item This formula finds the total number of bits set including the headers and payload.
 \item Divide the data sent by the duration to find the throughput for our protocol.
-\end{DoxyEnumerate}\hypertarget{bandwidth_and_throughput_b_and_t2}{}\doxysubsubsection{\texorpdfstring{2.\+0 Bandwidth For A Single Instance of A Protocol}{2.\+0 Bandwidth For A Single Instance of A Protocol}}\label{bandwidth_and_throughput_b_and_t2}
-\hypertarget{bandwidth_and_throughput_bandwidth_1}{}\doxysubsubsubsection{\texorpdfstring{2.\+1 Bandwidth Calculation}{2.\+1 Bandwidth Calculation}}\label{bandwidth_and_throughput_bandwidth_1}
+\end{DoxyEnumerate}\hypertarget{bandwidth_and_throughput_b_and_t2}{}\doxysubsubsubsection{\texorpdfstring{2.\+0 Bandwidth For A Single Instance of A Protocol}{2.\+0 Bandwidth For A Single Instance of A Protocol}}\label{bandwidth_and_throughput_b_and_t2}
+\hypertarget{bandwidth_and_throughput_bandwidth_1}{}\doxysubsubsubsubsection{\texorpdfstring{2.\+1 Bandwidth Calculation}{2.\+1 Bandwidth Calculation}}\label{bandwidth_and_throughput_bandwidth_1}
 The formula for bandwidth is given by\+:  \[
 \text{bandwidth} = (\frac{\text{throughput}}{\text{LINK_CAPACITY}}) \times 100
 \] where\+:
@@ -45,7 +45,7 @@ The formula for bandwidth is given by\+:  \[
 \item {\ttfamily throughput} is bits sent per second
 \item {\ttfamily LINK\+\_\+\+CAPACITY} is the maximum amount of data that can be transmitted over a communication channel within a given time frame.
 \item {\ttfamily 100} converts the value to a bandwidth percentage. 
-\end{DoxyItemize}\hypertarget{bandwidth_and_throughput_bandwidth_2}{}\doxysubsubsubsection{\texorpdfstring{2.\+2 Relevant Bandwidth Code}{2.\+2 Relevant Bandwidth Code}}\label{bandwidth_and_throughput_bandwidth_2}
+\end{DoxyItemize}\hypertarget{bandwidth_and_throughput_bandwidth_2}{}\doxysubsubsubsubsection{\texorpdfstring{2.\+2 Relevant Bandwidth Code}{2.\+2 Relevant Bandwidth Code}}\label{bandwidth_and_throughput_bandwidth_2}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{comment}{//\ Start\ timing\ just\ before\ the\ while\ loop\ where\ packets\ are\ sent}}
@@ -64,7 +64,7 @@ The formula for bandwidth is given by\+:  \[
 \DoxyCodeLine{printf(\textcolor{stringliteral}{"{}Time:\ \ \%.2f\(\backslash\)n"{}},\ duration);}
 
 \end{DoxyCode}
- \hypertarget{bandwidth_and_throughput_bandwidth_3}{}\doxysubsubsubsection{\texorpdfstring{2.\+3 Throughput Explanation}{2.\+3 Throughput Explanation}}\label{bandwidth_and_throughput_bandwidth_3}
+ \hypertarget{bandwidth_and_throughput_bandwidth_3}{}\doxysubsubsubsubsection{\texorpdfstring{2.\+3 Throughput Explanation}{2.\+3 Throughput Explanation}}\label{bandwidth_and_throughput_bandwidth_3}
 
 \begin{DoxyEnumerate}
 \item Start the timing before the while loop where packets are repeatedly sent to send all the data.
