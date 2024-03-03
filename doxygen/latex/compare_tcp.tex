@@ -90,18 +90,19 @@ In order to compare our implementation with the TCP protocol, we decided to crea
 \item TCP Sender (Juno 1)\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
-\DoxyCodeLine{Throughput:\ 21.06\ Mb/s}
-\DoxyCodeLine{Bandwidth\ Utilization:\ 100.42\%}
-\DoxyCodeLine{Time:\ \ 2.26}
+\DoxyCodeLine{Throughput:\ 23.86\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 113.77\%}
+\DoxyCodeLine{Time:\ \ 2.00}
 
 \end{DoxyCode}
 
 \item Enhanced UDP Sender (Juno 2)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Throughput:\ 9.14\ Mb/s}
-\DoxyCodeLine{Bandwidth\ Utilization:\ 43.57\%}
-\DoxyCodeLine{Transfer:\ \ 5.22}
-\DoxyCodeLine{Time:\ \ 3.90}
+\DoxyCodeLine{Sending\ Test2.avi\ to:\ clnodevm127-\/1.clemson.cloudlab.us}
+\DoxyCodeLine{Throughput:\ 15.06\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 71.82\%}
+\DoxyCodeLine{Transfer\ Update:\ \ 6.33\ s}
+\DoxyCodeLine{Total\ Bytes\ Sent:\ 11925840}
 
 \end{DoxyCode}
 
@@ -114,8 +115,8 @@ In order to compare our implementation with the TCP protocol, we decided to crea
 
 \item Enhanced UDP Receiver (Europa 2)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Last\ packet\ received.\ Sequence\ Number:\ 597}
-\DoxyCodeLine{Sent\ final\ ack\ for\ sequence\ number:\ 597}
+\DoxyCodeLine{Server\ is\ listening\ on\ port\ 12346}
+\DoxyCodeLine{File\ transfer\ complete.\ 5958144\ bytes\ written\ to\ receiver2.avi}
 
 \end{DoxyCode}
  
@@ -123,5 +124,5 @@ In order to compare our implementation with the TCP protocol, we decided to crea
 
 \begin{DoxyItemize}
 \item The calculation for the throughput and bandwidth was giving us a value of \texorpdfstring{$\sim$}{\string~}100\%, however we believe this is likely due to the fact that the limiting commands we use to set up our network, sometimes still allows a transfer of data at a rate higher than the one set by the command.
-\item Based on the fact that our enhanced protocol is taking on 43.\+57\% and with the above considered we believe that our protocol receives around \texorpdfstring{$\sim$}{\string~}50\% of the throughput. 
+\item Based on the fact that our enhanced protocol is taking on 71.\+82\% and with the above considered we believe that our protocol receives somewhat similar throughput. 
 \end{DoxyItemize}\input{bandwidth_and_throughput}

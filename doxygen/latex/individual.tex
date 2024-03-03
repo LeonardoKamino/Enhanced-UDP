@@ -46,25 +46,25 @@ Your protocol must, in steady state (averaged over 10 seconds), utilize at least
 \begin{DoxyItemize}
 \item Sender (Juno)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
-\DoxyCodeLine{Sent\ 2109\ sequence}
-\DoxyCodeLine{ACK\ received\ for\ closing\ packet\ sequence\ number:\ 2109}
-\DoxyCodeLine{Throughput:\ 17.66\ Mb/s}
-\DoxyCodeLine{Bandwidth\ Utilization:\ 84.20\%}
-\DoxyCodeLine{Time:\ \ 9.55}
+\DoxyCodeLine{Sending\ SampleVideo.mp4\ to:\ clnodevm127-\/1.clemson.cloudlab.us}
+\DoxyCodeLine{Throughput:\ 17.47\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 83.32\%}
+\DoxyCodeLine{Transfer\ Duration:\ \ 9.65\ s}
+\DoxyCodeLine{Total\ Bytes\ Sent:\ 21086550}
 
 \end{DoxyCode}
 
 \item Receiver (Europa)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Last\ packet\ received.\ Sequence\ Number:\ 2109}
-\DoxyCodeLine{Sent\ final\ ack\ for\ sequence\ number:\ 2109}
+\DoxyCodeLine{Server\ is\ listening\ on\ port\ 12345}
+\DoxyCodeLine{File\ transfer\ complete.\ 21069678\ bytes\ written\ to\ receiver.mp4}
 
 \end{DoxyCode}
  
 \end{DoxyItemize}\hypertarget{individual_ind_results2}{}\doxysubsubsubsection{\texorpdfstring{3.\+2 Explanation of Results}{3.\+2 Explanation of Results}}\label{individual_ind_results2}
 
 \begin{DoxyItemize}
-\item The resulting bandwidth of 84.\+20\% meets the minimum requirement of 70\% with no artificial packet loss or reordering.
-\item For this test we used a buffer size of 10000 and a LINK\+\_\+\+CAPACITY of 20971520 which is 20Mb 
+\item The resulting bandwidth of 83.\+32\% meets the minimum requirement of 70\% with no artificial packet loss or reordering.
+\item For this test we used a buffer size of 10000 and a LINK\+\_\+\+CAPACITY of 20971520 which is 20Mb
+\item The difference in bytes sent and written is due to packet headers. 
 \end{DoxyItemize}\input{bandwidth_and_throughput}

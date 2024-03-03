@@ -157,27 +157,28 @@ $(function() {
 4.1 Test Results</h2>
 <ul>
 <li>TCP Sender (Juno 1): <div class="fragment"><div class="line">Hostname: clnodevm127-1.clemson.cloudlab.us</div>
-<div class="line">Throughput: 21.06 Mb/s</div>
-<div class="line">Bandwidth Utilization: 100.42%</div>
-<div class="line">Time:  2.26</div>
+<div class="line">Throughput: 23.86 Mb/s</div>
+<div class="line">Bandwidth Utilization: 113.77%</div>
+<div class="line">Time:  2.00</div>
 </div><!-- fragment --></li>
-<li>Enhanced UDP Sender (Juno 2): <div class="fragment"><div class="line">Throughput: 9.14 Mb/s</div>
-<div class="line">Bandwidth Utilization: 43.57%</div>
-<div class="line">Transfer:  5.22</div>
-<div class="line">Time:  3.90</div>
+<li>Enhanced UDP Sender (Juno 2): <div class="fragment"><div class="line">Sending Test2.avi to: clnodevm127-1.clemson.cloudlab.us</div>
+<div class="line">Throughput: 15.06 Mb/s</div>
+<div class="line">Bandwidth Utilization: 71.82%</div>
+<div class="line">Transfer Update:  6.33 s</div>
+<div class="line">Total Bytes Sent: 11925840</div>
 </div><!-- fragment --></li>
 <li>TCP Receiver (Europa 1): <div class="fragment"><div class="line">Server is listening on port 12345</div>
 <div class="line">File transfer complete.</div>
 </div><!-- fragment --></li>
-<li>Enhanced UDP Receiver (Europa 2): <div class="fragment"><div class="line">Last packet received. Sequence Number: 597</div>
-<div class="line">Sent final ack for sequence number: 597</div>
+<li>Enhanced UDP Receiver (Europa 2): <div class="fragment"><div class="line">Server is listening on port 12346</div>
+<div class="line">File transfer complete. 5958144 bytes written to receiver2.avi</div>
 </div><!-- fragment --> </li>
 </ul>
 <h2><a class="anchor" id="tcp_results2"></a>
 4.2 Explanation of Results</h2>
 <ul>
 <li>The calculation for the throughput and bandwidth was giving us a value of ~100%, however we believe this is likely due to the fact that the limiting commands we use to set up our network, sometimes still allows a transfer of data at a rate higher than the one set by the command.</li>
-<li>Based on the fact that our enhanced protocol is taking on 43.57% and with the above considered we believe that our protocol receives around ~50% of the throughput. </li>
+<li>Based on the fact that our enhanced protocol is taking on 71.82% and with the above considered we believe that our protocol receives somewhat similar throughput. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

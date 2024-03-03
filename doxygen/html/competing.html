@@ -146,33 +146,32 @@ $(function() {
 <h2><a class="anchor" id="udp_results"></a>
 4.1 Test Results</h2>
 <ul>
-<li>Sender 1 (Juno 1): <div class="fragment"><div class="line">Hostname: clnodevm127-1.clemson.cloudlab.us</div>
-<div class="line">Sent 597 sequence</div>
-<div class="line">ACK received for closing packet sequence number: 597</div>
-<div class="line">Throughput: 11.98 Mb/s</div>
-<div class="line">Bandwidth Utilization: 57.13%</div>
-<div class="line">Time:  3.98</div>
+<li>Sender 1 (Juno 1): <div class="fragment"><div class="line">Sending Test.avi to: clnodevm127-1.clemson.cloudlab.us</div>
+<div class="line">Throughput: 12.00 Mb/s</div>
+<div class="line">Bandwidth Utilization: 57.24%</div>
+<div class="line">Transfer Duration:  3.97 s</div>
+<div class="line">Total Bytes Sent: 5962920</div>
 </div><!-- fragment --></li>
-<li>Sender 2 (Juno 2): <div class="fragment"><div class="line">Hostname: clnodevm127-1.clemson.cloudlab.us</div>
-<div class="line">Sent 597 sequence</div>
-<div class="line">ACK received for closing packet sequence number: 597</div>
-<div class="line">Throughput: 11.97 Mb/s</div>
-<div class="line">Bandwidth Utilization: 57.08%</div>
-<div class="line">Time:  3.98</div>
+<li>Sender 2 (Juno 2): <div class="fragment"><div class="line">Sending Test2.avi to: clnodevm127-1.clemson.cloudlab.us</div>
+<div class="line">Throughput: 12.05 Mb/s</div>
+<div class="line">Bandwidth Utilization: 57.47%</div>
+<div class="line">Transfer Update:  3.96 s</div>
+<div class="line">Total Bytes Sent: 5962920</div>
 </div><!-- fragment --></li>
-<li>Receiver 1 (Europa 1): <div class="fragment"><div class="line">Last packet received. Sequence Number: 597</div>
-<div class="line">Sent final ack for sequence number: 597</div>
+<li>Receiver 1 (Europa 1): <div class="fragment"><div class="line">Server is listening on port 12345</div>
+<div class="line">File transfer complete. 5958144 bytes written to receiver.avi</div>
 </div><!-- fragment --></li>
-<li>Receiver 2 (Europa 2): <div class="fragment"><div class="line">Last packet received. Sequence Number: 597</div>
-<div class="line">Sent final ack for sequence number: 597</div>
+<li>Receiver 2 (Europa 2): <div class="fragment"><div class="line">Server is listening on port 12346</div>
+<div class="line">File transfer complete. 5958144 bytes written to receiver2.avi</div>
 </div><!-- fragment --> </li>
 </ul>
 <h2><a class="anchor" id="udp_results2"></a>
 4.2 Explanation of Results</h2>
 <ul>
-<li>The throughput for instance #1 is 11.98 Mb/s and the throughput for instance #2 is Throughput: 11.97 Mb/s therefore the throughputs are within 10% of each other.</li>
+<li>The throughput for instance #1 is 12.00 Mb/s and the throughput for instance #2 is 12.05 Mb/s therefore the throughputs are within 10% of each other.</li>
 <li>We used a file with a size of 5.7Mb which provided us with 100 RTT when running therefore the convergence occured within 100 RTT as required.</li>
-<li>For this test we used a buffer size of 10000 and a LINK_CAPACITY of 20971520 which is 20Mb. </li>
+<li>For this test we used a buffer size of 10000 and a LINK_CAPACITY of 20971520 which is 20Mb.</li>
+<li>The bandwidth utilization for both instances is roughly they same because they are not started at exactly the same time. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

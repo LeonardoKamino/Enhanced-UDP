@@ -119,22 +119,22 @@ $(function() {
 <h2><a class="anchor" id="ind_results"></a>
 3.1 Test Results</h2>
 <ul>
-<li>Sender (Juno): <div class="fragment"><div class="line">Hostname: clnodevm127-1.clemson.cloudlab.us</div>
-<div class="line">Sent 2109 sequence</div>
-<div class="line">ACK received for closing packet sequence number: 2109</div>
-<div class="line">Throughput: 17.66 Mb/s</div>
-<div class="line">Bandwidth Utilization: 84.20%</div>
-<div class="line">Time:  9.55</div>
+<li>Sender (Juno): <div class="fragment"><div class="line">Sending SampleVideo.mp4 to: clnodevm127-1.clemson.cloudlab.us</div>
+<div class="line">Throughput: 17.47 Mb/s</div>
+<div class="line">Bandwidth Utilization: 83.32%</div>
+<div class="line">Transfer Duration:  9.65 s</div>
+<div class="line">Total Bytes Sent: 21086550</div>
 </div><!-- fragment --></li>
-<li>Receiver (Europa): <div class="fragment"><div class="line">Last packet received. Sequence Number: 2109</div>
-<div class="line">Sent final ack for sequence number: 2109</div>
+<li>Receiver (Europa): <div class="fragment"><div class="line">Server is listening on port 12345</div>
+<div class="line">File transfer complete. 21069678 bytes written to receiver.mp4</div>
 </div><!-- fragment --> </li>
 </ul>
 <h2><a class="anchor" id="ind_results2"></a>
 3.2 Explanation of Results</h2>
 <ul>
-<li>The resulting bandwidth of 84.20% meets the minimum requirement of 70% with no artificial packet loss or reordering.</li>
-<li>For this test we used a buffer size of 10000 and a LINK_CAPACITY of 20971520 which is 20Mb </li>
+<li>The resulting bandwidth of 83.32% meets the minimum requirement of 70% with no artificial packet loss or reordering.</li>
+<li>For this test we used a buffer size of 10000 and a LINK_CAPACITY of 20971520 which is 20Mb</li>
+<li>The difference in bytes sent and written is due to packet headers. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

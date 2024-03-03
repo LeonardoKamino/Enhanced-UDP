@@ -80,44 +80,43 @@ Any two instances of your protocol competing with each other must converge to ro
 \begin{DoxyItemize}
 \item Sender 1 (Juno 1)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
-\DoxyCodeLine{Sent\ 597\ sequence}
-\DoxyCodeLine{ACK\ received\ for\ closing\ packet\ sequence\ number:\ 597}
-\DoxyCodeLine{Throughput:\ 11.98\ Mb/s}
-\DoxyCodeLine{Bandwidth\ Utilization:\ 57.13\%}
-\DoxyCodeLine{Time:\ \ 3.98}
+\DoxyCodeLine{Sending\ Test.avi\ to:\ clnodevm127-\/1.clemson.cloudlab.us}
+\DoxyCodeLine{Throughput:\ 12.00\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 57.24\%}
+\DoxyCodeLine{Transfer\ Duration:\ \ 3.97\ s}
+\DoxyCodeLine{Total\ Bytes\ Sent:\ 5962920}
 
 \end{DoxyCode}
 
 \item Sender 2 (Juno 2)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
-\DoxyCodeLine{Sent\ 597\ sequence}
-\DoxyCodeLine{ACK\ received\ for\ closing\ packet\ sequence\ number:\ 597}
-\DoxyCodeLine{Throughput:\ 11.97\ Mb/s}
-\DoxyCodeLine{Bandwidth\ Utilization:\ 57.08\%}
-\DoxyCodeLine{Time:\ \ 3.98}
+\DoxyCodeLine{Sending\ Test2.avi\ to:\ clnodevm127-\/1.clemson.cloudlab.us}
+\DoxyCodeLine{Throughput:\ 12.05\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 57.47\%}
+\DoxyCodeLine{Transfer\ Update:\ \ 3.96\ s}
+\DoxyCodeLine{Total\ Bytes\ Sent:\ 5962920}
 
 \end{DoxyCode}
 
 \item Receiver 1 (Europa 1)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Last\ packet\ received.\ Sequence\ Number:\ 597}
-\DoxyCodeLine{Sent\ final\ ack\ for\ sequence\ number:\ 597}
+\DoxyCodeLine{Server\ is\ listening\ on\ port\ 12345}
+\DoxyCodeLine{File\ transfer\ complete.\ 5958144\ bytes\ written\ to\ receiver.avi}
 
 \end{DoxyCode}
 
 \item Receiver 2 (Europa 2)\+: 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{Last\ packet\ received.\ Sequence\ Number:\ 597}
-\DoxyCodeLine{Sent\ final\ ack\ for\ sequence\ number:\ 597}
+\DoxyCodeLine{Server\ is\ listening\ on\ port\ 12346}
+\DoxyCodeLine{File\ transfer\ complete.\ 5958144\ bytes\ written\ to\ receiver2.avi}
 
 \end{DoxyCode}
  
 \end{DoxyItemize}\hypertarget{competing_udp_results2}{}\doxysubsubsubsection{\texorpdfstring{4.\+2 Explanation of Results}{4.\+2 Explanation of Results}}\label{competing_udp_results2}
 
 \begin{DoxyItemize}
-\item The throughput for instance \#1 is 11.\+98 Mb/s and the throughput for instance \#2 is Throughput\+: 11.\+97 Mb/s therefore the throughputs are within 10\% of each other.
+\item The throughput for instance \#1 is 12.\+00 Mb/s and the throughput for instance \#2 is 12.\+05 Mb/s therefore the throughputs are within 10\% of each other.
 \item We used a file with a size of 5.\+7\+Mb which provided us with 100 RTT when running therefore the convergence occured within 100 RTT as required.
-\item For this test we used a buffer size of 10000 and a LINK\+\_\+\+CAPACITY of 20971520 which is 20Mb. 
+\item For this test we used a buffer size of 10000 and a LINK\+\_\+\+CAPACITY of 20971520 which is 20Mb.
+\item The bandwidth utilization for both instances is roughly they same because they are not started at exactly the same time. 
 \end{DoxyItemize}\input{bandwidth_and_throughput}
