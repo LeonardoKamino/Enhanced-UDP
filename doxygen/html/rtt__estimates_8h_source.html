@@ -118,24 +118,25 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">double</span> timeout_msec = *estimatedRTT  + 4 * *deviation;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    timeout_msec = timeout_msec &lt; 5 ? 5 : timeout_msec;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_function" href="rtt__estimates_8h.html#a8b2f872442366b0a1b2c72f8bb1d98dc">setTimeoutFromMs</a>(timeout, timeout_msec);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    timeout_msec = timeout_msec &gt; 300 ? 300 : timeout_msec;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_function" href="rtt__estimates_8h.html#a8b2f872442366b0a1b2c72f8bb1d98dc">setTimeoutFromMs</a>(timeout, timeout_msec);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
 </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="rtt__estimates_8h.html#ac104204deb25bbf26e2250335f833769">   73</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="rtt__estimates_8h.html#ac104204deb25bbf26e2250335f833769">doubleTimeOut</a>(<span class="keyword">struct</span> timeval *timeout){</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">double</span> timeout_msec = timeout-&gt;tv_sec * 1000 + timeout-&gt;tv_usec / 1000;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    timeout_msec *= 2;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_function" href="rtt__estimates_8h.html#a8b2f872442366b0a1b2c72f8bb1d98dc">setTimeoutFromMs</a>(timeout, timeout_msec);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="rtt__estimates_8h.html#ac104204deb25bbf26e2250335f833769">   74</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="rtt__estimates_8h.html#ac104204deb25bbf26e2250335f833769">doubleTimeOut</a>(<span class="keyword">struct</span> timeval *timeout){</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">double</span> timeout_msec = timeout-&gt;tv_sec * 1000 + timeout-&gt;tv_usec / 1000;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    timeout_msec *= 2;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_function" href="rtt__estimates_8h.html#a8b2f872442366b0a1b2c72f8bb1d98dc">setTimeoutFromMs</a>(timeout, timeout_msec);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
 </div>
 <div class="ttc" id="artt__estimates_8h_html_a8b2f872442366b0a1b2c72f8bb1d98dc"><div class="ttname"><a href="rtt__estimates_8h.html#a8b2f872442366b0a1b2c72f8bb1d98dc">setTimeoutFromMs</a></div><div class="ttdeci">void setTimeoutFromMs(struct timeval *timeout, int ms)</div><div class="ttdoc">Helper function to set timeout value from the given time in milliseconds.</div><div class="ttdef"><b>Definition</b> rtt_estimates.h:34</div></div>
 <div class="ttc" id="artt__estimates_8h_html_a97ed09134755ca9c50a78988f99f0dad"><div class="ttname"><a href="rtt__estimates_8h.html#a97ed09134755ca9c50a78988f99f0dad">updateTimeout</a></div><div class="ttdeci">void updateTimeout(double *estimatedRTT, double *deviation, double sampleRTT, struct timeval *timeout)</div><div class="ttdoc">Updates the timeout value using the current sample RTT, estimated RTT, and deviation.</div><div class="ttdef"><b>Definition</b> rtt_estimates.h:51</div></div>
 <div class="ttc" id="artt__estimates_8h_html_abef5848c7b46e59dd71a1f602f11b57a"><div class="ttname"><a href="rtt__estimates_8h.html#abef5848c7b46e59dd71a1f602f11b57a">calculateRTT</a></div><div class="ttdeci">double calculateRTT(struct timeval startTime, struct timeval endTime)</div><div class="ttdoc">Calculates the Round Trip Time (RTT) using the start and end time of a packet transmission.</div><div class="ttdef"><b>Definition</b> rtt_estimates.h:24</div></div>
-<div class="ttc" id="artt__estimates_8h_html_ac104204deb25bbf26e2250335f833769"><div class="ttname"><a href="rtt__estimates_8h.html#ac104204deb25bbf26e2250335f833769">doubleTimeOut</a></div><div class="ttdeci">void doubleTimeOut(struct timeval *timeout)</div><div class="ttdoc">Doubles the timeout value. Function is used in order to increase timeout value when multiple timeouts...</div><div class="ttdef"><b>Definition</b> rtt_estimates.h:73</div></div>
+<div class="ttc" id="artt__estimates_8h_html_ac104204deb25bbf26e2250335f833769"><div class="ttname"><a href="rtt__estimates_8h.html#ac104204deb25bbf26e2250335f833769">doubleTimeOut</a></div><div class="ttdeci">void doubleTimeOut(struct timeval *timeout)</div><div class="ttdoc">Doubles the timeout value. Function is used in order to increase timeout value when multiple timeouts...</div><div class="ttdef"><b>Definition</b> rtt_estimates.h:74</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,28 +1,97 @@
 /**
  * \page compare_tcp Our implementation vs TCP
  * 
- * \section intro_sec TCP Implementation
+ * \section compare1 1.0 Calculation of Bandwidth & Throughput
+ * See \subpage bandwidth_and_throughput
+ * \section compare2 2.0 TCP Implementation
  * In order to compare our implementation with the TCP protocol, we decided to create
- * an implementation of the TCP protoco. The implementation try to be as close as possible
+ * an implementation of the TCP protocol. The implementation try to be as close as possible
  * to our enhanced protocol, but using SOCK_STREAM instead. The implementation is divided in two
  * files, sender_tcp.c and receiver_tcp.c. The sender_tcp.c file contains the implementation of
  * functions responsible for sending data over the TCP protocol. It includes a key function tsend
  * which handles the connection. The receiver_tcp.c file contains the implementation of functions
  * responsible for receiving data over the TCP protocol. It includes key functions for handling
  * incoming data and compiling the output file.
- * \subsection file_tcp_link File of TCP implementation
+ *
+ * \subsection file_tcp_link 2.1 Files for TCP implementation
  * - \ref sender_tcp.c "sender_tcp.c"
  * - \ref receiver_tcp.c "receiver_tcp.c"
- * \section Test Setup
- * We decided to compare the two protocols by sending a file over a TCP connection and over our
- * enhanced UDP protocol. We used the same file and the same amount of bytes to transfer. We also
- * used the same machine and the same network conditions.
- * \section test_tcp_ind Testing Protocols Independently
- * We tested the two protocols independently, using the same file and the same amount of bytes to transfer
- * and the same port on the same machine. 
- * 
- * \section test_tcp_comp Testing Protocols Competing
- *  We tested the two protocols competing, using the same file and the same amount of bytes to transfer, with
- *  implementation running in different ports. We started the receiver of the two protocols and then we started
- * the sender of the two protocols, with a brief time period between starting each protocol.
+ * \section compare3 3.0 Expectation 5 & 6
+ * - Expectation 5 - Your protocol must be somewhat TCP friendly: an instance of TCP competing with your implementation must receive, on average, at least half as much throughput as your flow.
+ * - Expectation 6 - An instance of your protocol competing with TCP must receive, on average, at least half as much throughput as the TCP flow. (Your protocol must not be overly nice.)
+ * \subsection exp5 3.1 Key Requirements
+ * 1. Have an instance of TCP competing with our protocol on the same private network.
+ * 2. Make sure that the TCP instance and our protocol get half as much throughput as our implementation.
+ * 3. Should share with TCP instance but not be too nice.
+ * \section tcp_3 4.0 Explanation of Testing
+ * \subsection tcpTest1 4.1 Have an instance of TCP competing with our protocol on the same private network.
+ * - To complete this requirement in testing we used two juno sessions for two senders and two europa sessions for two receivers. There is a pair with a TCP sender and receiver and a pair with an enhanced UDP sender and receiver.
+ * - We tested the two protocols competing, using the same file and the same amount of bytes to transfer, with implementations running in different ports.
+ * - We started the sender for the TCP and enhanced UDP protocol at almost the same time
+ * \subsection tcpTest2 4.2 Make sure that the TCP instance and our protocol get half as much throughput as our implementation.
+ * - To complete this requirement in testing we calculated the throughput for each protocol using \subpage bandwidth_and_throughput
+ * - Then we compared the throughput between the TCP implementation and our implementation to determine that the throughput of TCP was about half of the throughput of our protocol.
+ * \subsection tcpTest4 4.3 Important Notes
+ * - The results of this testing depend on the size of the buffer which reflects the packet size. Currently the packet size for both the sender and receiver is set at 10000.
+ * \code{.c}
+ * #define BUFFER_SIZE 10000
+ * \endcode
+ * \section tcp_4 4.0 Testing Expectation 4 - Usage Instructions
+ * 1. Create a cloudlab experiment using the setup for Lab2A
+ * 2. ssh into 2 instances of Europa and 2 instances of Juno. In this case we will consider Juno as the sender and Europa as the receiver
+ * 3. On one of the senders (Juno) run the following commands to clear existing settings on the network and add a new netem qdisc to limit the outbound traffic rate to 20 Mbit/s
+ *    - Clear existing qdisc settings:
+ *      \code{.sh}
+ *      sudo tc qdisc del dev eth0 root 2>/dev/null
+ *      \endcode
+ *    - Add a new netem qdisc with a rate of 20 Mbit/s:
+ *      \code{.sh}
+ *      sudo tc qdisc add dev eth0 root netem rate 20Mbit
+ *      \endcode
+ * 4. On the TCP receiver (Europa 1) run the following command to run the TCP implementation of the receiver, assuming the UDP port is 12345 and receiver.avi is an empty .avi file
+ * \code{.sh}
+ * ./receiver_tcp 12345 receiver.avi
+ * \endcode
+ * 4. On the enhanced UDP receiver (Europa 2) run the following command to run the enhanced UDP implementation of the receiver, assuming the UDP port is 12346 and receiver2.avi is an empty .avi file
+ * \code{.sh}
+ * ./receiver 12346 receiver2.avi
+ * \endcode
+ * 5. Now on both of the senders (Juno 1 & 2) prepare the commands required but don't send until you can do both at the same time
+ * \code{.sh}
+ * ./sender_tcp clnodevm127-1.clemson.cloudlab.us 12345 Test.avi 6000000
+ * \endcode
+ * \code{.sh}
+ * ./sender clnodevm127-1.clemson.cloudlab.us 12346 Test2.avi 6000000
+ * \endcode
+ * After all the packets have been transmitted on for both competing protocol instances, this is an example of the output from our testing
+ *    - TCP Sender (Juno 1):
+ *      \code{.sh}
+ *      maddy02@juno:~$ ./sender clnodevm127-1.clemson.cloudlab.us 12345 Test.avi 6000000
+ *      Hostname: clnodevm127-1.clemson.cloudlab.us
+ *      Sent 597 sequence
+ *      ACK received for closing packet sequence number: 597
+ *      Throughput: 12.27 Mb/s
+ *      Bandwidth Utilization: 61.36%
+ *      Time:  3.89
+ *      \endcode
+ *    - Enhanced UDP Sender (Juno 2):
+ *      \code{.sh}
+ *      maddy02@juno:~$ ./sender clnodevm127-1.clemson.cloudlab.us 12346 Test2.avi 6000000
+ *      Hostname: clnodevm127-1.clemson.cloudlab.us
+ *      Sent 597 sequence
+ *      ACK received for closing packet sequence number: 597
+ *      Throughput: 12.23 Mb/s
+ *      Bandwidth Utilization: 61.14%
+ *      Time:  3.90
+ *      \endcode
+ *    - TCP Receiver (Europa 1):
+ *      \code{.sh}
+ *      Last packet received. Sequence Number: 597
+ *      Sent final ack for sequence number: 597
+ *      \endcode
+ *    - Enhanced UDP Receiver (Europa 2):
+ *      \code{.sh}
+ *      Last packet received. Sequence Number: 597
+ *      Sent final ack for sequence number: 597
+ *      \endcode
  */

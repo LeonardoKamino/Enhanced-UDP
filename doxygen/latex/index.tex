@@ -5,8 +5,49 @@ Maddy Paulson (maddypaulson)
 
 Leo Kamino (Leo\+Kamino)
 \end{DoxyAuthor}
-Here you should tell us about how your game works. How to play, any special rules you have, etc. Also, explain any non-\/trivial design decisions you make, like how your ball gets its position updated, how you designed your buffer for readchar(), etc. You should also comment on the stability of your code. Any big bugs should be listed here. Basically, anything that you think we need to know in general about your project should go here.
+\hypertarget{index_sec1}{}\doxysection{\texorpdfstring{1.\+0 Introduction}{1.\+0 Introduction}}\label{index_sec1}
+Our enhanced UDP implementation aims to provide reliable data transmission over an inherently unreliable UDP protocol. It introduces mechanisms such as packet acknowledgment (ACK), retransmissions upon timeout, and sequence numbering to ensure data integrity and order.\hypertarget{index_sec2}{}\doxysection{\texorpdfstring{2.\+0 Usage}{2.\+0 Usage}}\label{index_sec2}
+First run the receiver with the following command, changing the arguments as required 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./receiver\ UDP\_port\ filename\ }
 
-Any additional comments you want to make can go here. Did you like the project? Was it too hard, too easy? Well, you get the idea.
+\end{DoxyCode}
+ Then run the sender with the following command, changing the arguments as required 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./sender\ hostname\ UDP\_port\ filename\ bytesToSend\ }
 
-As a last little note, please make sure that all the documentation you turn in is true and accurate. Otherwise, we will deduct points.\hypertarget{index_autotoc_md0}{}\doxysection{\texorpdfstring{\doxysectlink{main_test_page}{PA1 Test Page}{0}}{\doxysectlink{main_test_page}{PA1 Test Page}{0}}}\label{index_autotoc_md0}
+\end{DoxyCode}
+\hypertarget{index_sec3}{}\doxysection{\texorpdfstring{3.\+0 Design Decisions}{3.\+0 Design Decisions}}\label{index_sec3}
+\hypertarget{index_sub1}{}\doxysubsection{\texorpdfstring{3.\+1 Buffer Size \& Packet Structure}{3.\+1 Buffer Size \& Packet Structure}}\label{index_sub1}
+
+\begin{DoxyItemize}
+\item The choice of buffer size and the design of the packet header were crucial. The buffer size determines how much data can be sent per packet, while the packet header structure carries necessary metadata for reliable transmission. 
+\end{DoxyItemize}\hypertarget{index_sub2}{}\doxysubsection{\texorpdfstring{3.\+2 Timeouts \& Retransmissions}{3.\+2 Timeouts \& Retransmissions}}\label{index_sub2}
+
+\begin{DoxyItemize}
+\item The ACK timeout (ACK\+\_\+\+TIMEOUT\+\_\+\+USEC) and maximum resend attempts (MAX\+\_\+\+RESEND\+\_\+\+ATTEMPTS) are designed to balance between efficiency and reliability, preventing endless retransmissions. 
+\end{DoxyItemize}\hypertarget{index_sub3}{}\doxysubsection{\texorpdfstring{3.\+3 Bandwidth Utilization Calculation}{3.\+3 Bandwidth Utilization Calculation}}\label{index_sub3}
+
+\begin{DoxyItemize}
+\item A calculation function for throughput and bandwidth utilization was implemented to provide feedback on the efficiency of the data transmission process, considering the actual data sent, including overhead and retransmissions. 
+\end{DoxyItemize}\hypertarget{index_sec4}{}\doxysection{\texorpdfstring{4.\+0 Special Policies}{4.\+0 Special Policies}}\label{index_sec4}
+\hypertarget{index_sub4}{}\doxysubsection{\texorpdfstring{4.\+1 Packet Sequence Numbering}{4.\+1 Packet Sequence Numbering}}\label{index_sub4}
+
+\begin{DoxyItemize}
+\item Ensures packets are processed in the correct order and aids in identifying missing or out-\/of-\/order packets. 
+\end{DoxyItemize}\hypertarget{index_sub5}{}\doxysubsection{\texorpdfstring{4.\+2 ACK Timeouts and Retransmissions}{4.\+2 ACK Timeouts and Retransmissions}}\label{index_sub5}
+
+\begin{DoxyItemize}
+\item Defines the reliability layer on top of UDP by ensuring packets are retransmitted if an acknowledgment is not received within a certain timeframe. 
+\end{DoxyItemize}\hypertarget{index_sub6}{}\doxysubsection{\texorpdfstring{4.\+3 Closing Packet}{4.\+3 Closing Packet}}\label{index_sub6}
+
+\begin{DoxyItemize}
+\item A special packet indicating the end of transmission, ensuring the receiver is aware when all data has been sent. 
+\end{DoxyItemize}\hypertarget{index_sec5}{}\doxysection{\texorpdfstring{5.\+0 Known Bugs \& Limitations}{5.\+0 Known Bugs \& Limitations}}\label{index_sec5}
+\hypertarget{index_sub7}{}\doxysubsection{\texorpdfstring{5.\+1 TCP Bandwidth \& Throughput Calculation}{5.\+1 TCP Bandwidth \& Throughput Calculation}}\label{index_sub7}
+
+\begin{DoxyItemize}
+\item The calculation for the throughput and bandwidth was giving us a value of 102\%, however we believe this is likely due to the speed at which the ... 
+\end{DoxyItemize}\hypertarget{index_sec6}{}\doxysection{\texorpdfstring{6.\+0 Testing}{6.\+0 Testing}}\label{index_sec6}
+See \doxylink{main_test_page}{PA1 Test Page}\hypertarget{index_sec7}{}\doxysection{\texorpdfstring{7.\+0 Project Comments}{7.\+0 Project Comments}}\label{index_sec7}
+The project was very difficult. \input{main_test_page}

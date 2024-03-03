@@ -163,7 +163,7 @@ void rsend(char* hostname,
     */
     struct timeval timeout;
     timeout.tv_sec = 0;
-    timeout.tv_usec = 30000;
+    timeout.tv_usec = 2000 * EXPECTED_RTT;
     if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
         perror("Error setting socket timeout");
         close(sockDescriptor);
@@ -199,23 +199,10 @@ void rsend(char* hostname,
         PacketHeader header;
         header.sequenceNumber = sequenceNumber;
         header.flags = 0;
-        int sendAgain = 1;
 
         memcpy(buffer, &header, sizeof(header));
 
         do {
-            /*
-            * Send the packet and handle retransmissions if necessary.
-            */
-            // if(sendAgain){
-            //     gettimeofday(&sendTime, NULL);
-            //     sentBytes = sendto(sockDescriptor, buffer, readBytes + sizeof(PacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
-            //     if(sentBytes < 0) {
-            //         perror("Error sending file");
-            //         break;
-            //     }
-                
-            // }
 
             sentBytes = sendto(sockDescriptor, buffer, readBytes + sizeof(PacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
             totalBytesSent += sentBytes;
@@ -227,17 +214,7 @@ void rsend(char* hostname,
             PacketHeader ack;
             ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
 
-            /*
-            * Handle the acknowledgment (ACK) and retransmissions if necessary.
-            * If ACK is for a previous packet, ignore it and continue without needing to resend.
-            */
-            // if(ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber < header.sequenceNumber){
-            //     perror("ACK received for packet already acknowledge\n");
-            //     sendAgain = 0;
-            //     continue;
-            // }else {
-            //     sendAgain = 1;
-            // }
+            
 
             /*
             * If ACK is for the current packet, update sequence number and timeout, and exit the resend loop.
@@ -249,13 +226,13 @@ void rsend(char* hostname,
                 
                 gettimeofday(&receiveTime, NULL);
                 double rtt = calculateRTT(sendTime, receiveTime);
-                //updateTimeout(&estimatedRTT, &deviationRTT, rtt, &timeout);
+                updateTimeout(&estimatedRTT, &deviationRTT, rtt, &timeout);
 
-                // if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
-                //     perror("Error setting socket timeout");
-                //     close(sockDescriptor);
-                //     exit(EXIT_FAILURE);
-                // }
+                if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
+                    perror("Error setting socket timeout");
+                    close(sockDescriptor);
+                    exit(EXIT_FAILURE);
+                }
 
                 break; 
             } else if (errno == EAGAIN || errno == EWOULDBLOCK){
@@ -263,13 +240,13 @@ void rsend(char* hostname,
                 /*
                 * If the ACK timeout occurs, double current timeout.
                 */
-                // doubleTimeOut(&timeout);
+                doubleTimeOut(&timeout);
 
-                // if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
-                //     perror("Error setting socket timeout");
-                //     close(sockDescriptor);
-                //     exit(EXIT_FAILURE);
-                // }
+                if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
+                    perror("Error setting socket timeout");
+                    close(sockDescriptor);
+                    exit(EXIT_FAILURE);
+                }
 
             }
 

@@ -25,16 +25,17 @@
 \DoxyCodeLine{00058\ }
 \DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{double}\ timeout\_msec\ =\ *estimatedRTT\ \ +\ 4\ *\ *deviation;}
 \DoxyCodeLine{00060\ \ \ \ \ timeout\_msec\ =\ timeout\_msec\ <\ 5\ ?\ 5\ :\ timeout\_msec;}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{rtt__estimates_8h_a8b2f872442366b0a1b2c72f8bb1d98dc}{setTimeoutFromMs}}(timeout,\ timeout\_msec);}
-\DoxyCodeLine{00063\ \}}
-\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00061\ \ \ \ \ timeout\_msec\ =\ timeout\_msec\ >\ 300\ ?\ 300\ :\ timeout\_msec;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{rtt__estimates_8h_a8b2f872442366b0a1b2c72f8bb1d98dc}{setTimeoutFromMs}}(timeout,\ timeout\_msec);}
+\DoxyCodeLine{00064\ \}}
 \DoxyCodeLine{00065\ }
-\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtt__estimates_8h_ac104204deb25bbf26e2250335f833769}{doubleTimeOut}}(\textcolor{keyword}{struct}\ timeval\ *timeout)\{}
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{double}\ timeout\_msec\ =\ timeout-\/>tv\_sec\ *\ 1000\ +\ timeout-\/>tv\_usec\ /\ 1000;}
-\DoxyCodeLine{00075\ \ \ \ \ timeout\_msec\ *=\ 2;}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{rtt__estimates_8h_a8b2f872442366b0a1b2c72f8bb1d98dc}{setTimeoutFromMs}}(timeout,\ timeout\_msec);}
-\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rtt__estimates_8h_ac104204deb25bbf26e2250335f833769}{doubleTimeOut}}(\textcolor{keyword}{struct}\ timeval\ *timeout)\{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{double}\ timeout\_msec\ =\ timeout-\/>tv\_sec\ *\ 1000\ +\ timeout-\/>tv\_usec\ /\ 1000;}
+\DoxyCodeLine{00076\ \ \ \ \ timeout\_msec\ *=\ 2;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{rtt__estimates_8h_a8b2f872442366b0a1b2c72f8bb1d98dc}{setTimeoutFromMs}}(timeout,\ timeout\_msec);}
+\DoxyCodeLine{00079\ \}}
 
 \end{DoxyCode}

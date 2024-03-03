@@ -1,3 +1,125 @@
-\doxysection{Multiple competing implementations}
-\hypertarget{competing}{}\label{competing}\index{Multiple competing implementations@{Multiple competing implementations}}
-Here are the installation instructions. 
+\doxysubsection{Multiple Competing Instances}
+\hypertarget{competing}{}\label{competing}\index{Multiple Competing Instances@{Multiple Competing Instances}}
+\hypertarget{competing_mci_1}{}\doxysubsubsection{\texorpdfstring{1.\+0 Calculation of Bandwidth \& Throughput}{1.\+0 Calculation of Bandwidth \& Throughput}}\label{competing_mci_1}
+See \doxylink{bandwidth_and_throughput}{Bandwidth \& Throughput Calculations}\hypertarget{competing_mci_2}{}\doxysubsubsection{\texorpdfstring{2.\+0 Expectation 4}{2.\+0 Expectation 4}}\label{competing_mci_2}
+Any two instances of your protocol competing with each other must converge to roughly fairly sharing the link (same throughputs $\pm10\%$), within 100 RTTs. The two instances might not start at the exact same time. \hypertarget{competing_exp4}{}\doxysubsubsubsection{\texorpdfstring{2.\+1 Key Requirements}{2.\+1 Key Requirements}}\label{competing_exp4}
+
+\begin{DoxyEnumerate}
+\item Start two instances of our protocol at roughly the same time
+\item After measuring the throughput of both instances, they should be the same +/-\/ 10\%
+\item The convergence of throughput between the 2 inctances of the protocol should occur within 100 RTTs
+\end{DoxyEnumerate}\hypertarget{competing_mci_3}{}\doxysubsubsection{\texorpdfstring{3.\+0 Explanation of Testing}{3.\+0 Explanation of Testing}}\label{competing_mci_3}
+\hypertarget{competing_test1}{}\doxysubsubsubsection{\texorpdfstring{3.\+1 Start two instances of our protocol at roughly the same time}{3.\+1 Start two instances of our protocol at roughly the same time}}\label{competing_test1}
+
+\begin{DoxyItemize}
+\item To complete this requirement in testing we used two juno sessions for two senders and two europa sessions for two receivers.
+\item We started them at almost the same time to test them competing with each other. 
+\end{DoxyItemize}\hypertarget{competing_test2}{}\doxysubsubsubsection{\texorpdfstring{3.\+2 After measuring the throughput of both instances, they should be the same +/-\/ 10\%}{3.\+2 After measuring the throughput of both instances, they should be the same +/-\/ 10\%}}\label{competing_test2}
+
+\begin{DoxyItemize}
+\item To complete this requirement in testing we calculated the throughput for each competing instance of the protocol using \doxylink{bandwidth_and_throughput}{Bandwidth \& Throughput Calculations}
+\item Then we compared the throughput between the competing instances to check if it was within 10\%. 
+\end{DoxyItemize}\hypertarget{competing_test3}{}\doxysubsubsubsection{\texorpdfstring{3.\+3 The convergence of throughput between the 2 inctances of the protocol should occur within 100 RTTs}{3.\+3 The convergence of throughput between the 2 inctances of the protocol should occur within 100 RTTs}}\label{competing_test3}
+
+\begin{DoxyItemize}
+\item To complete this requirement in testing we used a file with a size of 5.\+7\+Mb which provided us with 100 RTT when running therefore the convergence occured within 100 RTT as required. 
+\end{DoxyItemize}\hypertarget{competing_test4}{}\doxysubsubsubsection{\texorpdfstring{3.\+4 Important Notes}{3.\+4 Important Notes}}\label{competing_test4}
+
+\begin{DoxyItemize}
+\item The results of this testing depend on the size of the buffer which reflects the packet size. Currently the packet size for both the sender and receiver is set at 10000. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ BUFFER\_SIZE\ 10000}}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}\hypertarget{competing_mci_4}{}\doxysubsubsection{\texorpdfstring{4.\+0 Testing Expectation 4 -\/ Usage Instructions}{4.\+0 Testing Expectation 4 -\/ Usage Instructions}}\label{competing_mci_4}
+
+\begin{DoxyEnumerate}
+\item Create a cloudlab experiment using the setup for Lab2A
+\item ssh into 2 instances of Europa and 2 instances of Juno. In this case we will consider Juno as the sender and Europa as the receiver
+\item On one of the senders (Juno) run the following commands to clear existing settings on the network and add a new netem qdisc to limit the outbound traffic rate to 20 Mbit/s
+\begin{DoxyItemize}
+\item Clear existing qdisc settings\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ tc\ qdisc\ del\ dev\ eth0\ root\ 2>/dev/null}
+
+\end{DoxyCode}
+
+\item Add a new netem qdisc with a rate of 20 Mbit/s\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ tc\ qdisc\ add\ dev\ eth0\ root\ netem\ rate\ 20Mbit}
+
+\end{DoxyCode}
+
+\end{DoxyItemize}
+\item On receiver 1 (Europa 1) run the following command to run the receiver, assuming the UDP port is 12345 and receiver.\+avi is an empty .avi file 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./receiver\ 12345\ receiver.avi}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item On receiver 2 (Europa 2) run the following command to run the receiver, assuming the UDP port is 12346 and receiver2.\+avi is an empty .avi file 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./receiver\ 12346\ receiver2.avi}
+
+\end{DoxyCode}
+
+\item Now on both of the senders (Juno 1 \& 2) prepare the commands required but don\textquotesingle{}t send until you can do both at the same time 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./sender\ clnodevm127-\/1.clemson.cloudlab.us\ 12345\ Test.avi\ 6000000}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./sender\ clnodevm127-\/1.clemson.cloudlab.us\ 12346\ Test2.avi\ 6000000}
+
+\end{DoxyCode}
+ 
+\end{DoxyEnumerate}\hypertarget{competing_udp_results}{}\doxysubsubsubsection{\texorpdfstring{4.\+1 Test Results}{4.\+1 Test Results}}\label{competing_udp_results}
+
+\begin{DoxyItemize}
+\item Sender 1 (Juno 1)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
+\DoxyCodeLine{Sent\ 597\ sequence}
+\DoxyCodeLine{ACK\ received\ for\ closing\ packet\ sequence\ number:\ 597}
+\DoxyCodeLine{Throughput:\ 11.98\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 57.13\%}
+\DoxyCodeLine{Time:\ \ 3.98}
+
+\end{DoxyCode}
+
+\item Sender 2 (Juno 2)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
+\DoxyCodeLine{Sent\ 597\ sequence}
+\DoxyCodeLine{ACK\ received\ for\ closing\ packet\ sequence\ number:\ 597}
+\DoxyCodeLine{Throughput:\ 11.97\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 57.08\%}
+\DoxyCodeLine{Time:\ \ 3.98}
+
+\end{DoxyCode}
+
+\item Receiver 1 (Europa 1)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Last\ packet\ received.\ Sequence\ Number:\ 597}
+\DoxyCodeLine{Sent\ final\ ack\ for\ sequence\ number:\ 597}
+
+\end{DoxyCode}
+
+\item Receiver 2 (Europa 2)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Last\ packet\ received.\ Sequence\ Number:\ 597}
+\DoxyCodeLine{Sent\ final\ ack\ for\ sequence\ number:\ 597}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}\hypertarget{competing_udp_results2}{}\doxysubsubsubsection{\texorpdfstring{4.\+2 Explanation of Results}{4.\+2 Explanation of Results}}\label{competing_udp_results2}
+
+\begin{DoxyItemize}
+\item The throughput for instance \#1 is 11.\+98 Mb/s and the throughput for instance \#2 is Throughput\+: 11.\+97 Mb/s therefore the throughputs are within 10\% of each other.
+\item We used a file with a size of 5.\+7\+Mb which provided us with 100 RTT when running therefore the convergence occured within 100 RTT as required.
+\item For this test we used a buffer size of 10000 and a LINK\+\_\+\+CAPACITY of 20971520 which is 20Mb. 
+\end{DoxyItemize}\input{bandwidth_and_throughput}

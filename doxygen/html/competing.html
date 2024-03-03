@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ELEC 331 Programming Assignment 1: Multiple competing implementations</title>
+<title>ELEC 331 Programming Assignment 1: Multiple Competing Instances</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -78,14 +78,104 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="main_test_page.html">PA1 Test Page</a></li>  </ul>
+<li class="navelem"><a class="el" href="index.html">ELEC 331 Programming Assignment 1</a></li><li class="navelem"><a class="el" href="main_test_page.html">PA1 Test Page</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div><div class="header">
-  <div class="headertitle"><div class="title">Multiple competing implementations</div></div>
+  <div class="headertitle"><div class="title">Multiple Competing Instances</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Here are the installation instructions. </p>
+<div class="textblock"><h1><a class="anchor" id="mci_1"></a>
+1.0 Calculation of Bandwidth &amp; Throughput</h1>
+<p>See <a class="el" href="bandwidth_and_throughput.html">Bandwidth &amp; Throughput Calculations</a></p>
+<h1><a class="anchor" id="mci_2"></a>
+2.0 Expectation 4</h1>
+<p>Any two instances of your protocol competing with each other must converge to roughly fairly sharing the link (same throughputs \(\pm10\%\)), within 100 RTTs. The two instances might not start at the exact same time. </p>
+<h2><a class="anchor" id="exp4"></a>
+2.1 Key Requirements</h2>
+<ol type="1">
+<li>Start two instances of our protocol at roughly the same time</li>
+<li>After measuring the throughput of both instances, they should be the same +/- 10%</li>
+<li>The convergence of throughput between the 2 inctances of the protocol should occur within 100 RTTs</li>
+</ol>
+<h1><a class="anchor" id="mci_3"></a>
+3.0 Explanation of Testing</h1>
+<h2><a class="anchor" id="test1"></a>
+3.1 Start two instances of our protocol at roughly the same time</h2>
+<ul>
+<li>To complete this requirement in testing we used two juno sessions for two senders and two europa sessions for two receivers.</li>
+<li>We started them at almost the same time to test them competing with each other. </li>
+</ul>
+<h2><a class="anchor" id="test2"></a>
+3.2 After measuring the throughput of both instances, they should be the same +/- 10%</h2>
+<ul>
+<li>To complete this requirement in testing we calculated the throughput for each competing instance of the protocol using <a class="el" href="bandwidth_and_throughput.html">Bandwidth &amp; Throughput Calculations</a></li>
+<li>Then we compared the throughput between the competing instances to check if it was within 10%. </li>
+</ul>
+<h2><a class="anchor" id="test3"></a>
+3.3 The convergence of throughput between the 2 inctances of the protocol should occur within 100 RTTs</h2>
+<ul>
+<li>To complete this requirement in testing we used a file with a size of 5.7Mb which provided us with 100 RTT when running therefore the convergence occured within 100 RTT as required. </li>
+</ul>
+<h2><a class="anchor" id="test4"></a>
+3.4 Important Notes</h2>
+<ul>
+<li>The results of this testing depend on the size of the buffer which reflects the packet size. Currently the packet size for both the sender and receiver is set at 10000. <div class="fragment"><div class="line"><span class="preprocessor">#define BUFFER_SIZE 10000</span></div>
+</div><!-- fragment --> </li>
+</ul>
+<h1><a class="anchor" id="mci_4"></a>
+4.0 Testing Expectation 4 - Usage Instructions</h1>
+<ol type="1">
+<li>Create a cloudlab experiment using the setup for Lab2A</li>
+<li>ssh into 2 instances of Europa and 2 instances of Juno. In this case we will consider Juno as the sender and Europa as the receiver</li>
+<li>On one of the senders (Juno) run the following commands to clear existing settings on the network and add a new netem qdisc to limit the outbound traffic rate to 20 Mbit/s<ul>
+<li>Clear existing qdisc settings: <div class="fragment"><div class="line">sudo tc qdisc del dev eth0 root 2&gt;/dev/null</div>
+</div><!-- fragment --></li>
+<li>Add a new netem qdisc with a rate of 20 Mbit/s: <div class="fragment"><div class="line">sudo tc qdisc add dev eth0 root netem rate 20Mbit</div>
+</div><!-- fragment --></li>
+</ul>
+</li>
+<li>On receiver 1 (Europa 1) run the following command to run the receiver, assuming the UDP port is 12345 and receiver.avi is an empty .avi file <div class="fragment"><div class="line">./receiver 12345 receiver.avi</div>
+</div><!-- fragment --></li>
+</ol>
+<ol type="1">
+<li>On receiver 2 (Europa 2) run the following command to run the receiver, assuming the UDP port is 12346 and receiver2.avi is an empty .avi file <div class="fragment"><div class="line">./receiver 12346 receiver2.avi</div>
+</div><!-- fragment --></li>
+<li>Now on both of the senders (Juno 1 &amp; 2) prepare the commands required but don't send until you can do both at the same time <div class="fragment"><div class="line">./sender clnodevm127-1.clemson.cloudlab.us 12345 Test.avi 6000000</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">./sender clnodevm127-1.clemson.cloudlab.us 12346 Test2.avi 6000000</div>
+</div><!-- fragment --> </li>
+</ol>
+<h2><a class="anchor" id="udp_results"></a>
+4.1 Test Results</h2>
+<ul>
+<li>Sender 1 (Juno 1): <div class="fragment"><div class="line">Hostname: clnodevm127-1.clemson.cloudlab.us</div>
+<div class="line">Sent 597 sequence</div>
+<div class="line">ACK received for closing packet sequence number: 597</div>
+<div class="line">Throughput: 11.98 Mb/s</div>
+<div class="line">Bandwidth Utilization: 57.13%</div>
+<div class="line">Time:  3.98</div>
+</div><!-- fragment --></li>
+<li>Sender 2 (Juno 2): <div class="fragment"><div class="line">Hostname: clnodevm127-1.clemson.cloudlab.us</div>
+<div class="line">Sent 597 sequence</div>
+<div class="line">ACK received for closing packet sequence number: 597</div>
+<div class="line">Throughput: 11.97 Mb/s</div>
+<div class="line">Bandwidth Utilization: 57.08%</div>
+<div class="line">Time:  3.98</div>
+</div><!-- fragment --></li>
+<li>Receiver 1 (Europa 1): <div class="fragment"><div class="line">Last packet received. Sequence Number: 597</div>
+<div class="line">Sent final ack for sequence number: 597</div>
+</div><!-- fragment --></li>
+<li>Receiver 2 (Europa 2): <div class="fragment"><div class="line">Last packet received. Sequence Number: 597</div>
+<div class="line">Sent final ack for sequence number: 597</div>
+</div><!-- fragment --> </li>
+</ul>
+<h2><a class="anchor" id="udp_results2"></a>
+4.2 Explanation of Results</h2>
+<ul>
+<li>The throughput for instance #1 is 11.98 Mb/s and the throughput for instance #2 is Throughput: 11.97 Mb/s therefore the throughputs are within 10% of each other.</li>
+<li>We used a file with a size of 5.7Mb which provided us with 100 RTT when running therefore the convergence occured within 100 RTT as required.</li>
+<li>For this test we used a buffer size of 10000 and a LINK_CAPACITY of 20971520 which is 20Mb. </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

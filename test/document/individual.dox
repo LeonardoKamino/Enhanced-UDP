@@ -1,5 +1,51 @@
 /**
- * \page individual Our implementation by itself
- * 
- * Here are the installation instructions.
+ * \page individual Testing a Single Instance of Our Protocol
+ * \section individual_1 1.0 Calculation of Bandwidth & Throughput
+ * See \subpage bandwidth_and_throughput
+ *
+ * \section individual_2 2.0 Expectation 3
+ * Your protocol must, in steady state (averaged over 10 seconds), utilize at least 70% of bandwidth when there is no competing traffic, and packets are not artificially dropped or reordered.
+ * \subsection exp3 2.1 Key Requirements
+ * 1. No packet dropping or reordering should be applied while testing
+ * 2. No competing traffic while measuring bandwidth, use cloudlab for isolation
+ * 3. Averaged over 10 seconds, with a link capacity on cloudlab of 20Mbit/s
+ * 4. Requires file size of at least 20 Mb
+ * \section individual_3 3.0 Testing Expectation 3 - Usage Instructions
+ * 1. Create a cloudlab experiment using the setup for Lab2A
+ * 2. ssh into Europa and Juno. In this case we will consider Juno as the sender and Europa as the receiver
+ * 3. On the sender (Juno) run the following commands to clear existing settings on the network and add a new netem qdisc to limit the outbound traffic rate to 20 Mbit/s
+ *    - Clear existing qdisc settings:
+ *      \code{.sh}
+ *      sudo tc qdisc del dev eth0 root 2>/dev/null
+ *      \endcode
+ *    - Add a new netem qdisc with a rate of 20 Mbit/s:
+ *      \code{.sh}
+ *      sudo tc qdisc add dev eth0 root netem rate 20Mbit
+ *      \endcode
+ * 4. On the receiver (Europa) run the following command to run the receiver, assuming the UDP port is 12345 and receiver.mp4 is an empty .mp4 file
+ * \code{.sh}
+ * ./receiver 12345 receiver.mp4
+ * \endcode
+ * 5. Now on the sender (Juno) run this command where the port number is 12345, the hostname is using the cloudlab cluster, and SampleVideo.mp4 is a 20.1 Mb file.
+ * \code{.sh}
+ * ./sender clnodevm127-1.clemson.cloudlab.us 12345 SampleVideo.mp4 22000000
+ * \endcode
+ * \subsection ind_results 3.1 Test Results
+ *    - Sender (Juno):
+ *      \code{.sh}
+ *      Hostname: clnodevm127-1.clemson.cloudlab.us
+ *      Sent 2109 sequence
+ *      ACK received for closing packet sequence number: 2109
+ *      Throughput: 17.66 Mb/s
+ *      Bandwidth Utilization: 84.20%
+ *      Time:  9.55
+ *      \endcode
+ *    - Receiver (Europa):
+ *      \code{.sh}
+ *      Last packet received. Sequence Number: 2109
+ *      Sent final ack for sequence number: 2109
+ *      \endcode
+ * \subsection ind_results2 3.2 Explanation of Results
+ * - The resulting bandwidth of 84.20% meets the minimum requirement of 70% with no artificial packet loss or reordering.
+ * - For this test we used a buffer size of 10000 and a LINK_CAPACITY of 20971520 which is 20Mb
  */

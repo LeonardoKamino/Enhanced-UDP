@@ -1,5 +1,87 @@
 /**
- * \page competing Multiple competing implementations
+ * \page competing Multiple Competing Instances
+ * \section mci_1 1.0 Calculation of Bandwidth & Throughput
+ * See \subpage bandwidth_and_throughput
  * 
- * Here are the installation instructions.
+ * \section mci_2 2.0 Expectation 4
+ * Any two instances of your protocol competing with each other must converge to roughly fairly sharing the link (same throughputs \f$\pm10\%\f$), within 100 RTTs. The two instances might not start at the exact same time.
+ * \subsection exp4 2.1 Key Requirements
+ * 1. Start two instances of our protocol at roughly the same time
+ * 2. After measuring the throughput of both instances, they should be the same +/- 10%
+ * 3. The convergence of throughput between the 2 inctances of the protocol should occur within 100 RTTs
+ *
+ * \section mci_3 3.0 Explanation of Testing
+ * \subsection test1 3.1 Start two instances of our protocol at roughly the same time
+ * - To complete this requirement in testing we used two juno sessions for two senders and two europa sessions for two receivers.
+ * - We started them at almost the same time to test them competing with each other.
+ * \subsection test2 3.2 After measuring the throughput of both instances, they should be the same +/- 10%
+ * - To complete this requirement in testing we calculated the throughput for each competing instance of the protocol using \subpage bandwidth_and_throughput
+ * - Then we compared the throughput between the competing instances to check if it was within 10%.
+ * \subsection test3 3.3 The convergence of throughput between the 2 inctances of the protocol should occur within 100 RTTs
+ * - To complete this requirement in testing we used a file with a size of 5.7Mb which provided us with 100 RTT when running therefore the convergence occured within 100 RTT as required.
+ * \subsection test4 3.4 Important Notes
+ * - The results of this testing depend on the size of the buffer which reflects the packet size. Currently the packet size for both the sender and receiver is set at 10000.
+ * \code{.c}
+ * #define BUFFER_SIZE 10000
+ * \endcode
+ * \section mci_4 4.0 Testing Expectation 4 - Usage Instructions
+ * 1. Create a cloudlab experiment using the setup for Lab2A
+ * 2. ssh into 2 instances of Europa and 2 instances of Juno. In this case we will consider Juno as the sender and Europa as the receiver
+ * 3. On one of the senders (Juno) run the following commands to clear existing settings on the network and add a new netem qdisc to limit the outbound traffic rate to 20 Mbit/s
+ *    - Clear existing qdisc settings:
+ *      \code{.sh}
+ *      sudo tc qdisc del dev eth0 root 2>/dev/null
+ *      \endcode
+ *    - Add a new netem qdisc with a rate of 20 Mbit/s:
+ *      \code{.sh}
+ *      sudo tc qdisc add dev eth0 root netem rate 20Mbit
+ *      \endcode
+ * 4. On receiver 1 (Europa 1) run the following command to run the receiver, assuming the UDP port is 12345 and receiver.avi is an empty .avi file
+ * \code{.sh}
+ * ./receiver 12345 receiver.avi
+ * \endcode
+ * 4. On receiver 2 (Europa 2) run the following command to run the receiver, assuming the UDP port is 12346 and receiver2.avi is an empty .avi file
+ * \code{.sh}
+ * ./receiver 12346 receiver2.avi
+ * \endcode
+ * 5. Now on both of the senders (Juno 1 & 2) prepare the commands required but don't send until you can do both at the same time
+ * \code{.sh}
+ * ./sender clnodevm127-1.clemson.cloudlab.us 12345 Test.avi 6000000
+ * \endcode
+ * \code{.sh}
+ * ./sender clnodevm127-1.clemson.cloudlab.us 12346 Test2.avi 6000000
+ * \endcode
+ * \subsection udp_results 4.1 Test Results
+ *    - Sender 1 (Juno 1):
+ *      \code{.sh}
+ *      Hostname: clnodevm127-1.clemson.cloudlab.us
+ *      Sent 597 sequence
+ *      ACK received for closing packet sequence number: 597
+ *      Throughput: 11.98 Mb/s
+ *      Bandwidth Utilization: 57.13%
+ *      Time:  3.98
+ *      \endcode
+ *    - Sender 2 (Juno 2):
+ *      \code{.sh}
+ *      Hostname: clnodevm127-1.clemson.cloudlab.us
+ *      Sent 597 sequence
+ *      ACK received for closing packet sequence number: 597
+ *      Throughput: 11.97 Mb/s
+ *      Bandwidth Utilization: 57.08%
+ *      Time:  3.98
+ *      \endcode
+ *    - Receiver 1 (Europa 1):
+ *      \code{.sh}
+ *      Last packet received. Sequence Number: 597
+ *      Sent final ack for sequence number: 597
+ *      \endcode
+ *    - Receiver 2 (Europa 2):
+ *      \code{.sh}
+ *      Last packet received. Sequence Number: 597
+ *      Sent final ack for sequence number: 597
+ *      \endcode
+ * \subsection udp_results2 4.2 Explanation of Results
+ * - The throughput for instance #1 is 11.98 Mb/s and the throughput for instance #2 is Throughput: 11.97 Mb/s therefore the throughputs are within 10% of each other.
+ * - We used a file with a size of 5.7Mb which provided us with 100 RTT when running therefore the convergence occured within 100 RTT as required.
+ * - For this test we used a buffer size of 10000 and a LINK_CAPACITY of 20971520 which is 20Mb.
  */

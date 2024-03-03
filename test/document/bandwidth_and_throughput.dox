@@ -1,0 +1,73 @@
+/**
+ * \page bandwidth_and_throughput Bandwidth & Throughput Calculations
+ *
+ * \section b_and_t1 1.0 Throughput For A Single Instance of A Protocol
+ * \subsection throughput_1 1.1 Throughput Calculation
+ * The formula for throughput is given by:
+ * \f[
+ * \text{throughput} = \frac{(\text{totalBytesSent} + \text{sizeof(PacketHeader)} \times \text{sequenceNumber}) \times 8}{\text{duration}}
+ * \f]
+ * where:
+ * - \c totalBytesSent is the total number of bytes of the payload sent.
+ * - \c sizeof(PacketHeader) is the size of the header of each packet.
+ * - \c sequenceNumber is the total number of packets sent.
+ * - \c 8 converts bytes to bits.
+ * - \c duration is the time taken for the transmission in seconds.
+ *
+ * \subsection throughput_2 1.2 Relevant Throughput Code
+ * \code{.c}
+ * // Start timing just before the while loop where packets are sent
+ * struct timeval start, end;
+ * gettimeofday(&start, NULL);
+ *
+ * // Calculate throughput after handling the closing packet
+ * sendClosingPacket(sockDescriptor, &destAddr, sequenceNumber);
+ *
+ * gettimeofday(&end, NULL);
+ * double duration = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
+ * double throughput = ((totalBytesSent + sizeof(PacketHeader) * sequenceNumber) * 8) / duration;
+ * printf("Throughput: %.2f Mb/s\n", throughput/1000000.0);
+ * \endcode
+ * \subsection throughput_3 1.3 Throughput Explanation
+ * 1. Start the timing before the while loop where packets are repeatedly sent to send all the data.
+ * 2. Stop the timing after the call to the function sendClosingPacket() which sends the last acknowledgment packet.
+ * 3. Stop the timing the get the elapsed time for the calculation.
+ * 4. data transferred = totalBytesSent + sizeof(PacketHeader) * sequenceNumber * 8
+ * 5. This formula finds the total number of bits set including the headers and payload.
+ * 6. Divide the data sent by the duration to find the throughput for our protocol.
+ *
+ * \section b_and_t2 2.0 Bandwidth For A Single Instance of A Protocol
+ * \subsection bandwidth_1 2.1 Bandwidth Calculation
+ * The formula for bandwidth is given by:
+ * \f[
+ * \text{bandwidth} = (\frac{\text{throughput}}{\text{LINK_CAPACITY}}) \times 100
+ * \f]
+ * where:
+ * - \c throughput is bits sent per second
+ * - \c LINK_CAPACITY is the maximum amount of data that can be transmitted over a communication channel within a given time frame.
+ * - \c 100 converts the value to a bandwidth percentage. 
+ * \subsection bandwidth_2 2.2 Relevant Bandwidth Code
+ * \code{.c}
+ * // Start timing just before the while loop where packets are sent
+ * struct timeval start, end;
+ * gettimeofday(&start, NULL);
+ *
+ * // Calculate bandwidth after handling the closing packet
+ * sendClosingPacket(sockDescriptor, &destAddr, sequenceNumber);
+ *
+ * gettimeofday(&end, NULL);
+ * double duration = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
+ * double throughput = ((totalBytesSent + sizeof(PacketHeader) * sequenceNumber) * 8) / duration;
+ * double bandwidthUtilization =  (throughput / LINK_CAPACITY) * 100;  
+ * printf("Throughput: %.2f Mb/s\n", throughput/1000000.0);
+ * printf("Bandwidth Utilization: %.2f%%\n", bandwidthUtilization);
+ * printf("Time:  %.2f\n", duration);
+ * \endcode
+ * \subsection bandwidth_3 2.3 Throughput Explanation
+ * 1. Start the timing before the while loop where packets are repeatedly sent to send all the data.
+ * 2. Stop the timing after the call to the function sendClosingPacket() which sends the last acknowledgment packet.
+ * 3. Stop the timing the get the elapsed time for the calculation.
+ * 4. Calculate the throughput with the formula above.
+ * 5. Calculate bandwidth by dividing the achieved throughput by the theoretical maximum bandwidth (LINK_CAPACITY) and then multiplying by 100 to get a percentage
+ *
+ */

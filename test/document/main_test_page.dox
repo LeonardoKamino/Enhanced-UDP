@@ -7,9 +7,9 @@
  * 
  * \section pages_sec Testing Results
  * 
- * - \subpage individual
- * - \subpage competing
- * - \subpage compare_tcp
- * - \subpage packet_loss
+ * 1. \subpage bandwidth_and_throughput
+ * 2. \subpage individual
+ * 3. \subpage competing
+ * 4. \subpage compare_tcp
  * 
  */

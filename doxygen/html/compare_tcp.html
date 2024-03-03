@@ -78,31 +78,105 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="main_test_page.html">PA1 Test Page</a></li>  </ul>
+<li class="navelem"><a class="el" href="index.html">ELEC 331 Programming Assignment 1</a></li><li class="navelem"><a class="el" href="main_test_page.html">PA1 Test Page</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div><div class="header">
   <div class="headertitle"><div class="title">Our implementation vs TCP</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="intro_sec"></a>
-TCP Implementation</h1>
-<p>In order to compare our implementation with the TCP protocol, we decided to create an implementation of the TCP protoco. The implementation try to be as close as possible to our enhanced protocol, but using SOCK_STREAM instead. The implementation is divided in two files, <a class="el" href="sender__tcp_8c.html" title="Functions for sending data over TCP protocol.">sender_tcp.c</a> and <a class="el" href="receiver__tcp_8c.html" title="Functions for receiving data over an TCP.">receiver_tcp.c</a>. The <a class="el" href="sender__tcp_8c.html" title="Functions for sending data over TCP protocol.">sender_tcp.c</a> file contains the implementation of functions responsible for sending data over the TCP protocol. It includes a key function tsend which handles the connection. The <a class="el" href="receiver__tcp_8c.html" title="Functions for receiving data over an TCP.">receiver_tcp.c</a> file contains the implementation of functions responsible for receiving data over the TCP protocol. It includes key functions for handling incoming data and compiling the output file. </p>
+<div class="textblock"><h1><a class="anchor" id="compare1"></a>
+1.0 Calculation of Bandwidth &amp; Throughput</h1>
+<p>See <a class="el" href="bandwidth_and_throughput.html">Bandwidth &amp; Throughput Calculations</a> </p>
+<h1><a class="anchor" id="compare2"></a>
+2.0 TCP Implementation</h1>
+<p>In order to compare our implementation with the TCP protocol, we decided to create an implementation of the TCP protocol. The implementation try to be as close as possible to our enhanced protocol, but using SOCK_STREAM instead. The implementation is divided in two files, <a class="el" href="sender__tcp_8c.html" title="Functions for sending data over TCP protocol.">sender_tcp.c</a> and <a class="el" href="receiver__tcp_8c.html" title="Functions for receiving data over an TCP.">receiver_tcp.c</a>. The <a class="el" href="sender__tcp_8c.html" title="Functions for sending data over TCP protocol.">sender_tcp.c</a> file contains the implementation of functions responsible for sending data over the TCP protocol. It includes a key function tsend which handles the connection. The <a class="el" href="receiver__tcp_8c.html" title="Functions for receiving data over an TCP.">receiver_tcp.c</a> file contains the implementation of functions responsible for receiving data over the TCP protocol. It includes key functions for handling incoming data and compiling the output file.</p>
 <h2><a class="anchor" id="file_tcp_link"></a>
-File of TCP implementation</h2>
+2.1 Files for TCP implementation</h2>
 <ul>
 <li><a class="el" href="sender__tcp_8c.html">sender_tcp.c</a></li>
 <li><a class="el" href="receiver__tcp_8c.html">receiver_tcp.c</a> </li>
 </ul>
-<h1><a class="anchor" id="Test"></a>
-Setup</h1>
-<p>We decided to compare the two protocols by sending a file over a TCP connection and over our enhanced UDP protocol. We used the same file and the same amount of bytes to transfer. We also used the same machine and the same network conditions. </p>
-<h1><a class="anchor" id="test_tcp_ind"></a>
-Testing Protocols Independently</h1>
-<p>We tested the two protocols independently, using the same file and the same amount of bytes to transfer and the same port on the same machine.</p>
-<h1><a class="anchor" id="test_tcp_comp"></a>
-Testing Protocols Competing</h1>
-<p>We tested the two protocols competing, using the same file and the same amount of bytes to transfer, with implementation running in different ports. We started the receiver of the two protocols and then we started the sender of the two protocols, with a brief time period between starting each protocol. </p>
+<h1><a class="anchor" id="compare3"></a>
+3.0 Expectation 5 &amp; 6</h1>
+<ul>
+<li>Expectation 5 - Your protocol must be somewhat TCP friendly: an instance of TCP competing with your implementation must receive, on average, at least half as much throughput as your flow.</li>
+<li>Expectation 6 - An instance of your protocol competing with TCP must receive, on average, at least half as much throughput as the TCP flow. (Your protocol must not be overly nice.) </li>
+</ul>
+<h2><a class="anchor" id="exp5"></a>
+3.1 Key Requirements</h2>
+<ol type="1">
+<li>Have an instance of TCP competing with our protocol on the same private network.</li>
+<li>Make sure that the TCP instance and our protocol get half as much throughput as our implementation.</li>
+<li>Should share with TCP instance but not be too nice. </li>
+</ol>
+<h1><a class="anchor" id="tcp_3"></a>
+4.0 Explanation of Testing</h1>
+<h2><a class="anchor" id="tcpTest1"></a>
+4.1 Have an instance of TCP competing with our protocol on the same private network.</h2>
+<ul>
+<li>To complete this requirement in testing we used two juno sessions for two senders and two europa sessions for two receivers. There is a pair with a TCP sender and receiver and a pair with an enhanced UDP sender and receiver.</li>
+<li>We tested the two protocols competing, using the same file and the same amount of bytes to transfer, with implementations running in different ports.</li>
+<li>We started the sender for the TCP and enhanced UDP protocol at almost the same time </li>
+</ul>
+<h2><a class="anchor" id="tcpTest2"></a>
+4.2 Make sure that the TCP instance and our protocol get half as much throughput as our implementation.</h2>
+<ul>
+<li>To complete this requirement in testing we calculated the throughput for each protocol using <a class="el" href="bandwidth_and_throughput.html">Bandwidth &amp; Throughput Calculations</a></li>
+<li>Then we compared the throughput between the TCP implementation and our implementation to determine that the throughput of TCP was about half of the throughput of our protocol. </li>
+</ul>
+<h2><a class="anchor" id="tcpTest4"></a>
+4.3 Important Notes</h2>
+<ul>
+<li>The results of this testing depend on the size of the buffer which reflects the packet size. Currently the packet size for both the sender and receiver is set at 10000. <div class="fragment"><div class="line"><span class="preprocessor">#define BUFFER_SIZE 10000</span></div>
+</div><!-- fragment --> </li>
+</ul>
+<h1><a class="anchor" id="tcp_4"></a>
+4.0 Testing Expectation 4 - Usage Instructions</h1>
+<ol type="1">
+<li>Create a cloudlab experiment using the setup for Lab2A</li>
+<li>ssh into 2 instances of Europa and 2 instances of Juno. In this case we will consider Juno as the sender and Europa as the receiver</li>
+<li>On one of the senders (Juno) run the following commands to clear existing settings on the network and add a new netem qdisc to limit the outbound traffic rate to 20 Mbit/s<ul>
+<li>Clear existing qdisc settings: <div class="fragment"><div class="line">sudo tc qdisc del dev eth0 root 2&gt;/dev/null</div>
+</div><!-- fragment --></li>
+<li>Add a new netem qdisc with a rate of 20 Mbit/s: <div class="fragment"><div class="line">sudo tc qdisc add dev eth0 root netem rate 20Mbit</div>
+</div><!-- fragment --></li>
+</ul>
+</li>
+<li>On the TCP receiver (Europa 1) run the following command to run the TCP implementation of the receiver, assuming the UDP port is 12345 and receiver.avi is an empty .avi file <div class="fragment"><div class="line">./receiver_tcp 12345 receiver.avi</div>
+</div><!-- fragment --></li>
+</ol>
+<ol type="1">
+<li>On the enhanced UDP receiver (Europa 2) run the following command to run the enhanced UDP implementation of the receiver, assuming the UDP port is 12346 and receiver2.avi is an empty .avi file <div class="fragment"><div class="line">./receiver 12346 receiver2.avi</div>
+</div><!-- fragment --></li>
+<li>Now on both of the senders (Juno 1 &amp; 2) prepare the commands required but don't send until you can do both at the same time <div class="fragment"><div class="line">./sender_tcp clnodevm127-1.clemson.cloudlab.us 12345 Test.avi 6000000</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">./sender clnodevm127-1.clemson.cloudlab.us 12346 Test2.avi 6000000</div>
+</div><!-- fragment --> After all the packets have been transmitted on for both competing protocol instances, this is an example of the output from our testing<ul>
+<li>TCP Sender (Juno 1): <div class="fragment"><div class="line">maddy02@juno:~$ ./sender clnodevm127-1.clemson.cloudlab.us 12345 Test.avi 6000000</div>
+<div class="line">Hostname: clnodevm127-1.clemson.cloudlab.us</div>
+<div class="line">Sent 597 sequence</div>
+<div class="line">ACK received for closing packet sequence number: 597</div>
+<div class="line">Throughput: 12.27 Mb/s</div>
+<div class="line">Bandwidth Utilization: 61.36%</div>
+<div class="line">Time:  3.89</div>
+</div><!-- fragment --></li>
+<li>Enhanced UDP Sender (Juno 2): <div class="fragment"><div class="line">maddy02@juno:~$ ./sender clnodevm127-1.clemson.cloudlab.us 12346 Test2.avi 6000000</div>
+<div class="line">Hostname: clnodevm127-1.clemson.cloudlab.us</div>
+<div class="line">Sent 597 sequence</div>
+<div class="line">ACK received for closing packet sequence number: 597</div>
+<div class="line">Throughput: 12.23 Mb/s</div>
+<div class="line">Bandwidth Utilization: 61.14%</div>
+<div class="line">Time:  3.90</div>
+</div><!-- fragment --></li>
+<li>TCP Receiver (Europa 1): <div class="fragment"><div class="line">Last packet received. Sequence Number: 597</div>
+<div class="line">Sent final ack for sequence number: 597</div>
+</div><!-- fragment --></li>
+<li>Enhanced UDP Receiver (Europa 2): <div class="fragment"><div class="line">Last packet received. Sequence Number: 597</div>
+<div class="line">Sent final ack for sequence number: 597</div>
+</div><!-- fragment --> </li>
+</ul>
+</li>
+</ol>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

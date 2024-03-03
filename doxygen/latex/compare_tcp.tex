@@ -1,12 +1,127 @@
-\doxysection{Our implementation vs TCP}
+\doxysubsection{Our implementation vs TCP}
 \hypertarget{compare_tcp}{}\label{compare_tcp}\index{Our implementation vs TCP@{Our implementation vs TCP}}
-\hypertarget{main_test_page_intro_sec}{}\doxysubsection{\texorpdfstring{TCP Implementation}{TCP Implementation}}\label{main_test_page_intro_sec}
-In order to compare our implementation with the TCP protocol, we decided to create an implementation of the TCP protoco. The implementation try to be as close as possible to our enhanced protocol, but using SOCK\+\_\+\+STREAM instead. The implementation is divided in two files, \doxylink{sender__tcp_8c}{sender\+\_\+tcp.\+c} and \doxylink{receiver__tcp_8c}{receiver\+\_\+tcp.\+c}. The \doxylink{sender__tcp_8c}{sender\+\_\+tcp.\+c} file contains the implementation of functions responsible for sending data over the TCP protocol. It includes a key function tsend which handles the connection. The \doxylink{receiver__tcp_8c}{receiver\+\_\+tcp.\+c} file contains the implementation of functions responsible for receiving data over the TCP protocol. It includes key functions for handling incoming data and compiling the output file. \hypertarget{compare_tcp_file_tcp_link}{}\doxysubsubsection{\texorpdfstring{File of TCP implementation}{File of TCP implementation}}\label{compare_tcp_file_tcp_link}
+\hypertarget{compare_tcp_compare1}{}\doxysubsubsection{\texorpdfstring{1.\+0 Calculation of Bandwidth \& Throughput}{1.\+0 Calculation of Bandwidth \& Throughput}}\label{compare_tcp_compare1}
+See \doxylink{bandwidth_and_throughput}{Bandwidth \& Throughput Calculations} \hypertarget{compare_tcp_compare2}{}\doxysubsubsection{\texorpdfstring{2.\+0 TCP Implementation}{2.\+0 TCP Implementation}}\label{compare_tcp_compare2}
+In order to compare our implementation with the TCP protocol, we decided to create an implementation of the TCP protocol. The implementation try to be as close as possible to our enhanced protocol, but using SOCK\+\_\+\+STREAM instead. The implementation is divided in two files, \doxylink{sender__tcp_8c}{sender\+\_\+tcp.\+c} and \doxylink{receiver__tcp_8c}{receiver\+\_\+tcp.\+c}. The \doxylink{sender__tcp_8c}{sender\+\_\+tcp.\+c} file contains the implementation of functions responsible for sending data over the TCP protocol. It includes a key function tsend which handles the connection. The \doxylink{receiver__tcp_8c}{receiver\+\_\+tcp.\+c} file contains the implementation of functions responsible for receiving data over the TCP protocol. It includes key functions for handling incoming data and compiling the output file.\hypertarget{compare_tcp_file_tcp_link}{}\doxysubsubsubsection{\texorpdfstring{2.\+1 Files for TCP implementation}{2.\+1 Files for TCP implementation}}\label{compare_tcp_file_tcp_link}
 
 \begin{DoxyItemize}
 \item \doxylink{sender__tcp_8c}{sender\+\_\+tcp.c}
 \item \doxylink{receiver__tcp_8c}{receiver\+\_\+tcp.c} 
-\end{DoxyItemize}\hypertarget{compare_tcp_Test}{}\doxysubsection{\texorpdfstring{Setup}{Setup}}\label{compare_tcp_Test}
-We decided to compare the two protocols by sending a file over a TCP connection and over our enhanced UDP protocol. We used the same file and the same amount of bytes to transfer. We also used the same machine and the same network conditions. \hypertarget{compare_tcp_test_tcp_ind}{}\doxysubsection{\texorpdfstring{Testing Protocols Independently}{Testing Protocols Independently}}\label{compare_tcp_test_tcp_ind}
-We tested the two protocols independently, using the same file and the same amount of bytes to transfer and the same port on the same machine.\hypertarget{compare_tcp_test_tcp_comp}{}\doxysubsection{\texorpdfstring{Testing Protocols Competing}{Testing Protocols Competing}}\label{compare_tcp_test_tcp_comp}
-We tested the two protocols competing, using the same file and the same amount of bytes to transfer, with implementation running in different ports. We started the receiver of the two protocols and then we started the sender of the two protocols, with a brief time period between starting each protocol. 
+\end{DoxyItemize}\hypertarget{compare_tcp_compare3}{}\doxysubsubsection{\texorpdfstring{3.\+0 Expectation 5 \& 6}{3.\+0 Expectation 5 \& 6}}\label{compare_tcp_compare3}
+
+\begin{DoxyItemize}
+\item Expectation 5 -\/ Your protocol must be somewhat TCP friendly\+: an instance of TCP competing with your implementation must receive, on average, at least half as much throughput as your flow.
+\item Expectation 6 -\/ An instance of your protocol competing with TCP must receive, on average, at least half as much throughput as the TCP flow. (Your protocol must not be overly nice.) 
+\end{DoxyItemize}\hypertarget{compare_tcp_exp5}{}\doxysubsubsubsection{\texorpdfstring{3.\+1 Key Requirements}{3.\+1 Key Requirements}}\label{compare_tcp_exp5}
+
+\begin{DoxyEnumerate}
+\item Have an instance of TCP competing with our protocol on the same private network.
+\item Make sure that the TCP instance and our protocol get half as much throughput as our implementation.
+\item Should share with TCP instance but not be too nice. 
+\end{DoxyEnumerate}\hypertarget{compare_tcp_tcp_3}{}\doxysubsubsection{\texorpdfstring{4.\+0 Explanation of Testing}{4.\+0 Explanation of Testing}}\label{compare_tcp_tcp_3}
+\hypertarget{compare_tcp_tcpTest1}{}\doxysubsubsubsection{\texorpdfstring{4.\+1 Have an instance of TCP competing with our protocol on the same private network.}{4.\+1 Have an instance of TCP competing with our protocol on the same private network.}}\label{compare_tcp_tcpTest1}
+
+\begin{DoxyItemize}
+\item To complete this requirement in testing we used two juno sessions for two senders and two europa sessions for two receivers. There is a pair with a TCP sender and receiver and a pair with an enhanced UDP sender and receiver.
+\item We tested the two protocols competing, using the same file and the same amount of bytes to transfer, with implementations running in different ports.
+\item We started the sender for the TCP and enhanced UDP protocol at almost the same time 
+\end{DoxyItemize}\hypertarget{compare_tcp_tcpTest2}{}\doxysubsubsubsection{\texorpdfstring{4.\+2 Make sure that the TCP instance and our protocol get half as much throughput as our implementation.}{4.\+2 Make sure that the TCP instance and our protocol get half as much throughput as our implementation.}}\label{compare_tcp_tcpTest2}
+
+\begin{DoxyItemize}
+\item To complete this requirement in testing we calculated the throughput for each protocol using \doxylink{bandwidth_and_throughput}{Bandwidth \& Throughput Calculations}
+\item Then we compared the throughput between the TCP implementation and our implementation to determine that the throughput of TCP was about half of the throughput of our protocol. 
+\end{DoxyItemize}\hypertarget{compare_tcp_tcpTest4}{}\doxysubsubsubsection{\texorpdfstring{4.\+3 Important Notes}{4.\+3 Important Notes}}\label{compare_tcp_tcpTest4}
+
+\begin{DoxyItemize}
+\item The results of this testing depend on the size of the buffer which reflects the packet size. Currently the packet size for both the sender and receiver is set at 10000. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ BUFFER\_SIZE\ 10000}}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}\hypertarget{compare_tcp_tcp_4}{}\doxysubsubsection{\texorpdfstring{4.\+0 Testing Expectation 4 -\/ Usage Instructions}{4.\+0 Testing Expectation 4 -\/ Usage Instructions}}\label{compare_tcp_tcp_4}
+
+\begin{DoxyEnumerate}
+\item Create a cloudlab experiment using the setup for Lab2A
+\item ssh into 2 instances of Europa and 2 instances of Juno. In this case we will consider Juno as the sender and Europa as the receiver
+\item On one of the senders (Juno) run the following commands to clear existing settings on the network and add a new netem qdisc to limit the outbound traffic rate to 20 Mbit/s
+\begin{DoxyItemize}
+\item Clear existing qdisc settings\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ tc\ qdisc\ del\ dev\ eth0\ root\ 2>/dev/null}
+
+\end{DoxyCode}
+
+\item Add a new netem qdisc with a rate of 20 Mbit/s\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ tc\ qdisc\ add\ dev\ eth0\ root\ netem\ rate\ 20Mbit}
+
+\end{DoxyCode}
+
+\end{DoxyItemize}
+\item On the TCP receiver (Europa 1) run the following command to run the TCP implementation of the receiver, assuming the UDP port is 12345 and receiver.\+avi is an empty .avi file 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./receiver\_tcp\ 12345\ receiver.avi}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item On the enhanced UDP receiver (Europa 2) run the following command to run the enhanced UDP implementation of the receiver, assuming the UDP port is 12346 and receiver2.\+avi is an empty .avi file 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./receiver\ 12346\ receiver2.avi}
+
+\end{DoxyCode}
+
+\item Now on both of the senders (Juno 1 \& 2) prepare the commands required but don\textquotesingle{}t send until you can do both at the same time 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./sender\_tcp\ clnodevm127-\/1.clemson.cloudlab.us\ 12345\ Test.avi\ 6000000}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./sender\ clnodevm127-\/1.clemson.cloudlab.us\ 12346\ Test2.avi\ 6000000}
+
+\end{DoxyCode}
+ After all the packets have been transmitted on for both competing protocol instances, this is an example of the output from our testing
+\begin{DoxyItemize}
+\item TCP Sender (Juno 1)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{maddy02@juno:\string~\$\ ./sender\ clnodevm127-\/1.clemson.cloudlab.us\ 12345\ Test.avi\ 6000000}
+\DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
+\DoxyCodeLine{Sent\ 597\ sequence}
+\DoxyCodeLine{ACK\ received\ for\ closing\ packet\ sequence\ number:\ 597}
+\DoxyCodeLine{Throughput:\ 12.27\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 61.36\%}
+\DoxyCodeLine{Time:\ \ 3.89}
+
+\end{DoxyCode}
+
+\item Enhanced UDP Sender (Juno 2)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{maddy02@juno:\string~\$\ ./sender\ clnodevm127-\/1.clemson.cloudlab.us\ 12346\ Test2.avi\ 6000000}
+\DoxyCodeLine{Hostname:\ clnodevm127-\/1.clemson.cloudlab.us}
+\DoxyCodeLine{Sent\ 597\ sequence}
+\DoxyCodeLine{ACK\ received\ for\ closing\ packet\ sequence\ number:\ 597}
+\DoxyCodeLine{Throughput:\ 12.23\ Mb/s}
+\DoxyCodeLine{Bandwidth\ Utilization:\ 61.14\%}
+\DoxyCodeLine{Time:\ \ 3.90}
+
+\end{DoxyCode}
+
+\item TCP Receiver (Europa 1)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Last\ packet\ received.\ Sequence\ Number:\ 597}
+\DoxyCodeLine{Sent\ final\ ack\ for\ sequence\ number:\ 597}
+
+\end{DoxyCode}
+
+\item Enhanced UDP Receiver (Europa 2)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Last\ packet\ received.\ Sequence\ Number:\ 597}
+\DoxyCodeLine{Sent\ final\ ack\ for\ sequence\ number:\ 597}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}
+\end{DoxyEnumerate}\input{bandwidth_and_throughput}

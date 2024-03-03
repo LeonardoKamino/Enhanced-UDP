@@ -84,11 +84,60 @@ $(function() {
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Maddy Paulson (maddypaulson) </dd>
 <dd>
 Leo Kamino (LeoKamino)</dd></dl>
-<p>Here you should tell us about how your game works. How to play, any special rules you have, etc. Also, explain any non-trivial design decisions you make, like how your ball gets its position updated, how you designed your buffer for readchar(), etc. You should also comment on the stability of your code. Any big bugs should be listed here. Basically, anything that you think we need to know in general about your project should go here.</p>
-<p>Any additional comments you want to make can go here. Did you like the project? Was it too hard, too easy? Well, you get the idea.</p>
-<p>As a last little note, please make sure that all the documentation you turn in is true and accurate. Otherwise, we will deduct points.</p>
-<h1><a class="anchor" id="autotoc_md0"></a>
-<a class="el" href="main_test_page.html">PA1 Test Page</a></h1>
+<h1><a class="anchor" id="sec1"></a>
+1.0 Introduction</h1>
+<p>Our enhanced UDP implementation aims to provide reliable data transmission over an inherently unreliable UDP protocol. It introduces mechanisms such as packet acknowledgment (ACK), retransmissions upon timeout, and sequence numbering to ensure data integrity and order.</p>
+<h1><a class="anchor" id="sec2"></a>
+2.0 Usage</h1>
+<p>First run the receiver with the following command, changing the arguments as required </p><div class="fragment"><div class="line">./receiver UDP_port filename </div>
+</div><!-- fragment --><p> Then run the sender with the following command, changing the arguments as required </p><div class="fragment"><div class="line">./sender hostname UDP_port filename bytesToSend </div>
+</div><!-- fragment --><h1><a class="anchor" id="sec3"></a>
+3.0 Design Decisions</h1>
+<h2><a class="anchor" id="sub1"></a>
+3.1 Buffer Size &amp; Packet Structure</h2>
+<ul>
+<li>The choice of buffer size and the design of the packet header were crucial. The buffer size determines how much data can be sent per packet, while the packet header structure carries necessary metadata for reliable transmission. </li>
+</ul>
+<h2><a class="anchor" id="sub2"></a>
+3.2 Timeouts &amp; Retransmissions</h2>
+<ul>
+<li>The ACK timeout (ACK_TIMEOUT_USEC) and maximum resend attempts (MAX_RESEND_ATTEMPTS) are designed to balance between efficiency and reliability, preventing endless retransmissions. </li>
+</ul>
+<h2><a class="anchor" id="sub3"></a>
+3.3 Bandwidth Utilization Calculation</h2>
+<ul>
+<li>A calculation function for throughput and bandwidth utilization was implemented to provide feedback on the efficiency of the data transmission process, considering the actual data sent, including overhead and retransmissions. </li>
+</ul>
+<h1><a class="anchor" id="sec4"></a>
+4.0 Special Policies</h1>
+<h2><a class="anchor" id="sub4"></a>
+4.1 Packet Sequence Numbering</h2>
+<ul>
+<li>Ensures packets are processed in the correct order and aids in identifying missing or out-of-order packets. </li>
+</ul>
+<h2><a class="anchor" id="sub5"></a>
+4.2 ACK Timeouts and Retransmissions</h2>
+<ul>
+<li>Defines the reliability layer on top of UDP by ensuring packets are retransmitted if an acknowledgment is not received within a certain timeframe. </li>
+</ul>
+<h2><a class="anchor" id="sub6"></a>
+4.3 Closing Packet</h2>
+<ul>
+<li>A special packet indicating the end of transmission, ensuring the receiver is aware when all data has been sent. </li>
+</ul>
+<h1><a class="anchor" id="sec5"></a>
+5.0 Known Bugs &amp; Limitations</h1>
+<h2><a class="anchor" id="sub7"></a>
+5.1 TCP Bandwidth &amp; Throughput Calculation</h2>
+<ul>
+<li>The calculation for the throughput and bandwidth was giving us a value of 102%, however we believe this is likely due to the speed at which the ... </li>
+</ul>
+<h1><a class="anchor" id="sec6"></a>
+6.0 Testing</h1>
+<p>See <a class="el" href="main_test_page.html">PA1 Test Page</a></p>
+<h1><a class="anchor" id="sec7"></a>
+7.0 Project Comments</h1>
+<p>The project was very difficult. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"/>
 </div><!-- contents -->
