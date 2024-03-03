@@ -173,11 +173,11 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
 
             expectedSequenceNumber++;
         }else if(header.sequenceNumber < expectedSequenceNumber){
-            // PacketHeader ack;
-            // ack.sequenceNumber = header.sequenceNumber;
-            // ack.flags = 0;
-            // ack.flags = setFlag(ack.flags, IS_ACK);
-            // sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
+            PacketHeader ack;
+            ack.sequenceNumber = header.sequenceNumber;
+            ack.flags = 0;
+            ack.flags = setFlag(ack.flags, IS_ACK);
+            sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
         }
     }
 
