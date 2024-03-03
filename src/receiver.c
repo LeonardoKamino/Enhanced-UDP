@@ -121,6 +121,9 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
         exit(EXIT_FAILURE);
     }
 
+    printf("Server is listening on port %d\n", myUDPport);
+
+
     /*
      * Open destination file for writing.
      */
@@ -180,6 +183,7 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
 
     fclose(file);
     close(sockDescriptor);
+    printf("File transfer complete. %llu bytes written to %s\n", bytesWritten, destinationFile);
 }
 
 /**
