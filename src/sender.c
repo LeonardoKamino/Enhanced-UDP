@@ -32,7 +32,7 @@
  * @def BUFFER_SIZE
  * Definition to indicate size of the buffer.
  */
-#define BUFFER_SIZE 1   0000
+#define BUFFER_SIZE 10000
 
 /**
  * @def ACK_TIMEOUT_USEC
@@ -56,7 +56,7 @@
  * for calculating bandwidth utilization
  * 
  */
-#define LINK_CAPACITY 20000000
+#define LINK_CAPACITY 20971520
 
 /**
  * @brief Sends a closing packet to the specified destination address.
@@ -216,7 +216,7 @@ void rsend(char* hostname,
                     perror("Error sending file");
                     break;
                 }
-                totalBytesSent += sentBytes - sizeof(PacketHeader);
+                totalBytesSent += sentBytes;
             }
 
             
@@ -274,7 +274,10 @@ void rsend(char* hostname,
 
     gettimeofday(&end, NULL);
     double duration = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
-    double bandwidthUtilization = ((totalBytesSent + sizeof(PacketHeader) * sequenceNumber) * 8 / (duration * LINK_CAPACITY)) * 100;
+    double throughput = (totalBytesSent * 8) / duration;
+    double bandwidthUtilization =  (throughput / LINK_CAPACITY) * 100;
+    
+    printf("Throughput: %.2f Mb/s\n", throughput/1000000.0);
     printf("Bandwidth Utilization: %.2f%%\n", bandwidthUtilization);
     printf("Time:  %.2f\n", duration);
 

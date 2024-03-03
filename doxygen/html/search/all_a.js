@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['main_0',['main',['../receiver_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;receiver.c'],['../sender_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;sender.c'],['../receiver__tcp_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;receiver_tcp.c'],['../sender__tcp_8c.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;sender_tcp.c']]],
-  ['main_5ftest_5fpage_1',['@subpage main_test_page',['../index.html#autotoc_md0',1,'']]],
-  ['max_5fresend_5fattempts_2',['MAX_RESEND_ATTEMPTS',['../sender_8c.html#a2087e335be12553941157d9914755759',1,'sender.c']]],
-  ['multiple_20competing_20implementations_3',['Multiple competing implementations',['../competing.html',1,'main_test_page']]]
+  ['files_20for_20tcp_20implementation_0',['2.1 Files for TCP implementation',['../compare_tcp.html#file_tcp_link',1,'']]],
+  ['flags_1',['flags',['../struct_packet_header.html#a24113a56e201cf8c34dc6386b84f1cdc',1,'PacketHeader']]],
+  ['for_20a_20single_20instance_20of_20a_20protocol_2',['For A Single Instance of A Protocol',['../bandwidth_and_throughput.html#b_and_t1',1,'1.0 Throughput For A Single Instance of A Protocol'],['../bandwidth_and_throughput.html#b_and_t2',1,'2.0 Bandwidth For A Single Instance of A Protocol']]],
+  ['for_20tcp_20implementation_3',['2.1 Files for TCP implementation',['../compare_tcp.html#file_tcp_link',1,'']]]
 ];
