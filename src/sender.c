@@ -26,19 +26,22 @@
 #include <sys/time.h>
 
 #include "packet_header.h"
+#include "rtt_estimates.h"
 
 /**
  * @def BUFFER_SIZE
  * Definition to indicate size of the buffer.
  */
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 1   0000
 
 /**
  * @def ACK_TIMEOUT_USEC
  * Definition for ACK timeout in microseconds.
  * 
  */
-#define ACK_TIMEOUT_USEC 30000
+#define ACK_TIMEOUT_MSEC 60
+
+#define EXPECTED_RTT 20
 
 /**
  * @def MAX_RESEND_ATTEMPTS
@@ -85,7 +88,7 @@ void sendClosingPacket(int sockDescriptor, struct sockaddr_in *destAddr, int seq
             perror("Error sending closing packet");
             break;
         }
-        printf("Sent %ld sequence\n", sequenceNumber);
+       
 
         PacketHeader ack;
         ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
@@ -127,8 +130,18 @@ void rsend(char* hostname,
     char ackBuffer[BUFFER_SIZE];
     ssize_t readBytes, sentBytes;
     FILE *file;
+
     unsigned long long int totalBytesSent = 0;
+    unsigned long long int totalValidBytesSent = 0;
+
     int sequenceNumber = 0;
+
+    /*
+    * Initialize variables for Timeout calculation
+    */
+    double estimatedRTT = EXPECTED_RTT;
+    double deviationRTT = 0;
+    struct timeval sendTime, receiveTime;
 
     /*
      * Resolve the hostname to support domain & ip addresses.
@@ -156,8 +169,8 @@ void rsend(char* hostname,
 
     // Set socket timeout for receiving
     struct timeval timeout;
-    timeout.tv_sec = 0;
-    timeout.tv_usec = ACK_TIMEOUT_USEC;
+    timeout.tv_sec = (int) EXPECTED_RTT * 2 / 1000;
+    timeout.tv_usec = ((int) EXPECTED_RTT * 2 % 1000) * 1000;
     if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
         perror("Error setting socket timeout");
         close(sockDescriptor);
@@ -187,29 +200,67 @@ void rsend(char* hostname,
     /*
      * Continue sending file in chunks (packets) until all bytes are transferred.
      */
-    while(totalBytesSent < bytesToTransfer && (readBytes = fread(buffer + sizeof(PacketHeader), 1, BUFFER_SIZE - sizeof(PacketHeader), file)) > 0){
+    while(totalValidBytesSent < bytesToTransfer && (readBytes = fread(buffer + sizeof(PacketHeader), 1, BUFFER_SIZE - sizeof(PacketHeader), file)) > 0){
         PacketHeader header;
         header.sequenceNumber = sequenceNumber;
         header.flags = 0;
+        int sendAgain = 1;
 
         memcpy(buffer, &header, sizeof(header));
 
         do {
-            sentBytes = sendto(sockDescriptor, buffer, readBytes + sizeof(PacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
-            if(sentBytes < 0) {
-                perror("Error sending file");
-                break;
+            if(sendAgain){
+                gettimeofday(&sendTime, NULL);
+                sentBytes = sendto(sockDescriptor, buffer, readBytes + sizeof(PacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
+                if(sentBytes < 0) {
+                    perror("Error sending file");
+                    break;
+                }
+                totalBytesSent += sentBytes - sizeof(PacketHeader);
             }
+
+            
             //printf("Sent %ld sequence\n", sequenceNumber);
-            totalBytesSent += sentBytes - sizeof(PacketHeader);
+            printf("Sent %ld sequence\n", sequenceNumber);
 
             PacketHeader ack;
             ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
+
+            if(ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber < header.sequenceNumber){
+                perror("ACK received for packet already acknowledge\n");
+                sendAgain = 0;
+                continue;
+            }else {
+                sendAgain = 1;
+            }
+
             if (ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber == header.sequenceNumber) {
-                //printf("ACK received for sequence number: %d\n", ack.sequenceNumber);
                 sequenceNumber++;
+                totalValidBytesSent += sentBytes - sizeof(PacketHeader);
+                printf("ACK received for sequence number: %d\n", ack.sequenceNumber);
+                
+                gettimeofday(&receiveTime, NULL);
+                double rtt = calculateRTT(sendTime, receiveTime);
+                updateTimeout(&estimatedRTT, &deviationRTT, rtt, &timeout);
+
+                if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
+                    perror("Error setting socket timeout");
+                    close(sockDescriptor);
+                    exit(EXIT_FAILURE);
+                }
+
                 break; // Exit the resend loop
-            } else {
+            } else if (errno == EAGAIN || errno == EWOULDBLOCK){
+                printf("ACK TIMEOUT resending sequence number: %ld\n", sequenceNumber);
+                doubleTimeOut(&timeout);
+
+                if (setsockopt(sockDescriptor, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
+                    perror("Error setting socket timeout");
+                    close(sockDescriptor);
+                    exit(EXIT_FAILURE);
+                }
+
+            } else{
                 printf("ACK timeout or error, resending sequence number: %ld\n", sequenceNumber);
             }
 

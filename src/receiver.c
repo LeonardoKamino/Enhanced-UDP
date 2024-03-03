@@ -31,7 +31,7 @@
  * @def BUFFER_SIZE
  * Definition to indicate size of the buffer.
  */
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 10000
 
 /**
  * @brief Prints the contents of the buffer.
@@ -152,10 +152,7 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
             sendFinalAck(sockDescriptor, &senderAddr, header.sequenceNumber);
             break;
         } else if (header.sequenceNumber == expectedSequenceNumber) {
-            //printf("Packet received. Sequence Number: %d\n", header.sequenceNumber);
-            // fprintf(stdout, "%d\n", receivedBytes);
-            // printBufferContents(buffer, receivedBytes);
-
+            printf("Received packet with sequence number: %d\n", header.sequenceNumber);
             /*
              * Write the received payload without the header to the file.
              */
@@ -173,7 +170,16 @@ void rrecv(unsigned short int myUDPport, char* destinationFile, unsigned long lo
             ack.flags = setFlag(ack.flags, IS_ACK);
 
             sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
+
             expectedSequenceNumber++;
+        }else if(header.sequenceNumber < expectedSequenceNumber){
+            printf("Received duplicate packet with sequence number: %d Should be: %d\n", header.sequenceNumber, expectedSequenceNumber);
+            PacketHeader ack;
+            ack.sequenceNumber = header.sequenceNumber;
+            ack.flags = 0;
+            ack.flags = setFlag(ack.flags, IS_ACK);
+
+            sendto(sockDescriptor, &ack, sizeof(ack), 0, (struct sockaddr *)&senderAddr, sizeof(senderAddr));
         }else{
             printf("Wrong packet received. Sequence Number: %d\n Expected: %d", header.sequenceNumber, expectedSequenceNumber);
         }
