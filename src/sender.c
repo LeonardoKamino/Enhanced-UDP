@@ -85,10 +85,8 @@ void sendClosingPacket(int sockDescriptor, struct sockaddr_in *destAddr, int seq
         PacketHeader ack;
         ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
         if (ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && isFlagSet(ack.flags, IS_LAST_PACKET) && ack.sequenceNumber == sequenceNumber){
-            printf("ACK received for closing packet sequence number: %d\n", ack.sequenceNumber);
             break; // Exit the resend loop
         } else {
-            printf("ACK timeout or error, resending closing packet, sequence number: %ld\n", sequenceNumber);
             resendAttempts++;
         }
 
@@ -143,7 +141,7 @@ void rsend(char* hostname,
     hints.ai_socktype = SOCK_DGRAM;
 
     int status;
-    printf("Hostname: %s\n", hostname);
+    printf("Sending %s to: %s\n", filename, hostname);
     if((status = getaddrinfo(hostname, NULL, &hints, &servinfo)) != 0){
         perror("Address translation failed.");
         exit(EXIT_FAILURE);
@@ -203,18 +201,11 @@ void rsend(char* hostname,
         memcpy(buffer, &header, sizeof(header));
 
         do {
-
             sentBytes = sendto(sockDescriptor, buffer, readBytes + sizeof(PacketHeader), 0, (struct sockaddr *)&destAddr, sizeof(destAddr));
             totalBytesSent += sentBytes;
 
-            
-            //printf("Sent %ld sequence\n", sequenceNumber);
-            printf("Sent %ld sequence\n", sequenceNumber);
-
             PacketHeader ack;
             ssize_t ackSize = recvfrom(sockDescriptor, &ack, sizeof(ack), 0, NULL, 0);
-
-            
 
             /*
             * If ACK is for the current packet, update sequence number and timeout, and exit the resend loop.
@@ -222,7 +213,6 @@ void rsend(char* hostname,
             if (ackSize > 0 && isFlagSet(ack.flags, IS_ACK) && ack.sequenceNumber == header.sequenceNumber) {
                 sequenceNumber++;
                 totalValidBytesSent += sentBytes - sizeof(PacketHeader);
-                printf("ACK received for sequence number: %d\n", ack.sequenceNumber);
                 
                 gettimeofday(&receiveTime, NULL);
                 double rtt = calculateRTT(sendTime, receiveTime);
@@ -236,7 +226,6 @@ void rsend(char* hostname,
 
                 break; 
             } else if (errno == EAGAIN || errno == EWOULDBLOCK){
-                printf("ACK TIMEOUT resending sequence number: %ld\n", sequenceNumber);
                 /*
                 * If the ACK timeout occurs, double current timeout.
                 */

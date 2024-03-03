@@ -35,4 +35,5 @@ void displayPerformance(struct timeval *start, struct timeval *end, unsigned lon
     printf("Throughput: %.2f Mb/s\n", throughput/1000000.0);
     printf("Bandwidth Utilization: %.2f%%\n", bandwidthUtilization);
     printf("Transfer:  %.2f\n", duration);
+    printf("Total Bytes Sent: %llu\n", totalBytesSent);
 }
