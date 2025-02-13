@@ -1,41 +1,117 @@
-@mainpage ELEC 331 Programming Assignment 1
+# Enhanced UDP: Reliable Data Transmission over UDP
 
-@author Maddy Paulson (maddypaulson) @author Leo Kamino (LeoKamino)
+## Overview
+This project is an **Enhanced UDP implementation** designed to provide **reliable data transmission** over an inherently **unreliable UDP protocol**. It introduces key mechanisms such as:
+- **Packet acknowledgment (ACK)**
+- **Retransmissions upon timeout**
+- **Sequence numbering**
 
-@section sec1 1.0 Introduction
+These features ensure **data integrity and order**, making UDP a more robust transport mechanism.
 
-Our enhanced UDP implementation aims to provide reliable data transmission over an inherently unreliable UDP protocol. It introduces mechanisms such as packet acknowledgment (ACK), retransmissions upon timeout, and sequence numbering to ensure data integrity and order.
+## Features
+- **Reliable Data Transfer**: Implements sequence numbers and ACKs to prevent data loss.
+- **Timeouts & Retransmissions**: Automatically detects lost packets and retransmits them.
+- **Packet Sequence Numbering**: Ensures packets arrive in the correct order.
+- **Bandwidth Utilization Metrics**: Calculates throughput and network efficiency.
+- **Customizable Buffer Size**: Allows adjustment of packet size for optimized performance.
 
-@section sec2 2.0 Usage 
-First run the receiver with the following command, changing the arguments as required 
-\code{.sh} 
-./receiver UDP_port filename 
-\endcode 
-Then run the sender with the following command, changing the arguments as required 
-\code{.sh} 
-./sender hostname UDP_port filename bytesToSend 
-\endcode
+## **Tech Stack**
+- **Language**: C  
+- **Networking**: UDP Sockets  
+- **Testing Platform**: CloudLab  
+- **OS Compatibility**: Linux (tested on Ubuntu)  
+- **Build System**: `Makefile`  
+- **Performance Metrics**: Bandwidth, Throughput Analysis  
 
-@section sec3 3.0 Design Decisions 
-@subsection sub1 3.1 Buffer Size & Packet Structure
-- The choice of buffer size and the design of the packet header were crucial. The buffer size determines how much data can be sent per packet, while the packet header structure carries necessary metadata for reliable transmission. 
-@subsection sub2 3.2 Timeouts & Retransmissions
-- The ACK timeout (ACK_TIMEOUT_USEC) and maximum resend attempts (MAX_RESEND_ATTEMPTS) are designed to balance between efficiency and reliability, preventing endless retransmissions. 
-@subsection sub3 3.3 Bandwidth Utilization Calculation
-- A calculation function for throughput and bandwidth utilization was implemented to provide feedback on the efficiency of the data transmission process, considering the actual data sent, including overhead and retransmissions.
-@section sec4 4.0 Special Policies 
-@subsection sub4 4.1 Packet Sequence Numbering
-- Ensures packets are processed in the correct order and aids in identifying missing or out-of-order packets. 
-@subsection sub5 4.2 ACK Timeouts and Retransmissions
-- Defines the reliability layer on top of UDP by ensuring packets are retransmitted if an acknowledgment is not received within a certain timeframe. 
-@subsection sub6 4.3 Closing Packet
-- A special packet indicating the end of transmission, ensuring the receiver is aware when all data has been sent.
-@section sec5 5.0 Known Bugs & Limitations 
-- Our implementation does not involve any pipelining such as go-back-n or selective repeat. It is a send and wait protocol.
-- Small packet loss affects severelly our implementation, more details are discussed on test section
+## Running the Application
+Clone the repository
 
-@section sec6 6.0 Testing 
-See @subpage main_test_page
+```git clone https://github.com/maddypaulson/enhanced-udp.git```
 
-@section sec7 7.0 Project Comments 
-The project was very difficult. It felt like I was back in CPEN 221 again.
+Run the make file from the main project directory
+
+```make```
+
+Run the following command to start the receiver:
+
+```./receiver <UDP Port> <filename.txt>```
+
+Run the following command in a seperate terminal to start the sender:
+
+```./sender <receiver hostname> <receiver port> <transfer filename.txt> <num bytes to transfer>```
+
+## Design Decisions
+### Buffer Size & Packet Header Design
+- The buffer size controls the amount of data per packet.
+- The packet header contains essential metadata for reliable transmission.
+
+### Timeouts & Retransmissions
+- Uses ACK timeouts (ACK_TIMEOUT_USEC) to detect lost packets.
+- Limits retransmissions with MAX_RESEND_ATTEMPTS to prevent infinite loops.
+
+### Bandwidth Utilization Calculation
+- Measures throughput and bandwidth efficiency.
+- Includes overhead and retransmissions in the calculation.
+
+### Packet Sequence Numbering
+- Ensures packets are processed in order.
+- Helps identify missing or out-of-order packets.
+
+### ACK Timeouts & Retransmissions
+- Implements a reliability layer by resending packets if no acknowledgment is received.
+
+### Closing Packet Mechanism
+- Uses a special packet to signal the end of transmission.
+- Ensures the receiver knows when all data has been sent.
+
+### Known Limitations
+- Does not use Go-Back-N or Selective Repeat pipelining.
+- Vulnerable to small packet loss, which impacts performance.
+
+## Testing
+### **Throughput Calculation**
+The throughput is calculated using the following formula:
+
+
+$$
+\text{Throughput} = \frac{(\text{totalBytesSent} + \text{sizeof(PacketHeader)} \times \text{sequenceNumber}) \times 8}{\text{duration}}
+$$
+
+where:
+- **totalBytesSent**: The total number of bytes of the payload sent.
+- **sizeof(PacketHeader)**: The size of the header of each packet.
+- **sequenceNumber**: The total number of packets sent.
+- **8**: Converts bytes to bits.
+- **duration**: The total time taken for transmission in seconds.
+
+### **Bandwidth Calculation**
+The bandwidth is calculated using the following formula:
+
+$$
+\text{Bandwidth} = \frac{\text{throughput}}{\text{LINK CAPACITY}} \times 100
+$$
+
+where:
+- **throughput** is bits sent per second
+- **LINK_CAPACITY** is the maximum amount of data that can be transmitted over a communication channel within a given time frame.
+- 100 converts the value to a bandwidth percentage. 
+
+### Testing a Single Instance of Our Protocol
+**Requirement:** the protocol must, in steady state (averaged over 10 seconds), utilize at least 70% of bandwidth when there is no competing traffic, and packets are not artificially dropped or reordered.
+
+#### **Testing Process**
+- The test was conducted using CloudLab to ensure isolated network conditions.
+- The sender runs on Juno, while the receiver runs on Europa.
+- A 20Mbit/s link capacity was enforced.
+- The transmission duration was measured over 10 seconds.
+- A 20.1 MB file (SampleVideo.mp4) was used for accurate results.
+
+#### **Test Results**
+| Metric                  | Result        |
+|-------------------------|--------------|
+| **Achieved Bandwidth**  | 83.32%       |
+| **Throughput**          | 17.47 Mb/s   |
+| **Buffer Size**         | 10,000 bytes per packet |
+| **Link Capacity**       | 20 Mbit/s    |
+| **Total Bytes Sent**    | 21,086,550 bytes |
+| **Total Bytes Received** | 21,069,678 bytes |packet headers.
